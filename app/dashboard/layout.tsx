@@ -8,7 +8,7 @@ import { Boxes, Truck, Users } from "lucide-react";
 
 const layout = ({children}:{children:ReactNode}) => {
   return (
-    <div className="w-screen overflow-hidden">
+    <div className="w-full overflow-hidden">
       <div className="h-screen w-full flex space-x-2 items-start">
         <div className="h-full">
           <ScrollArea className="w-56">

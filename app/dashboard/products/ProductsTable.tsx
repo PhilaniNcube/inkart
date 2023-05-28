@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/table";
 import { Switch } from "@/components/ui/switch";
 import { revalidatePath } from "next/cache";
+import { formatPrice } from "@/lib/utils";
+import Image from "next/image"
 
 type ProductsTableProps = {
   products: Product[];
@@ -45,7 +47,7 @@ const ProductsTable = ({products}:ProductsTableProps) => {
       <TableCaption>Products</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableCell>ID</TableCell>
+          <TableCell>Image</TableCell>
           <TableCell>Name</TableCell>
           <TableCell>Published</TableCell>
           <TableCell>Price</TableCell>
@@ -55,13 +57,15 @@ const ProductsTable = ({products}:ProductsTableProps) => {
       <TableBody>
         {products.map((product) => (
           <TableRow key={product.id}>
-            <TableCell>{product.id}</TableCell>
+            <TableCell>
+              <Image src={product.images[0].src} width={100} height={100} alt={product.title} className="w-16 object-cover aspect-square"/>
+            </TableCell>
             <TableCell>{product.title}</TableCell>
             <TableCell>
               <Switch checked={!product.is_locked} onClick={() => toggleLock(product)} />
             </TableCell>
-            <TableCell>{product.variants[0].price}</TableCell>
-            <TableCell>{product.variants[0].cost}</TableCell>
+            <TableCell>{formatPrice(product.variants[0].price)}</TableCell>
+            <TableCell>{formatPrice(product.variants[0].cost)}</TableCell>
           </TableRow>
         ))}
       </TableBody>

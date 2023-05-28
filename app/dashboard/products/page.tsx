@@ -9,7 +9,7 @@ async function page({ searchParams }: { searchParams: { page: string; }; }) {
 
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
-  const productsData = getProducts(page, 20);
+  const productsData = getProducts(page, 24);
 
   const [data] = await Promise.all([productsData]);
 
