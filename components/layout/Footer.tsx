@@ -85,12 +85,12 @@ export default function Footer() {
                   </h2>
                   <div className="mt-6 flex justify-start items-start flex-col space-y-2">
                     <div>
-                      <a
-                        href="javascript:void(0)"
+                      <Link
+                        href="/about-us"
                         className="text-gray-800 dark:text-white focus:outline-none focus:opacity-75 hover:opacity-75 text-sm md:text-base leading-relaxed"
                       >
                         About us
-                      </a>
+                      </Link>
                     </div>
                     <div>
                       <Link
