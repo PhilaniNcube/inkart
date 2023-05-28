@@ -23,38 +23,41 @@ const ProductsTable = ({products}:ProductsTableProps) => {
     console.log(product)
     if(product.is_locked === true) {
      const response = await fetch(
-         `https://api.ptintify.com/v1/9354978/products/${product.id}/publish.json`,
-         {
-           method: "POST",
-           headers: {
-             "Content-Type": "application/json;charset=utf-8",
-             Authorization: `Bearer ${process.env.NEXT_PUBLIC_PRINTIFY_API_TOKEN}`,
-           },
-         }
-       ).then(res => res.json());
+       `https://api.ptintify.com/v1/9354978/products/${product.id}/publishing_succeeded.json`,
+       {
+         method: "POST",
+         headers: {
+           cache: "no-cache",
+           "Content-Type": "application/json;charset=utf-8",
+           Authorization: `Bearer ${process.env.NEXT_PUBLIC_PRINTIFY_API_TOKEN}`,
+         },
+       }
+     ).then((res) => res.json());
 
 
        console.log(response)
     } else {
       const response = await fetch(
-         `https://api.ptintify.com/v1/9354978/products/${product.id}/unpublish.json`,
-         {
-           method: "POST",
-           headers: {
-             "Content-Type": "application/json;charset=utf-8",
-             Authorization: `Bearer ${process.env.NEXT_PUBLIC_PRINTIFY_API_TOKEN}`,
-           },
-           body: JSON.stringify({
-             title: true,
-             description: true,
-             images: true,
-             variants: true,
-             tags: true,
-             keyFeatures: true,
-             shipping_template: true,
-           }),
-         }
-       ).then((res) => res.json());
+        `https://api.ptintify.com/v1/9354978/products/${product.id}/unpublish.json`,
+
+        {
+          cache: "no-cache",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_PRINTIFY_API_TOKEN}`,
+          },
+          body: JSON.stringify({
+            title: true,
+            description: true,
+            images: true,
+            variants: true,
+            tags: true,
+            keyFeatures: true,
+            shipping_template: true,
+          }),
+        }
+      ).then((res) => res.json());
 
        console.log(response);
     }
