@@ -1,5 +1,6 @@
 import { Metadata, ResolvingMetadata } from "next";
 import { getProduct } from "@/lib/fetchers/products";
+import ProductDetail from "./ProductDetail";
 
 type Props = {
   params: {
@@ -45,7 +46,7 @@ const page = async ({ params: { id } }: Props) => {
   const [product] = await Promise.all([productData]);
 
   return <main>
-    <pre>{JSON.stringify(product, null, 2)}</pre>
+    <ProductDetail product={product} />
   </main>;
 };
 export default page;

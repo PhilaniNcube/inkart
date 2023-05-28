@@ -19,7 +19,7 @@ const TablePagination = ({ currentPage, total, lastPage }: PaginationProps) => {
         </Link>
       )}
       <p className="text-white text-xs">
-        Page{page} of {lastPage} Pages
+        Page{" "}{page} of {lastPage} Pages
       </p>
       {page !== lastPage && (
         <Link href={`/dashboard/products?page=${page + 1}`}>
