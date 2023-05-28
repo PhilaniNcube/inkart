@@ -19,6 +19,7 @@ type ProductResponse = {
 const getProducts = async (page = 1, limit = 10):Promise<ProductResponse> => {
 
   const data = await fetch(`https://api.printify.com/v1/shops/9354978/products.json?page=${page}&limit=${limit}`, {
+    next:{tags: ['products', 'dashboard']},
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',

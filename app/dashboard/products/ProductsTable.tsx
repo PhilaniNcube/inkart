@@ -23,11 +23,18 @@ const ProductsTable = ({products}:ProductsTableProps) => {
     console.log(product)
 
    const res = await fetch(`/api/products/${product.id}/publish`, {
+      next:{tags: ["products", "/dashboard/products"]},
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        cache: "no-cache",
+      },
       body: JSON.stringify({ product }),
    })
 
    const data = await res.json()
+
+
 
   console.log({data})
 

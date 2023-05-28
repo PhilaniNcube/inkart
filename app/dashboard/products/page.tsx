@@ -3,7 +3,9 @@ import ProductsTable from "./ProductsTable";
 import Pagination from "@/app/products/Pagination";
 import TablePagination from "./TablePagination";
 
-const page = async ({ searchParams }: { searchParams: { page: string } }) => {
+export const revalidate = 0;
+
+async function page({ searchParams }: { searchParams: { page: string; }; }) {
 
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
@@ -16,15 +18,13 @@ const page = async ({ searchParams }: { searchParams: { page: string } }) => {
       <TablePagination
         currentPage={data.current_page}
         lastPage={data.last_page}
-        total={data.total}
-      />
+        total={data.total} />
       <ProductsTable products={data.data} />
       <TablePagination
         currentPage={data.current_page}
         lastPage={data.last_page}
-        total={data.total}
-      />
+        total={data.total} />
     </main>
   );
-};
+}
 export default page;
