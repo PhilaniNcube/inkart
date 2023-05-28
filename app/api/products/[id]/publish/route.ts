@@ -10,7 +10,7 @@ export async function POST(request: Request, context:any) {
 
   console.log(`${BASE_URL}/shops/9354978/products/${context.params.id}/publishing_succeeded.json`)
 
-  const response = await fetch(`${BASE_URL}/shops/9354978/products/${context.params.id}/publish.json`, {
+  const response = await fetch(`${BASE_URL}/shops/9354978/products/${context.params.id}/publishing_succeeded.json`, {
     method: 'POST',
     headers: {
       cache: 'no-cache',
@@ -18,13 +18,17 @@ export async function POST(request: Request, context:any) {
       'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PRINTIFY_API_TOKEN}`
     },
     body: JSON.stringify({
-    "title": true,
-    "description": true,
-    "images": true,
-    "variants": true,
-    "tags": true,
-    "keyFeatures": true,
-    "shipping_template": true
+    // "title": true,
+    // "description": true,
+    // "images": true,
+    // "variants": true,
+    // "tags": true,
+    // "keyFeatures": true,
+    // "shipping_template": true,
+      "external": {
+        "id": `${context.params.id}`,
+        "handle": `http://localhost:3000/product/${context.params.id}`,
+    }
 })
   })
 
