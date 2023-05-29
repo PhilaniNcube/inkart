@@ -59,7 +59,7 @@ const DesktopNavigation = () => {
           </Link>
         </div>
       </div>
-      <div className="w-full pt-3 flex items-center justify-center space-x-4">
+      <div className="w-full pt-3 hidden lg:flex items-center justify-center space-x-4">
         <Link
           href="/products?page=1"
           className="text-slate-800 hover:text-slate-700 text-sm px-2 py-1 hover:bg-slate-200 rounded-md"
