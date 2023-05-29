@@ -34,7 +34,7 @@ const ProductDetail = ({product}:ProductDetailProps) => {
         <div className="w-full flex space-x-3 ">
           <div className="flex-1">
             <div className="grid grid-cols-2 gap-4">
-              {product.variants.map((variant, index) => {
+              {product.variants.sort(function(a,b){return a.price - b.price}).map((variant, index) => {
                 return (
                   <Fragment key={variant.id}>
                     {product.images.map((image, idx) => {
