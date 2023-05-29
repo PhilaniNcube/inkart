@@ -28,7 +28,7 @@ const page = async ({searchParams}:{searchParams: {page:string}}) => {
   const { current_page, data:products, last_page, links, per_page, total } = await getProducts(page, 10);
 
   return (
-    <main>
+    <main className="mb-16">
       <Container>
         <div className="flex space-x-5">
           <section className="h-screen flex-1">
