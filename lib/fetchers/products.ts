@@ -1,4 +1,4 @@
-import { Product } from "@/schema"
+import { Product, ProductVariations } from "@/schema"
 
 const URL = process.env.NEXT_PUBLIC__BASE_URL || 'https://api.printify.com/v1/'
 
@@ -61,4 +61,21 @@ const getFeaturedProducts = async (query:string):Promise<{current_page:string, d
 
 }
 
-export { getProducts, getProduct, getFeaturedProducts}
+
+
+const getProductVariations = async (productId:string):Promise<ProductVariations> => {
+
+  const data = await fetch(`https://api.printify.com/v1/shops/9354978/products/${productId}.json`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PRINTIFY_API_TOKEN}`
+    }
+  })
+
+  const productData:Product = await data.json()
+  return productData.variants
+
+}
+
+export { getProducts, getProduct, getFeaturedProducts, getProductVariations}

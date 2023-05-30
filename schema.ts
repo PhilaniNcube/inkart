@@ -61,4 +61,10 @@ export interface Product {
     twodaydelivery_enabled: boolean;
 }
 
+export interface CartItem {
+  qty: number;
+  variant: Product['variants'][0];
+}
 
+
+export type ProductVariations = Product['variants']

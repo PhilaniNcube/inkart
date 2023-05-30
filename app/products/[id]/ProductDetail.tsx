@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { formatPrice } from "@/lib/utils";
-import { Product } from "@/schema";
+import { Product, ProductVariations } from "@/schema";
 import { ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import { Fragment, useState } from "react";
@@ -24,7 +24,16 @@ type ProductDetailProps = {
 
 const ProductDetail = ({product}:ProductDetailProps) => {
 
-  const [imageIndex, setImageIndex] = useState(0)
+  console.log( product)
+
+  const [selectedVariation, setSelectedVariation] = useState<Product['variants'][0]>(product.variants[0])
+
+  console.log( {selectedVariation})
+
+  const imageObject = product.images.find(el => el.variant_ids.filter(id => id === selectedVariation.id))
+
+  // console.log( {imageObject} );
+
 
 
 
@@ -32,52 +41,15 @@ const ProductDetail = ({product}:ProductDetailProps) => {
     <Container>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4 ">
         <div className="w-full flex space-x-3 ">
-          <div className="flex-1">
-            <div className="grid grid-cols-2 gap-4">
-              {product.variants.sort(function(a,b){return a.price - b.price}).map((variant, index) => {
-                return (
-                  <Fragment key={variant.id}>
-                    {product.images.map((image, idx) => {
-                      if (
-                        image.variant_ids[0] !== variant.id ||
-                        image.is_default === false
-                      )
-                        return null;
-
-                      return (
-                        <div
-                          onClick={() => console.log(variant, product)}
-                          key={variant.id}
-                          className="p-3 group border-2 border-neutral-300 flex flex-col space-y-2 rounded-lg cursor-pointer relative"
-                        >
-                          {" "}
-                          <Image
-                            key={idx}
-                            src={image.src}
-                            width={500}
-                            height={500}
-                            alt={variant.title}
-                            className="w-full object-cover aspect-square group-hover:opacity-75"
-                          />{" "}
-                          <p className="text-sm font-medium">{variant.title}</p>
-                          <p className="text-lg font-semibold">
-                            {formatPrice(variant.price)}
-                          </p>
-                          <div className="hidden group-hover:absolute group-hover:inset-0 h-full transition-all duration-100 group-hover:flex flex-col justify-center items-center">
-                            <Button
-                              type="button"
-                              className="flex items-center space-x-2"
-                            >
-                              <span>Add to Cart</span>
-                              <ShoppingBag />
-                            </Button>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </Fragment>
-                );
-              })}
+          <div className="flex-1 flex flex-col">
+            <div className="">
+              <Image
+                src={imageObject?.src!}
+                width={500}
+                height={500}
+                alt={product.title}
+                className="w-full object-cover aspect-square group-hover:opacity-75"
+              />
             </div>
           </div>
         </div>
@@ -92,34 +64,32 @@ const ProductDetail = ({product}:ProductDetailProps) => {
           />
 
           <Separator className="my-3" />
+
+          <div className="flex justify-between items-center gap-5">
+            <Select >
+              <SelectTrigger className="w-full text-xs">
+                <SelectValue placeholder="Select a canvas size" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Canvas Size</SelectLabel>
+                  {product.variants.map((variant, idx) => (
+                    <SelectItem
+                      value={JSON.stringify(variant)}
+                      key={variant.id}
+                      onClick={(e) => setSelectedVariation(variant)}
+                    >
+                      {variant.title}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <h3 className="font-semibold text-2xl text-neutral-500 w-1/2">{formatPrice(selectedVariation.price)}</h3>
+          </div>
         </div>
       </div>
-      <div className="mt-10">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
-          {product.images.map((image, index) => {
-            if (!image.src.includes("context-1")) return null;
-
-            const title = product.variants.find(
-              (variant) => variant.id === image.variant_ids[0]
-            )?.title;
-
-            console.log(title);
-
-            return (
-              <div key={index}>
-                <Image
-                  src={image.src}
-                  width={400}
-                  height={400}
-                  alt={image.variant_ids[0].toString()}
-                  className="w-full aspect-square object-cover"
-                />
-                <p className="text-xs font-medium">{title}</p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      <div className="mt-10"></div>
     </Container>
   );
 };
