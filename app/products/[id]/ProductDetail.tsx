@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
+import { increment } from "@/app/store/features/cartSlice";
+import { useAppDispatch } from "@/app/store/store";
 import Container from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -15,7 +17,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { formatPrice } from "@/lib/utils";
 import { Product, ProductVariations } from "@/schema";
-import { ShoppingBag } from "lucide-react";
+import { MinusIcon, PlusIcon, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import { Fragment, useState } from "react";
 
@@ -32,12 +34,12 @@ const ProductDetail = ({product}:ProductDetailProps) => {
     product.variants[imgIndex]
   );
 
-  const [image, setImage] = useState(product.images[0])
 
   const imageIndex = product.images.filter((img) => img.variant_ids.includes(selectedVariation.id))
 
+  const dispatch = useAppDispatch()
 
-  // console.log( {imageObject} );
+
 
 
 
@@ -63,7 +65,6 @@ const ProductDetail = ({product}:ProductDetailProps) => {
                     width={100}
                     height={100}
                     onClick={() => {
-                      console.log(`clicked ${idx}`, image);
                       setImgIndex(idx);
                     }}
                     key={idx}
@@ -93,7 +94,11 @@ const ProductDetail = ({product}:ProductDetailProps) => {
               <div
                 key={idx}
                 onClick={() => setSelectedVariation(variant)}
-                className="w-full border border-slate-300 hover:bg-slate-100 rounded-md p-3 flex flex-col cursor-pointer"
+                className={`w-full border border-slate-300  rounded-md p-3 flex flex-col cursor-pointer ${
+                  selectedVariation.id === variant.id
+                    ? "bg-blue-600 text-white"
+                    : "text-slate-800 hover:bg-slate-100"
+                }`}
               >
                 <p className="text-xs">Size: {variant.title}</p>
                 <p className="text-lg font-semibold">
@@ -127,6 +132,30 @@ const ProductDetail = ({product}:ProductDetailProps) => {
             {/* <ScrollArea className="w-full h-[800px] overflow-hidden">
             <pre className="text-sm font-medium">{JSON.stringify(product, null, 2)}</pre>
             </ScrollArea> */}
+          </div>
+          <div className="mt-4 flex justify-between items-center">
+
+
+            <Button
+              type="button"
+              onClick={() =>
+                dispatch(
+                  increment({
+                    productId: product.id,
+                    qty: 1,
+                    variantId: selectedVariation.id,
+                    variantSKU: selectedVariation.sku,
+                    size: selectedVariation.title,
+                    image: imageIndex[imgIndex].src,
+                    price: selectedVariation.price,
+                    productTitle: product.title,
+                  })
+                )
+              }
+              className="w-full"
+            >
+             Add To Cart {" "}
+            </Button>
           </div>
         </div>
       </div>

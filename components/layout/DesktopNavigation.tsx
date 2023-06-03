@@ -1,9 +1,12 @@
 "use client"
 
+import { totalCartItemsSelector } from "@/app/store/features/cartSlice";
+import { useAppDispatch } from "@/app/store/store";
 import { SearchIcon, ShoppingCartIcon, User2Icon, UserPlus2Icon } from "lucide-react";
 import Link from "next/link";
 import {useRouter} from "next/navigation"
 import { FormEvent } from "react";
+import { useSelector } from "react-redux";
 
 
 const DesktopNavigation = () => {
@@ -17,6 +20,10 @@ const DesktopNavigation = () => {
 
     router.push(`/products/search?query=${query}`)
   }
+
+  const qty = useSelector(totalCartItemsSelector)
+
+  console.log({qty})
 
   return (
     <div className="w-full">
@@ -42,10 +49,15 @@ const DesktopNavigation = () => {
             <SearchIcon className="" />
           </button>
         </form>
-        <div className="flex space-x-5 items-center">
-          <Link href="/cart" className="flex flex-col items-center">
+        <div className="flex space-x-5 items-center ">
+          <Link href="/cart" className="flex flex-col relative items-center">
             <ShoppingCartIcon size={20} strokeWidth={1} />
             <span className="text-xs text-slate-800 font-semibold">Cart</span>
+            {qty > 0 && (
+              <span className="text-xs absolute -top-1 h-4 w-4 flex items-center justify-center -right-2 bg-red-500 text-white rounded-full ">
+                {qty}
+              </span>
+            )}
           </Link>
           <Link href="/login" className="flex flex-col items-center">
             <User2Icon size={20} strokeWidth={1} />

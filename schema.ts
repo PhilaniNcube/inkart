@@ -139,7 +139,13 @@ export type ProductGridItem = {
 
 export interface CartItem {
   qty: number;
-  variant: Product['variants'][0];
+  productId: string;
+  productTitle: string;
+  image: string;
+  price: number;
+  variantId: number;
+  variantSKU: string;
+  size: string
 }
 
 
