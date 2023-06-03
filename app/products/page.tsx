@@ -25,7 +25,7 @@ const page = async ({searchParams}:{searchParams: {page:string}}) => {
 
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
-  const { current_page, data:products, last_page, links, per_page, total } = await getProducts(page, 10);
+  const { current_page, data:products, last_page, links, per_page, total } = await getProducts(page, 24);
 
   return (
     <main className="mb-16">

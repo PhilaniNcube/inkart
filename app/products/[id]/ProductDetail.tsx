@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 import Container from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
@@ -24,13 +25,17 @@ type ProductDetailProps = {
 
 const ProductDetail = ({product}:ProductDetailProps) => {
 
-  console.log( product)
+  const [imgIndex, setImgIndex] = useState(0)
 
-  const [selectedVariation, setSelectedVariation] = useState<Product['variants'][0]>(product.variants[0])
 
-  console.log( {selectedVariation})
+  const [selectedVariation, setSelectedVariation] = useState(
+    product.variants[imgIndex]
+  );
 
-  const imageObject = product.images.find(el => el.variant_ids.filter(id => id === selectedVariation.id))
+  const [image, setImage] = useState(product.images[0])
+
+  const imageIndex = product.images.filter((img) => img.variant_ids.includes(selectedVariation.id))
+
 
   // console.log( {imageObject} );
 
@@ -40,16 +45,34 @@ const ProductDetail = ({product}:ProductDetailProps) => {
   return (
     <Container>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4 ">
-        <div className="w-full flex space-x-3 ">
+        <div className="w-full flex-col flex space-x-3 ">
           <div className="flex-1 flex flex-col">
             <div className="">
               <Image
-                src={imageObject?.src!}
+                src={imageIndex[imgIndex].src}
                 width={500}
                 height={500}
                 alt={product.title}
                 className="w-full object-cover aspect-square group-hover:opacity-75"
               />
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 flex-wrap mt-4">
+              {imageIndex.map((img, idx) => {
+                return (
+                  <Image
+                    width={100}
+                    height={100}
+                    onClick={() => {
+                      console.log(`clicked ${idx}`, image);
+                      setImgIndex(idx);
+                    }}
+                    key={idx}
+                    src={img.src}
+                    className="w-full object-cover aspect-square p-1 border border-slate-100 cursor-pointer"
+                    alt="Product Image"
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
@@ -65,8 +88,21 @@ const ProductDetail = ({product}:ProductDetailProps) => {
 
           <Separator className="my-3" />
 
-          <div className="flex justify-between items-center gap-5">
-            <Select >
+          <div className="grid grid-cols-2 gap-5">
+            {product.variants.map((variant, idx) => (
+              <div
+                key={idx}
+                onClick={() => setSelectedVariation(variant)}
+                className="w-full border border-slate-300 hover:bg-slate-100 rounded-md p-3 flex flex-col cursor-pointer"
+              >
+                <p className="text-xs">Size: {variant.title}</p>
+                <p className="text-lg font-semibold">
+                  {formatPrice(variant.price)}
+                </p>
+              </div>
+            ))}
+
+            {/* <Select>
               <SelectTrigger className="w-full text-xs">
                 <SelectValue placeholder="Select a canvas size" />
               </SelectTrigger>
@@ -77,15 +113,20 @@ const ProductDetail = ({product}:ProductDetailProps) => {
                     <SelectItem
                       value={JSON.stringify(variant)}
                       key={variant.id}
-                      onClick={(e) => setSelectedVariation(variant)}
+                      onClick={() => setSelectedVariation(variant)}
                     >
                       {variant.title}
                     </SelectItem>
                   ))}
                 </SelectGroup>
               </SelectContent>
-            </Select>
-            <h3 className="font-semibold text-2xl text-neutral-500 w-1/2">{formatPrice(selectedVariation.price)}</h3>
+            </Select> */}
+            {/* <h3 className="font-semibold text-2xl text-neutral-500 w-1/2">
+              {formatPrice(selectedVariation.price)}
+            </h3> */}
+            {/* <ScrollArea className="w-full h-[800px] overflow-hidden">
+            <pre className="text-sm font-medium">{JSON.stringify(product, null, 2)}</pre>
+            </ScrollArea> */}
           </div>
         </div>
       </div>

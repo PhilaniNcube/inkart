@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import { Product } from "@/schema";
+import { ProductGridItem } from "@/schema";
 import Link from "next/link";
 import Image from 'next/image'
 import Container from "../layout/Container";
-import { formatPrice } from "@/lib/utils";
 
-const ProductGrid = ({products}:{products: Product[]}) => {
+const ProductGrid = ({products}:{products: ProductGridItem[]}) => {
+
   return (
     <Container>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -27,12 +27,12 @@ const ProductGrid = ({products}:{products: Product[]}) => {
               />
             </Link>
             <div className="flex items-start">
-              <p className="mt-3 text-sm font-semibold text-slate-700 w-[70%]">
+              <p className="mt-3 text-sm font-semibold text-slate-700">
                 {product.title}
               </p>
-              <p className="mt-3 text-sm font-semibold text-slate-700 w-[30%] text-right">
+              {/* <p className="mt-3 text-sm font-semibold text-slate-700 w-[30%] text-right">
                 From {formatPrice(product.variants[0].price)}
-              </p>
+              </p> */}
             </div>
           </article>
         ))}

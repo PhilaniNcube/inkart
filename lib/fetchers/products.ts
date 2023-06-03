@@ -1,11 +1,13 @@
-import { Product, ProductVariations } from "@/schema"
+import { Product, ProductAPI, ProductVariations, ProductGridItem } from "@/schema"
 
 const URL = process.env.NEXT_PUBLIC__BASE_URL || 'https://api.printify.com/v1/'
 
 
+
+
 type ProductResponse = {
   current_page: string,
-  data: Product[],
+  data: ProductGridItem[],
   per_page: number,
   total: number,
   last_page: number,
@@ -16,7 +18,8 @@ type ProductResponse = {
   }[]
 }
 
-const getProducts = async (page = 1, limit = 10):Promise<ProductResponse> => {
+const getProducts = async (page = 1, limit = 16):Promise<ProductResponse> => {
+
 
   const data = await fetch(`https://api.printify.com/v1/shops/9354978/products.json?page=${page}&limit=${limit}`, {
     next:{tags: ['products', 'dashboard']},
@@ -27,9 +30,23 @@ const getProducts = async (page = 1, limit = 10):Promise<ProductResponse> => {
     }
   })
 
+  const raw = await data.json() as ProductResponse
+
+  const response= {
+    ...raw,
+    data: raw.data.map((product) => {
+      return {
+        id: product.id,
+        images: product.images,
+        title: product.title,
+      }
+    })
+  }
 
 
-  return await data.json()
+
+
+  return response
 
 }
 
@@ -43,7 +60,25 @@ const getProduct = async (productId:string):Promise<Product> => {
     }
   })
 
-  return await data.json()
+  const rawProduct = await data.json() as ProductAPI
+
+  let images = rawProduct.images
+
+  const uniqueVariants = Array.from(new Set(images.map((image) => image.variant_ids[0])))
+
+  console.log(uniqueVariants)
+
+
+  return {
+    ...rawProduct,
+    images: rawProduct.images.map((image) => {
+      return {
+        ...image,
+        variant_id: image.variant_ids[0]
+      }
+    }),
+    variants: rawProduct.variants.filter((variant) => uniqueVariants.includes(variant.id))
+  }
 
 }
 
