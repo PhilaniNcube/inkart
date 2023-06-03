@@ -134,6 +134,7 @@ export type ProductGridItem = {
       is_default: boolean,
       is_selected_for_publishing: boolean,
     }[],
+    is_locked: boolean,
 }
 
 export interface CartItem {

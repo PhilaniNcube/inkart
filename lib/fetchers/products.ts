@@ -13,7 +13,7 @@ type ProductResponse = {
   last_page: number,
   links: {
    url: string,
-   labl: string,
+   lable: string,
    active: boolean
   }[]
 }
@@ -39,6 +39,7 @@ const getProducts = async (page = 1, limit = 16):Promise<ProductResponse> => {
         id: product.id,
         images: product.images,
         title: product.title,
+        is_locked: product.is_locked,
       }
     })
   }

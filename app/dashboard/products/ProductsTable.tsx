@@ -1,6 +1,6 @@
 "use client"
 
-import { Product } from "@/schema";
+import { Product, ProductGridItem } from "@/schema";
 import {
   Table,
   TableBody,
@@ -16,12 +16,12 @@ import { formatPrice } from "@/lib/utils";
 import Image from "next/image"
 
 type ProductsTableProps = {
-  products: Product[];
-}
+  products: ProductGridItem[];
+};
 
 const ProductsTable = ({products}:ProductsTableProps) => {
 
-  const toggleLock = async (product:Product) => {
+  const toggleLock = async (product:ProductGridItem) => {
     console.log(product)
 
    const res = await fetch(`/api/products/${product.id}/publish`, {
@@ -50,8 +50,8 @@ const ProductsTable = ({products}:ProductsTableProps) => {
           <TableCell>Image</TableCell>
           <TableCell>Name</TableCell>
           <TableCell>Published</TableCell>
-          <TableCell>Price</TableCell>
-          <TableCell>Cost</TableCell>
+          {/* <TableCell>Price</TableCell>
+          <TableCell>Cost</TableCell> */}
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -64,8 +64,7 @@ const ProductsTable = ({products}:ProductsTableProps) => {
             <TableCell>
               <Switch checked={!product.is_locked} onClick={() => toggleLock(product)} />
             </TableCell>
-            <TableCell>{formatPrice(product.variants[0].price)}</TableCell>
-            <TableCell>{formatPrice(product.variants[0].cost)}</TableCell>
+
           </TableRow>
         ))}
       </TableBody>
