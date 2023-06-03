@@ -1,4 +1,8 @@
+import CartDetails from "./CartDetails";
+
 const page = () => {
-  return <div>page</div>;
+  return <main className="w-full">
+    <CartDetails />
+  </main>;
 };
 export default page;
