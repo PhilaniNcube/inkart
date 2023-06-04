@@ -5,15 +5,7 @@ import { useAppDispatch } from "@/app/store/store";
 import Container from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import { Separator } from "@/components/ui/separator";
 import { formatPrice } from "@/lib/utils";
 import { Product, ProductVariations } from "@/schema";
