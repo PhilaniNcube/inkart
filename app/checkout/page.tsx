@@ -1,6 +1,9 @@
 import Container from "@/components/layout/Container";
+import CheckoutDetails from "./CheckoutDetails";
 
 const page = () => {
-  return <Container>Checkout</Container>;
+  return <main>
+    <CheckoutDetails />
+  </main>;
 };
 export default page;
