@@ -13,7 +13,7 @@ export async function GET(){
   const result = await response.json();
 
 
-  const currency = result.quotes
+  const currency = result
 
-  return NextResponse.json({data: currency});
+  return NextResponse.json({data:result});
 }
