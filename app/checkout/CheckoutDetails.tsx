@@ -29,31 +29,31 @@ const CheckoutDetails = ({exchangeRate}:{exchangeRate: number}) => {
   const amount = (exchangeRate * (shipping + totalPrice)) / 100;
 
 
-  const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
+  // const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
 
-    e.preventDefault();
-    console.log('Submitting payment request');
+  //   e.preventDefault();
+  //   console.log('Submitting payment request');
 
-    const data = Object.fromEntries(new FormData(e.currentTarget))
+  //   const data = Object.fromEntries(new FormData(e.currentTarget))
 
-    console.log({ data });
-
-
-
-    const req = await fetch(`/api/payment`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-
-    const res = await req.text();
-
-    console.log(res);
+  //   console.log({ data });
 
 
-  }
+
+  //   const req = await fetch(`/api/payment`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(data)
+  //   })
+
+  //   const res = await req.text();
+
+  //   console.log(res);
+
+
+  // }
 
   return (
     <main>
