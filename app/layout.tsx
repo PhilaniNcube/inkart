@@ -5,6 +5,8 @@ import { Metadata } from "next";
 import Footer from '@/components/layout/Footer';
 import CartProvider from '@/components/Providers/CartProvider';
 
+
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -31,9 +33,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <CartProvider>
-          <Navbar />
-          {children}
-          <Footer />
+
+            <Navbar />
+            {children}
+            <Footer />
+
         </CartProvider>
       </body>
     </html>

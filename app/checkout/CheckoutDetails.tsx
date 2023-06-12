@@ -17,16 +17,17 @@ import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { FormEvent } from "react";
 
-const CheckoutDetails = () => {
+const CheckoutDetails = ({exchangeRate}:{exchangeRate: number}) => {
 
   const cartItems = useAppSelector((state) => state.cart.cartItems);
   const totalPrice = useAppSelector(totalPriceSelector);
 
   const dispatch = useAppDispatch();
 
-
-
   const shipping = 3000;
+
+  const amount = (exchangeRate * (shipping + totalPrice)) / 100;
+
 
   const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
 
@@ -97,11 +98,7 @@ const CheckoutDetails = () => {
                 name="cancel_url"
                 value={`${process.env.NEXT_PUBLIC_PAYFAST_CANCEL_URL}`}
               />
-              <input
-                type="hidden"
-                name="currency"
-                value={`en-usd`}
-              />
+
               <input
                 type="hidden"
                 name="notify_url"
@@ -111,7 +108,7 @@ const CheckoutDetails = () => {
               <input
                 type="hidden"
                 name="amount"
-                value={(shipping + totalPrice) / 100}
+                value={amount.toFixed(2)}
               />
               <input
                 type="hidden"
@@ -123,7 +120,7 @@ const CheckoutDetails = () => {
               <input
                 type="hidden"
                 name="item_description"
-                value="A test product"
+                value={cartItems.map((item) => `name:${item.productTitle}-`)}
               />
               <input type="hidden" name="custom_int1" value="2" />
               <input
