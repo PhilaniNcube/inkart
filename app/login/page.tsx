@@ -1,4 +1,8 @@
+import Login from "./Login";
+
 const page = () => {
-  return <div>page</div>;
+  return <main>
+    <Login />
+  </main>;
 };
 export default page;

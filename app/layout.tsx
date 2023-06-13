@@ -4,6 +4,9 @@ import { Inter } from 'next/font/google'
 import { Metadata } from "next";
 import Footer from '@/components/layout/Footer';
 import CartProvider from '@/components/Providers/CartProvider';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from "next/headers";
+import SupabaseProvider from '@/components/Providers/SupabaseProvider';
 
 
 
@@ -24,21 +27,37 @@ export const metadata: Metadata = {
   viewport: "width=device-width, initial-scale=1",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+
+    const supabase = createServerComponentClient({ cookies });
+
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    console.log(user)
+
+    let { data: admin, error } = await supabase.rpc("is_admin");
+
+
   return (
     <html lang="en">
       <body>
-        <CartProvider>
-
-            <Navbar />
+        <SupabaseProvider>
+          <CartProvider>
+            <Navbar user={user} />
             {children}
             <Footer />
-
-        </CartProvider>
+          </CartProvider>
+        </SupabaseProvider>
       </body>
     </html>
   );

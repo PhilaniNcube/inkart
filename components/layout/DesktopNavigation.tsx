@@ -2,14 +2,17 @@
 
 import { totalCartItemsSelector } from "@/app/store/features/cartSlice";
 import { useAppDispatch } from "@/app/store/store";
+import { User } from "@supabase/auth-helpers-nextjs";
 import { SearchIcon, ShoppingCartIcon, User2Icon, UserPlus2Icon } from "lucide-react";
 import Link from "next/link";
 import {useRouter} from "next/navigation"
 import { FormEvent } from "react";
 import { useSelector } from "react-redux";
+import { Button } from "../ui/button";
+import { useSupabase } from "../Providers/SupabaseProvider";
 
 
-const DesktopNavigation = () => {
+const DesktopNavigation = ({user}:{user:User | null}) => {
 
   const router = useRouter()
 
@@ -24,6 +27,18 @@ const DesktopNavigation = () => {
   const qty = useSelector(totalCartItemsSelector)
 
   console.log({qty})
+
+  const {supabase} = useSupabase()
+
+  const signOut = async () => {
+   const {error} = await supabase.auth.signOut()
+
+    if(error) {
+      throw new Error(error.message)
+    }
+    alert(`Signed Out`)
+    router.refresh()
+  }
 
   return (
     <div className="w-full">
@@ -59,7 +74,9 @@ const DesktopNavigation = () => {
               </span>
             )}
           </Link>
-          <Link href="/login" className="flex flex-col items-center">
+          {user ? (
+          <>
+           <Link href="/login" className="flex flex-col items-center">
             <User2Icon size={20} strokeWidth={1} />
             <span className="text-xs text-slate-800 font-semibold">Login</span>
           </Link>
@@ -69,6 +86,10 @@ const DesktopNavigation = () => {
               Register
             </span>
           </Link>
+          </>) : (<div>
+            <Button variant="destructive" onClick={signOut}>Logout</Button>
+          </div>)}
+
         </div>
       </div>
       <div className="w-full pt-3 hidden lg:flex items-center justify-center space-x-4">

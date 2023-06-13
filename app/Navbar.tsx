@@ -1,19 +1,23 @@
+import Container from "@/components/layout/Container";
 import DesktopNavigation from "@/components/layout/DesktopNavigation";
 import MobileNavigation from "@/components/layout/MobileNavigation";
+import { User } from "@supabase/auth-helpers-nextjs";
 
-const Navbar = () => {
+const Navbar =  ({user}:{user:User | null}) => {
 
 
-  return <header className="py-3 border-b border-slate-200">
-    <div className="w-[90%] mx-auto">
-      {/* Desktop Navigation Starts*/}
-      <DesktopNavigation />
-      {/* Desktop Navigation Ends*/}
+  return (
+    <header className="border-b border-slate-200">
+      <Container>
+        {/* Desktop Navigation Starts*/}
+        <DesktopNavigation user={user} />
+        {/* Desktop Navigation Ends*/}
 
-      {/* Mobile Navigation Starts*/}
-      <MobileNavigation />
-      {/* Mobile Navigation Ends*/}
-    </div>
-  </header>;
+        {/* Mobile Navigation Starts*/}
+        <MobileNavigation />
+        {/* Mobile Navigation Ends*/}
+      </Container>
+    </header>
+  );
 };
 export default Navbar;
