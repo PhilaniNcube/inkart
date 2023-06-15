@@ -4,15 +4,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Database } from "@/types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+
+const CALLBACK = process.env.CALLBACK_URL || "http://localhost:3000/auth/callback"
 
 const page = async () => {
 
   const registerAction = async (data:FormData) => {
     'use server'
 
-    const supabase = createServerComponentClient<Database>({ cookies });
+    const supabase = createServerActionClient<Database>({ cookies });
 
     const { email, password, first_name, last_name } = Object.fromEntries(
       data.entries()
@@ -24,16 +28,17 @@ const page = async () => {
        throw new Error(`Invalid details`)
     }
 
-    const {error} = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email: email,
       password: password,
       options: {
+        emailRedirectTo: `${CALLBACK}`,
         data: {
           first_name,
           last_name,
-        }
-      }
-    })
+        },
+      },
+    });
 
    if(error) {
       throw new Error(error.message)
@@ -42,7 +47,7 @@ const page = async () => {
 
    console.log(`User created`)
 
-   NextResponse.redirect(new URL(`/login`, `http://localhost:3000`).href)
+   revalidatePath("/");
 
 }
 

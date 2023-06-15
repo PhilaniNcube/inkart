@@ -1,28 +1,23 @@
 import Container from "@/components/layout/Container";
 import CheckoutDetails from "./CheckoutDetails";
+import { getExchangeRate } from "@/lib/utils";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { Database } from "@/types";
+import { getOrderById } from "@/lib/fetchers/orders";
 
-const page = async () => {
+const page = async ({ searchParams }: { searchParams: {order_id:string|undefined} }) => {
 
-  const url = new URL(`http://localhost:3000/api/currency`);
+  console.log({ searchParams })
+  const {order_id} =  searchParams
+  const exchangeRate = await getExchangeRate()
 
-  const exchangeRate = await fetch(
-    `http://apilayer.net/api/live?access_key=${process.env.CURRENCY_API_KEY}&currencies=ZAR&source=USD&format=1`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  )
-    .then((response) => response.json())
-    .catch((err) => console.log(err));
-
-  console.log(exchangeRate.data)
+const order = await getOrderById(order_id!)
 
   return (
     <main>
       {/* <pre>{JSON.stringify(exchangeRate.quotes.USDZAR, null, 2)}</pre> */}
-      <CheckoutDetails exchangeRate={exchangeRate.quotes.USDZAR} />
+      <CheckoutDetails exchangeRate={exchangeRate} order={order} />
     </main>
   );
 };

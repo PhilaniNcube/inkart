@@ -41,3 +41,22 @@ const generateSignature = (data:any, passPhrase = null || '') => {
 
   return CryptoJS.MD5(pfOutput.toString());
 };
+
+
+export const getExchangeRate = async () => {
+
+  const exchangeRate = await fetch(
+    `http://apilayer.net/api/live?access_key=${process.env.CURRENCY_API_KEY}&currencies=ZAR&source=USD&format=1`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+    .then((response) => response.json())
+    .catch((err) => console.log(err));
+
+
+  return exchangeRate.quotes.USDZAR as number;
+  }

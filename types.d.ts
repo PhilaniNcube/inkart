@@ -1,3 +1,5 @@
+import { CartItem } from "./schema"
+
 export type Json =
   | string
   | number
@@ -29,63 +31,63 @@ export interface Database {
       orders: {
         Row: {
           id: string
-          created_at: string | null
+          created_at: string
           user_id: string | null
-          order_items: Json | null
-          first_name: string | null
-          last_name: string | null
-          address: string | null
-          city: string | null
-          state: string | null
-          postal_code: string | null
-          phone: string | null
-          email: string | null
-          total: number | null
-          subtotal: number | null
-          shipping: number | null
-          paid: boolean | null
-          payment_id: string | null
-          paid_at: string | null
+          order_items: CartItem[]
+          first_name: string
+          last_name: string
+          address: string
+          city: string
+          state: string
+          postal_code: string
+          phone: string
+          email: string
+          total: number
+          subtotal: number
+          shipping: number
+          paid: boolean
+          payment_id: string
+          paid_at: string
         }
         Insert: {
-          id: string
-          created_at?: string | null
-          user_id?: string | null
-          order_items?: Json | null
-          first_name?: string | null
-          last_name?: string | null
-          address?: string | null
-          city?: string | null
-          state?: string | null
-          postal_code?: string | null
-          phone?: string | null
-          email?: string | null
-          total?: number | null
-          subtotal?: number | null
-          shipping?: number | null
-          paid?: boolean | null
-          payment_id?: string | null
-          paid_at?: string | null
+          id?: string
+          created_at?: string
+          user_id?: string
+          order_items?: CartItem[]
+          first_name?: string
+          last_name?: string
+          address?: string
+          city?: string
+          state?: string
+          postal_code?: string
+          phone?: string
+          email?: string
+          total?: number
+          subtotal?: number
+          shipping?: number
+          paid?: boolean
+          payment_id?: string
+          paid_at?: string
         }
         Update: {
           id?: string
-          created_at?: string | null
-          user_id?: string | null
-          order_items?: Json | null
-          first_name?: string | null
-          last_name?: string | null
-          address?: string | null
-          city?: string | null
-          state?: string | null
-          postal_code?: string | null
-          phone?: string | null
-          email?: string | null
-          total?: number | null
-          subtotal?: number | null
-          shipping?: number | null
-          paid?: boolean | null
-          payment_id?: string | null
-          paid_at?: string | null
+          created_at?: string
+          user_id?: string
+          order_items?: CartItem[]
+          first_name?: string
+          last_name?: string
+          address?: string
+          city?: string
+          state?: string
+          postal_code?: string
+          phone?: string
+          email?: string
+          total?: number
+          subtotal?: number
+          shipping?: number
+          paid?: boolean
+          payment_id?: string
+          paid_at?: string
         }
       }
       products: {

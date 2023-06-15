@@ -16,8 +16,16 @@ import {
 import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { FormEvent } from "react";
+import { Database } from "@/types";
 
-const CheckoutDetails = ({exchangeRate}:{exchangeRate: number}) => {
+type Props = {
+  exchangeRate: number;
+  order: Database['public']['Tables']['orders']['Row'];
+}
+
+const CheckoutDetails = ({exchangeRate, order}:Props) => {
+
+  console.log(order)
 
   const cartItems = useAppSelector((state) => state.cart.cartItems);
   const totalPrice = useAppSelector(totalPriceSelector);
@@ -67,168 +75,57 @@ const CheckoutDetails = ({exchangeRate}:{exchangeRate: number}) => {
           action="https://sandbox.payfast.co.za/eng/process"
           className="flex w-full gap-10"
         >
+          <input type="hidden" name="merchant_id" value="10000100" />
+          <input type="hidden" name="merchant_key" value="46f0cd694581a" />
+          <input
+            type="hidden"
+            name="amount"
+            value={(exchangeRate * ((order.total + order.shipping) / 100)).toFixed(2)}
+          />
+          <input type="hidden" name="item_name" value={order.id}></input>
+          <input
+            type="hidden"
+            name="return_url"
+            value={`http://localhost:3000/checkout?order_id=${order.id}`}
+          />
+          <input
+            type="hidden"
+            name="cancel_url"
+            value={process.env.NEXT_PUBLIC_PAYFAST_CANCEL_URL}
+          />
+          <input
+            type="hidden"
+            name="notify_url"
+            value={process.env.NEXT_PUBLIC_PAYFAST_NOTIFY_URL}
+          />
+          <input type="hidden" name="name_first" value={order.first_name} />
+          <input type="hidden" name="name_last" value={order.last_name} />
+          <input type="hidden" name="email_address" value={order.email} />
+          <input type="hidden" name="cell_number" value={order.phone} />
           <div className="w-full">
-            <div className="w-full">
-              <h2 className="text-xl md:text-2xl font-semibold mb-8">
-                Contact Information
-              </h2>
-              <div className="flex flex-col space-y-2">
-                <Label htmlFor="email">Email Address</Label>
-                <Input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder=""
-                  className=""
-                  required
-                />
-              </div>
+            <h2 className="text-xl md:text-2xl font-semibold">
+              Billing Details
+            </h2>
 
-              <Separator className="my-4" />
-
-              <input type="hidden" name="merchant_id" value="10000100" />
-              <input type="hidden" name="merchant_key" value="46f0cd694581a" />
-              <input
-                type="hidden"
-                name="return_url"
-                value={`${process.env.NEXT_PUBLIC_PAYFAST_RETURN_URL}`}
-              />
-              <input
-                type="hidden"
-                name="cancel_url"
-                value={`${process.env.NEXT_PUBLIC_PAYFAST_CANCEL_URL}`}
-              />
-
-              <input
-                type="hidden"
-                name="notify_url"
-                value={`${process.env.NEXT_PUBLIC_PAYFAST_NOTIFY_URL}`}
-              />
-
-              <input
-                type="hidden"
-                name="amount"
-                value={amount.toFixed(2)}
-              />
-              <input
-                type="hidden"
-                name="item_name"
-                value={cartItems.map((item) => {
-                  return `sku:${item.variantSKU}-`;
-                })}
-              />
-              <input
-                type="hidden"
-                name="item_description"
-                value={cartItems.map((item) => `name:${item.productTitle}-`)}
-              />
-              <input type="hidden" name="custom_int1" value="2" />
-              <input
-                type="hidden"
-                name="custom_str1"
-                value="Extra order information"
-              />
-
-              <h2 className="text-xl md:text-2xl font-semibold mb-8">
-                Shipping Information
-              </h2>
-              <div className="flex w-full gap-4">
-                <div className="flex flex-col w-full space-y-2">
-                  <Label htmlFor="first_name">First Name</Label>
-                  <Input
-                    type="text"
-                    id="first_name"
-                    name="first_name"
-                    placeholder=""
-                    className=""
-                    required
-                  />
-                </div>
-                <div className="flex flex-col w-full space-y-2">
-                  <Label htmlFor="last_name">Last Name</Label>
-                  <Input
-                    type="text"
-                    id="last_name"
-                    name="last_name"
-                    placeholder=""
-                    className=""
-                    required
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col w-full space-y-2 mt-3">
-                <Label htmlFor="address">Address</Label>
-                <Input
-                  type="text"
-                  id="address"
-                  name="address"
-                  placeholder=""
-                  className=""
-                  required
-                />
-              </div>
-
-              <div className="flex w-full gap-4 mt-4">
-                <div className="flex flex-col w-full space-y-2">
-                  <Label htmlFor="city">City</Label>
-                  <Input
-                    type="text"
-                    id="city"
-                    name="city"
-                    placeholder=""
-                    className=""
-                    required
-                  />
-                </div>
-                <div className="flex flex-col w-full space-y-2">
-                  <Label htmlFor="state">State</Label>
-                  <Input
-                    type="text"
-                    id="state"
-                    name="state"
-                    placeholder=""
-                    className=""
-                    autoComplete="state"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="flex w-full gap-4 mt-4">
-                <div className="flex flex-col w-full space-y-2">
-                  <Label htmlFor="postal_code">Postal Code</Label>
-                  <Input
-                    type="text"
-                    id="postal_code"
-                    name="postal_code"
-                    placeholder=""
-                    autoComplete="postal_code"
-                    className=""
-                    required
-                  />
-                </div>
-                <div className="flex flex-col w-full space-y-2">
-                  <Label htmlFor="phone">Phone</Label>
-                  <Input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    placeholder=""
-                    className=""
-                    autoComplete="phone"
-                    required
-                  />
-                </div>
-              </div>
+            <div className="mt-6">
+              <p className="text-lg ">First Name: {order.first_name}</p>
+              <p className="text-lg  mt-2">Last Name: {order.last_name}</p>
+              <p className="text-lg  mt-2">Email: {order.email}</p>
+              <p className="text-lg  mt-2">Phone: {order.phone}</p>
+              <p className="text-lg  mt-2">Address: {order.address}</p>
+              <p className="text-lg  mt-2">City: {order.city}</p>
+              <p className="text-lg  mt-2">State: {order.state}</p>
+              <p className="text-lg  mt-2">Postal Code: {order.postal_code}</p>
             </div>
           </div>{" "}
           <div className="w-full">
             <h2 className="text-xl md:text-2xl font-semibold">Order Summary</h2>
-            <div className="border border-neutral-200 rounded-md  py-6 bg-slate-50">
-              {cartItems.length === 0 ? (
-                "Your cart is empty"
+            <div className="border mt-3 border-neutral-200 rounded-md  py-6 bg-slate-50">
+              {order.order_items.length === 0 ? (
+                <p className="px-3">Your cart is empty</p>
               ) : (
                 <div className="flex flex-col space-y-4">
-                  {cartItems.map((item, i) => (
+                  {order.order_items.map((item, i) => (
                     <div
                       key={i}
                       className="w-full flex gap-2 px-2 border-b border-slate-300 py-2"
@@ -242,9 +139,14 @@ const CheckoutDetails = ({exchangeRate}:{exchangeRate: number}) => {
                         <h3 className="text-lg font-semibold">
                           {item.productTitle}
                         </h3>
-                        <p className="text-sm text-slate-400">{item.size}</p>
+                        <p className="text-sm text-slate-400">
+                          {item.size} x {item.qty}
+                        </p>
+                        <p className="text-sm text-slate-400">
+                          {formatPrice(item.price * item.qty)}
+                        </p>
 
-                        <div className="w-1/4 flex justify-between items-center">
+                        {/* <div className="w-1/4 flex justify-between items-center">
                           <Button
                             variant="ghost"
                             type="button"
@@ -262,9 +164,9 @@ const CheckoutDetails = ({exchangeRate}:{exchangeRate: number}) => {
                           >
                             <PlusIcon />
                           </Button>
-                        </div>
+                        </div> */}
                       </div>
-                      <div className="flex flex-col justify-between">
+                      {/* <div className="flex flex-col justify-between">
                         <p className="text-lg font-semibold">
                           {formatPrice(item.price * item.qty)}
                         </p>
@@ -276,7 +178,7 @@ const CheckoutDetails = ({exchangeRate}:{exchangeRate: number}) => {
                         >
                           <Trash2Icon />
                         </Button>
-                      </div>
+                      </div> */}
                     </div>
                   ))}
                 </div>
@@ -286,20 +188,26 @@ const CheckoutDetails = ({exchangeRate}:{exchangeRate: number}) => {
                 <div className="flex justify-between items-center px-2 py-4">
                   <p className="text-lg font-semibold">Subtotal</p>
                   <p className="text-lg font-semibold">
-                    {formatPrice(totalPrice)}
+                    {order.subtotal !== null
+                      ? formatPrice(order.subtotal)
+                      : formatPrice(order.total)}
                   </p>
                 </div>
                 <div className="flex justify-between items-center px-2 py-4">
                   <p className="text-lg font-semibold">Shipping</p>
                   <p className="text-lg font-semibold">
-                    {formatPrice(shipping)}
+                    {order.shipping
+                      ? formatPrice(order.shipping)
+                      : formatPrice(shipping)}
                   </p>
                 </div>
                 <Separator className="my-4" />
                 <div className="flex justify-between items-center px-2 py-4">
                   <p className="text-2xl font-semibold">Total</p>
                   <p className="text-2xl font-semibold">
-                    {formatPrice(shipping + totalPrice)}
+                    {order.subtotal !== null
+                      ? formatPrice(order.shipping + order.total)
+                      : formatPrice(shipping + order.total)}
                   </p>
                 </div>
                 <Separator className="my-4" />

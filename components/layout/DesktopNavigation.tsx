@@ -14,6 +14,8 @@ import { useSupabase } from "../Providers/SupabaseProvider";
 
 const DesktopNavigation = ({user}:{user:User | null}) => {
 
+  console.log({user})
+
   const router = useRouter()
 
   const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
@@ -74,7 +76,7 @@ const DesktopNavigation = ({user}:{user:User | null}) => {
               </span>
             )}
           </Link>
-          {user ? (
+          {user === null ? (
           <>
            <Link href="/login" className="flex flex-col items-center">
             <User2Icon size={20} strokeWidth={1} />
@@ -86,9 +88,12 @@ const DesktopNavigation = ({user}:{user:User | null}) => {
               Register
             </span>
           </Link>
-          </>) : (<div>
+          </>
+          ) : (
+          <div>
             <Button variant="destructive" onClick={signOut}>Logout</Button>
-          </div>)}
+          </div>
+          )}
 
         </div>
       </div>
