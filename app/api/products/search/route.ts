@@ -5,7 +5,7 @@ const BASE_URL = process.env.NEXT_PUBLIC__BASE_URL || 'https://api.printify.com/
 
 export async function GET(request: Request) {
 
-  console.log('query',request.url)
+
 
   const { search} = new URL(request.url)
 

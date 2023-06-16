@@ -17,6 +17,7 @@ import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { FormEvent } from "react";
 import { Database } from "@/types";
+import Link from "next/link";
 
 type Props = {
   exchangeRate: number;
@@ -25,7 +26,7 @@ type Props = {
 
 const CheckoutDetails = ({exchangeRate, order}:Props) => {
 
-  console.log(order)
+
 
   const cartItems = useAppSelector((state) => state.cart.cartItems);
   const totalPrice = useAppSelector(totalPriceSelector);
@@ -80,13 +81,16 @@ const CheckoutDetails = ({exchangeRate, order}:Props) => {
           <input
             type="hidden"
             name="amount"
-            value={(exchangeRate * ((order.total + order.shipping) / 100)).toFixed(2)}
+            value={(
+              exchangeRate *
+              ((order.total + order.shipping) / 100)
+            ).toFixed(2)}
           />
           <input type="hidden" name="item_name" value={order.id}></input>
           <input
             type="hidden"
             name="return_url"
-            value={`http://localhost:3000/checkout?order_id=${order.id}`}
+            value={`${process.env.NEXT_PUBLIC_PAYFAST_RETURN_URL}?order_id=${order.id}`}
           />
           <input
             type="hidden"
@@ -96,7 +100,7 @@ const CheckoutDetails = ({exchangeRate, order}:Props) => {
           <input
             type="hidden"
             name="notify_url"
-            value={process.env.NEXT_PUBLIC_PAYFAST_NOTIFY_URL}
+            value={`${process.env.NEXT_PUBLIC_PAYFAST_NOTIFY_URL}?order_id=${order.id}`}
           />
           <input type="hidden" name="name_first" value={order.first_name} />
           <input type="hidden" name="name_last" value={order.last_name} />
@@ -212,9 +216,17 @@ const CheckoutDetails = ({exchangeRate, order}:Props) => {
                 </div>
                 <Separator className="my-4" />
                 <div className="flex px-4">
-                  <Button type="submit" className="mt-3 w-full">
-                    Checkout
-                  </Button>
+                  {order.paid ? (
+                    <Link href="/">
+                      <Button type="button" variant="link"  className="mt-3 w-full">
+                        Order Has Already Been Paid - Back to Home Page
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Button type="submit" className="mt-3 w-full">
+                      Checkout
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>

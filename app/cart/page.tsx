@@ -3,7 +3,7 @@ import CartDetails from "./CartDetails";
 
 const page = async ({searchParams}:{searchParams:any}) => {
 
-console.log({ searchParams });
+
 
     const exchangeRate = await getExchangeRate()
 

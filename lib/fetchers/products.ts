@@ -67,7 +67,7 @@ const getProduct = async (productId:string):Promise<Product> => {
 
   const uniqueVariants = Array.from(new Set(images.map((image) => image.variant_ids[0])))
 
-  console.log(uniqueVariants)
+
 
 
   return {

@@ -22,7 +22,7 @@ type ProductsTableProps = {
 const ProductsTable = ({products}:ProductsTableProps) => {
 
   const toggleLock = async (product:ProductGridItem) => {
-    console.log(product)
+
 
    const res = await fetch(`/api/products/${product.id}/publish`, {
       next:{tags: ["products", "/dashboard/products"]},
@@ -38,7 +38,7 @@ const ProductsTable = ({products}:ProductsTableProps) => {
 
 
 
-  console.log({data})
+
 
   }
 

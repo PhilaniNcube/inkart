@@ -45,7 +45,7 @@ const page = async () => {
    }
 
 
-   console.log(`User created`)
+
 
    revalidatePath("/");
 

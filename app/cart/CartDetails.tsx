@@ -26,7 +26,7 @@ const totalPrice = useAppSelector(totalPriceSelector);
 
  const dispatch = useAppDispatch();
 
-console.log({cartItems})
+
 
 const shipping = 3000
 
@@ -63,7 +63,7 @@ const shipping = 3000
         }
       ]).select('*').single()
 
-      console.log({data, error})
+
 
       if(error){
         throw new Error('Error saving order')

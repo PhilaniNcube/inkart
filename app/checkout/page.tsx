@@ -8,7 +8,7 @@ import { getOrderById } from "@/lib/fetchers/orders";
 
 const page = async ({ searchParams }: { searchParams: {order_id:string|undefined} }) => {
 
-  console.log({ searchParams })
+
   const {order_id} =  searchParams
   const exchangeRate = await getExchangeRate()
 

@@ -43,7 +43,7 @@ export default async function RootLayout({
       data: { user },
     } = await supabase.auth.getUser();
 
-    console.log(user)
+
 
     let { data: admin, error } = await supabase.rpc("is_admin");
 

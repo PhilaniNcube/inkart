@@ -28,7 +28,7 @@ const DesktopNavigation = ({user}:{user:User | null}) => {
 
   const qty = useSelector(totalCartItemsSelector)
 
-  console.log({qty})
+
 
   const {supabase} = useSupabase()
 
