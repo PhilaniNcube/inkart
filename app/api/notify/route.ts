@@ -7,7 +7,7 @@ import { Database } from '@/types';
 
 
 
-export async function POST(request: Request) {
+export async function GET(request: Request) {
 
   console.log('Notify')
 
@@ -65,11 +65,8 @@ const supabase = createClient<Database>(
 
 
   if(error) {
-    console.log('Error', error.message, order)
-    return NextResponse.json({
-    status: 200,
-    body: error
-  })
+    throw new Error(error.message)
+
   }
 
 

@@ -210,7 +210,7 @@ const CheckoutDetails = ({exchangeRate, order}:Props) => {
                   <p className="text-2xl font-semibold">Total</p>
                   <p className="text-2xl font-semibold">
                     {order.subtotal !== null
-                      ? formatPrice(order.shipping + order.total)
+                      ? formatPrice(order.shipping + order.subtotal)
                       : formatPrice(shipping + order.total)}
                   </p>
                 </div>
