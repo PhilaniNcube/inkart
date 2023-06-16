@@ -15,11 +15,7 @@ const SupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const SupabaseSecret = process.env.SUPABASE_SECRET
 
 if(!SupabaseUrl || !SupabaseSecret || typeof SupabaseUrl === 'undefined' || typeof SupabaseSecret === 'undefined' || typeof  SupabaseUrl !== 'string' || typeof SupabaseSecret !== 'string' || typeof SupabaseUrl === 'undefined' || typeof SupabaseSecret === 'undefined') {
-  console.log('Error', 'Supabase Url or Secret is missing')
-  return NextResponse.json({
-    status: 200,
-    body: 'Supabase Url or Secret is missing'
-  })
+throw new Error('Supabase URL or Supabase Secret is missing')
 }
 
 const supabase = createClient<Database>(
