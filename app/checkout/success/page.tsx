@@ -1,6 +1,6 @@
 import Container from "@/components/layout/Container";
 import { Separator } from "@/components/ui/separator";
-import { getOrderById } from "@/lib/fetchers/orders";
+import { getOrderById, updateOrderById } from "@/lib/fetchers/orders";
 import { formatPrice } from "@/lib/utils";
 import Image from "next/image";
 
@@ -13,6 +13,9 @@ const page = async ({
   const { order_id } = searchParams;
 
   const order = await getOrderById(order_id!);
+  const updatedOrder = await updateOrderById(order_id!);
+
+  console.log({ updatedOrder });
 
   // const query = await fetch(
   //   `https://sandbox.payfast.co.za/​eng/query/validate`, {
