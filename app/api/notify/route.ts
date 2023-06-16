@@ -27,6 +27,8 @@ const supabase = createClient<Database>(
 
   const payment_status = data.get('payment_status')
 
+
+
   const amount = data.get('amount_gross')
   const amount_net = data.get('amount_net')
   const amount_fee = data.get('amount_fee')
@@ -45,14 +47,11 @@ const supabase = createClient<Database>(
       amount_fee,
       payment_id
    })
-  // generate an MD5 hash from the req object using the CryptoJS package
+
 
   if(typeof payment_id === 'undefined' || payment_id === null) {
-    console.log('Error', 'Payment ID is missing')
-    return NextResponse.json({
-    status: 200,
-    body: 'Payment ID is missing'
-  })
+     console.log('Error', 'Payment ID is missing')
+    throw new Error('Payment ID is missing')
   }
 
   const date = Date.now()
