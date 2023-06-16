@@ -14,13 +14,13 @@ export async function POST(request: Request) {
 const SupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const SupabaseSecret = process.env.SUPABASE_SECRET
 
-if(!SupabaseUrl || !SupabaseSecret || typeof SupabaseUrl === 'undefined' || typeof SupabaseSecret === 'undefined' || typeof  SupabaseUrl !== 'string' || typeof SupabaseSecret !== 'string' || typeof SupabaseUrl === 'undefined' || typeof SupabaseSecret === 'undefined') {
-throw new Error('Supabase URL or Supabase Secret is missing')
-}
+// if(!SupabaseUrl || !SupabaseSecret || typeof SupabaseUrl === 'undefined' || typeof SupabaseSecret === 'undefined' || typeof  SupabaseUrl !== 'string' || typeof SupabaseSecret !== 'string' || typeof SupabaseUrl === 'undefined' || typeof SupabaseSecret === 'undefined') {
+// throw new Error('Supabase URL or Supabase Secret is missing')
+// }
 
 const supabase = createClient<Database>(
-  SupabaseUrl,
-  SupabaseSecret
+  SupabaseUrl!,
+  SupabaseSecret!
 )
   const data = await request.formData()
 
