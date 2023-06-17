@@ -3,13 +3,13 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 type PaginationProps = {
-  currentPage: string;
+  currentPage: number;
   total: number;
   lastPage: number;
 };
 
 const TablePagination = ({ currentPage, total, lastPage }: PaginationProps) => {
-  const page = currentPage ? parseInt(currentPage) : 1;
+  const page = currentPage || 1;
 
   return (
     <div className="flex justify-between items-center bg-slate-400 rounded-lg p-3">

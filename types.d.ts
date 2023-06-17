@@ -4,7 +4,7 @@ export type Json =
   | string
   | number
   | boolean
-  | null
+
   | { [key: string]: Json }
   | Json[]
 
@@ -14,25 +14,45 @@ export interface Database {
       admins: {
         Row: {
           id: string
-          created_at: string | null
-          user_id: string | null
+          created_at: string
+          user_id: string
         }
         Insert: {
           id?: string
-          created_at?: string | null
-          user_id?: string | null
+          created_at?: string
+          user_id?: string
         }
         Update: {
           id?: string
-          created_at?: string | null
-          user_id?: string | null
+          created_at?: string
+          user_id?: string
+        }
+      }
+      categories: {
+        Row: {
+          id: string
+          created_at: string
+          title: string
+          slug: string
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          title: string
+          slug: string
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          title?: string
+          slug?: string
         }
       }
       orders: {
         Row: {
           id: string
           created_at: string
-          user_id: string | null
+          user_id: string
           order_items: CartItem[]
           first_name: string
           last_name: string
@@ -93,83 +113,226 @@ export interface Database {
       products: {
         Row: {
           id: string
-          created_at: string | null
+          created_at: string
           title: string
           description: string
-          tags: Json | null
-          options: Json | null
-          variants: Json | null
-          images: Json | null
-          updated_at: string | null
-          visible: boolean | null
-          is_locked: boolean | null
-          blueprint_id: number | null
-          user_id: number | null
-          shop_id: number | null
-          print_provider_id: number | null
-          print_areas: Json | null
-          print_details: Json | null
-          sales_channel_properties: Json | null
-          twodaydelivery_enabled: boolean | null
+          tags: string[]
+          options: {
+          name: string;
+          type: string;
+          values: {
+            id: number;
+            title: string;
+          }[]
+          }[];
+          variants: {
+          id: number;
+          sku: string;
+          cost: number;
+          price: number;
+          title: string;
+          grams: number;
+          is_enabled: boolean;
+          is_default: boolean;
+          is_available: boolean;
+          options: number[];
+          quantity: number;
+          }[];
+          images: {
+            src: string;
+            position: string;
+            is_default: boolean;
+            variant_id: string;
+            variant_ids: string[];
+            is_selected_for_publishing: boolean;
+          }[];
+          updated_at: string
+          visible: boolean
+          is_locked: boolean
+          blueprint_id: number
+          user_id: number
+          shop_id: number
+          print_provider_id: number
+          print_areas: {
+            background: string;
+            variant_ids: number[];
+            placeholders: {
+              images: {
+                x: number;
+                y: number;
+                id:string;
+                name: string;
+                type: string;
+                angle: number;
+                scale: number;
+                width: number;
+                height: number;
+              }[]
+              position: string;
+            }[]
+          }[]
+          print_details: {
+            print_on_side: string;
+          }
+          sales_channel_properties: any[];
+          twodaydelivery_enabled: boolean
+          category: {
+            id: string;
+            title: string;
+            slug: string;
+            created_at: string;
+          }
         }
         Insert: {
           id: string
-          created_at?: string | null
+          created_at?: string
           title: string
           description: string
-          tags?: Json | null
-          options?: Json | null
-          variants?: Json | null
-          images?: Json | null
-          updated_at?: string | null
-          visible?: boolean | null
-          is_locked?: boolean | null
-          blueprint_id?: number | null
-          user_id?: number | null
-          shop_id?: number | null
-          print_provider_id?: number | null
-          print_areas?: Json | null
-          print_details?: Json | null
-          sales_channel_properties?: Json | null
-          twodaydelivery_enabled?: boolean | null
+          tags?: string[]
+          options?: {
+          name: string;
+          type: string;
+          values: {
+            id: number;
+            title: string;
+          }[]
+          }[];
+          variants?: {
+          id?: number;
+          sku?: string;
+          cost?: number;
+          price?: number;
+          title?: string;
+          grams?: number;
+          is_enabled?: boolean;
+          is_default?: boolean;
+          is_available?: boolean;
+          options?: number[];
+          quantity?: number;
+          }[];
+          images?:  {
+            src: string;
+            position: string;
+            is_default: boolean;
+            variant_id: string;
+            variant_ids: string[];
+            is_selected_for_publishing: boolean;
+          }[];
+          updated_at?: string
+          visible?: boolean
+          is_locked?: boolean
+          blueprint_id?: number
+          user_id?: number
+          shop_id?: number
+          print_provider_id?: number
+          print_areas?: {
+            background: string;
+            variant_ids: number[];
+            placeholders: {
+              images: {
+                x: number;
+                y: number;
+                id:string;
+                name: string;
+                type: string;
+                angle: number;
+                scale: number;
+                width: number;
+                height: number;
+              }[]
+              position: string;
+            }[]
+          }[]
+          print_details?:  {
+            print_on_side: string;
+          }
+          sales_channel_properties?: any[]
+          twodaydelivery_enabled?: boolean
+          category?: string
         }
         Update: {
           id?: string
-          created_at?: string | null
+          created_at?: string
           title?: string
           description?: string
-          tags?: Json | null
-          options?: Json | null
-          variants?: Json | null
-          images?: Json | null
-          updated_at?: string | null
-          visible?: boolean | null
-          is_locked?: boolean | null
-          blueprint_id?: number | null
-          user_id?: number | null
-          shop_id?: number | null
-          print_provider_id?: number | null
-          print_areas?: Json | null
-          print_details?: Json | null
-          sales_channel_properties?: Json | null
-          twodaydelivery_enabled?: boolean | null
+          tags?: string[]
+          options?: {
+          name: string;
+          type: string;
+          values: {
+            id: number;
+            title: string;
+          }[]
+          }[];
+          variants?: {
+          id?: number;
+          sku?: string;
+          cost?: number;
+          price?: number;
+          title?: string;
+          grams?: number;
+          is_enabled?: boolean;
+          is_default?: boolean;
+          is_available?: boolean;
+          options?: number[];
+          quantity?: number;
+          }[];
+          images?:  {
+            src: string;
+            position: string;
+            is_default: boolean;
+            variant_id: string;
+            variant_ids: string[];
+            is_selected_for_publishing: boolean;
+          }[];
+          updated_at?: string
+          visible?: boolean
+          is_locked?: boolean
+          blueprint_id?: number
+          user_id?: number
+          shop_id?: number
+          print_provider_id?: number
+          print_areas?: {
+            background: string;
+            variant_ids: number[];
+            placeholders: {
+              images: {
+                x: number;
+                y: number;
+                id:string;
+                name: string;
+                type: string;
+                angle: number;
+                scale: number;
+                width: number;
+                height: number;
+              }[]
+              position: string;
+            }[]
+          }[]
+          print_details?:  {
+            print_on_side: string;
+          }
+          sales_channel_properties?: any[]
+          twodaydelivery_enabled?: boolean
+          category?: string
         }
       }
       profiles: {
         Row: {
           id: string
-          first_name: string | null
-          last_name: string | null
+          first_name: string
+          last_name: string
         }
         Insert: {
           id: string
-          first_name?: string | null
-          last_name?: string | null
+          first_name?: string
+          last_name?: string
         }
         Update: {
           id?: string
-          first_name?: string | null
-          last_name?: string | null
+          first_name?: string
+          last_name?: string
         }
       }
     }
@@ -177,6 +340,10 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
+      get_total_paid_orders: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
       is_admin: {
         Args: Record<PropertyKey, never>
         Returns: boolean

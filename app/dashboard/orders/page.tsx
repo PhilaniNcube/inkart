@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { getOrders } from "@/lib/fetchers/orders";
+import { getOrderValues, getOrders } from "@/lib/fetchers/orders";
 import Link from "next/link";
 import {
   Table,
@@ -16,6 +16,10 @@ import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 
 const page = async ({searchParams: {page}}:{searchParams: {page: string}}) => {
+
+  const value = await getOrderValues()
+
+  console.log(formatPrice(value))
 
   const currentPage = +page || 1
 

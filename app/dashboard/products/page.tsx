@@ -1,4 +1,4 @@
-import { getProducts } from "@/lib/fetchers/products";
+import { fetchProducts, getProducts } from "@/lib/fetchers/products";
 import ProductsTable from "./ProductsTable";
 import Pagination from "@/app/products/Pagination";
 import TablePagination from "./TablePagination";
@@ -9,21 +9,27 @@ async function page({ searchParams }: { searchParams: { page: string; }; }) {
 
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
-  const productsData = getProducts(page, 24);
+  const productsData = fetchProducts(page, 24);
 
-  const [data] = await Promise.all([productsData]);
+
+
+  const [{products, count}] = await Promise.all([productsData]);
+
+  const lastPage = Math.ceil(count! / 24)
 
   return (
     <main>
       <TablePagination
-        currentPage={data.current_page}
-        lastPage={data.last_page}
-        total={data.total} />
-      <ProductsTable products={data.data} />
+        currentPage={page}
+        lastPage={lastPage}
+        total={count!}
+      />
+      <ProductsTable products={products!} />
       <TablePagination
-        currentPage={data.current_page}
-        lastPage={data.last_page}
-        total={data.total} />
+        currentPage={page}
+        lastPage={lastPage}
+        total={count!}
+      />
     </main>
   );
 }

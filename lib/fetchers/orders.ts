@@ -63,4 +63,19 @@ const updateOrderById = async (id: string) => {
 }
 
 
-export { getOrderById, getOrders, updateOrderById}
+const getOrderValues = async () => {
+const supabase = createServerComponentClient<Database>({ cookies });
+
+const {data, error} = await supabase.rpc("get_total_paid_orders").single();
+
+if(error) {
+  throw new Error(error.message);
+}
+
+return data;
+
+
+}
+
+
+export { getOrderById, getOrders, updateOrderById, getOrderValues}

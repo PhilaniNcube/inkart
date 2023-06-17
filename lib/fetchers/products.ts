@@ -1,4 +1,7 @@
 import { Product, ProductAPI, ProductVariations, ProductGridItem } from "@/schema"
+import { Database } from "@/types"
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
+import { cookies } from "next/headers"
 
 const URL = process.env.NEXT_PUBLIC__BASE_URL || 'https://api.printify.com/v1/'
 
@@ -44,12 +47,73 @@ const getProducts = async (page = 1, limit = 16):Promise<ProductResponse> => {
     })
   }
 
-
-
-
   return response
 
 }
+
+
+
+const fetchProducts = async (page: number, page_size: number) => {
+const supabase = createServerComponentClient<Database>({ cookies });
+
+const start = (page - 1 ) * page_size;
+
+const end = start + page_size;
+
+const {data:products, error, count} = await supabase.from('products').select('*, category(*)',  {count: 'exact'}).range(start, end);
+
+if (error) {
+  throw new Error(error.message)
+}
+
+return {
+  products,
+  count
+}
+
+}
+
+
+const fetchProductById = async (id:string) => {
+  const supabase = createServerComponentClient<Database>({ cookies });
+
+  const {data:product, error} = await supabase.from('products').select('*, category(*)').eq('id', id).single();
+
+  if (error) {
+     throw new Error(error.message)
+  }
+
+  return product
+}
+
+
+const fetchCategories = async () => {
+  const supabase = createServerComponentClient<Database>({ cookies });
+
+  const {data:categories, error} = await supabase.from('categories').select('*')
+
+  if (error) {
+     throw new Error(error.message)
+  }
+
+  return categories
+}
+
+
+const fetchCategoryById = async (id:string) => {
+  const supabase = createServerComponentClient<Database>({ cookies });
+
+  const {data:category, error} = await supabase.from('categories').select('*').eq('id', id).single();
+
+  if (error) {
+     throw new Error(error.message)
+  }
+
+  return category
+}
+
+
+
 
 const getProduct = async (productId:string):Promise<Product> => {
 
@@ -114,4 +178,24 @@ const getProductVariations = async (productId:string):Promise<ProductVariations>
 
 }
 
-export { getProducts, getProduct, getFeaturedProducts, getProductVariations}
+
+
+const getOr = async (page_size = 20, page = 1) => {
+    const supabase = createServerComponentClient<Database>({ cookies });
+
+    const start = (page - 1) * page_size;
+    const end = start + page_size - 1;
+
+    const { data:orders, error, count } = await supabase.from("orders").select("*", {count: 'exact'}).range(start, end).order('created_at', { ascending: false });
+
+    if(error) {
+        throw new Error(error.message);
+    }
+
+    return {
+      orders,
+      count
+    };
+}
+
+export { getProducts, getProduct, getFeaturedProducts, getProductVariations, fetchProducts, fetchProductById, fetchCategories, fetchCategoryById}
