@@ -60,7 +60,7 @@ const start = (page - 1 ) * page_size;
 
 const end = start + page_size;
 
-const {data:products, error, count} = await supabase.from('products').select('*, category(*)',  {count: 'exact'}).range(start, end);
+const {data:products, error, count} = await supabase.from('products').select('*, category(*)',  {count: 'exact'}).range(start, end).order('title', {ascending: true});
 
 if (error) {
   throw new Error(error.message)
