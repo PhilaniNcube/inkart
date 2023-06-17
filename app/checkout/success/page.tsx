@@ -39,7 +39,7 @@ const page = async ({
 
 // console.log(email)
 
-  console.log({ updatedOrder });
+  // console.log({ updatedOrder });
 
   // const query = await fetch(
   //   `https://sandbox.payfast.co.za/​eng/query/validate`, {
