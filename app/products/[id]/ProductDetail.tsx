@@ -11,6 +11,7 @@ import { formatPrice } from "@/lib/utils";
 import { Product, ProductVariations } from "@/schema";
 import { MinusIcon, PlusIcon, ShoppingBag } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Fragment, useState } from "react";
 
 type ProductDetailProps = {
@@ -18,6 +19,8 @@ type ProductDetailProps = {
 }
 
 const ProductDetail = ({product}:ProductDetailProps) => {
+
+  const router = useRouter()
 
   const [imgIndex, setImgIndex] = useState(0)
 
@@ -130,19 +133,23 @@ const ProductDetail = ({product}:ProductDetailProps) => {
 
             <Button
               type="button"
-              onClick={() =>
-                dispatch(
-                  increment({
-                    productId: product.id,
-                    qty: 1,
-                    variantId: selectedVariation.id,
-                    variantSKU: selectedVariation.sku,
-                    size: selectedVariation.title,
-                    image: imageIndex[imgIndex].src,
-                    price: selectedVariation.price,
-                    productTitle: product.title,
-                  })
-                )
+              onClick={() => {
+                 dispatch(
+                   increment({
+                     productId: product.id,
+                     qty: 1,
+                     variantId: selectedVariation.id,
+                     variantSKU: selectedVariation.sku,
+                     size: selectedVariation.title,
+                     image: imageIndex[imgIndex].src,
+                     price: selectedVariation.price,
+                     productTitle: product.title,
+                   })
+                 );
+
+                 router.push("/cart");
+              }
+
               }
               className="w-full"
             >
