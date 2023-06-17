@@ -23,7 +23,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
     <h1>Hello, {first_name} {last_name}!</h1>
     <p>
       Thank you for your order. We will get back to you as soon as
-      possible.
+      possible. Once we have confiremed the payment your order will be dispatched. Please see your delivery details below. If they are incorrect please send us an email at info@inkart.store
     </p>
     <p>
       <strong>Order ID:</strong> {order_id}
