@@ -147,7 +147,7 @@ const ProductDetail = ({product}:ProductDetailProps) => {
                    })
                  );
 
-                 router.push("/cart");
+
               }
 
               }

@@ -44,6 +44,7 @@ const Login = ({ title, page}: { title: string, page:string }) => {
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
+
     });
 
     if (error) {

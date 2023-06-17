@@ -3,16 +3,22 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 
-const getOrders = async () => {
+const getOrders = async (page_size = 20, page = 1) => {
     const supabase = createServerComponentClient<Database>({ cookies });
 
-    const { data, error } = await supabase.from("orders").select("*");
+    const start = (page - 1) * page_size;
+    const end = start + page_size - 1;
+
+    const { data:orders, error, count } = await supabase.from("orders").select("*", {count: 'exact'}).range(start, end).order('created_at', { ascending: false });
 
     if(error) {
         throw new Error(error.message);
     }
 
-    return data;
+    return {
+      orders,
+      count
+    };
 }
 
 

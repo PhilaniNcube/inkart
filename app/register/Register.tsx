@@ -47,7 +47,7 @@ const Register = ({ title }: { title: string; }) => {
       email,
       password,
       options: {
-        emailRedirectTo: "https://inkart.store",
+        emailRedirectTo: location.href,
         data: {
           first_name: data.first_name,
           last_name: data.last_name,
