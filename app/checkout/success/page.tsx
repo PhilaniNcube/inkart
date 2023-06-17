@@ -15,6 +15,30 @@ const page = async ({
   const order = await getOrderById(order_id!);
   const updatedOrder = await updateOrderById(order_id!);
 
+  if(order.paid === false) {
+  await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/send/orders`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: order.email,
+      order_id: order.id,
+      first_name: order.first_name,
+      last_name: order.last_name,
+      address: order.address,
+      city: order.city,
+      state: order.state,
+    }),
+  })
+    .then((response) => response.text())
+    .catch((error) => console.error("Error sending email", error));
+  }
+
+
+
+// console.log(email)
+
   console.log({ updatedOrder });
 
   // const query = await fetch(
