@@ -39,7 +39,7 @@ const DesktopNavigation = ({user}:{user:User | null}) => {
       throw new Error(error.message)
     }
     alert(`Signed Out`)
-    router.refresh()
+    router.push('/')
   }
 
   return (

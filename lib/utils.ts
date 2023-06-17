@@ -45,18 +45,21 @@ const generateSignature = (data:any, passPhrase = null || '') => {
 
 export const getExchangeRate = async () => {
 
-  const exchangeRate = await fetch(
-    `http://apilayer.net/api/live?access_key=${process.env.CURRENCY_API_KEY}&currencies=ZAR&source=USD&format=1`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  )
-    .then((response) => response.json())
-    .catch((err) => console.log(err));
+  // const exchangeRate = await fetch(
+  //   `http://apilayer.net/api/live?access_key=${process.env.CURRENCY_API_KEY}&currencies=ZAR&source=USD&format=1`,
+  //   {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   }
+  // )
+  //   .then((response) => response.json())
+  //   .catch((err) => {
+  //     console.log(err)
+  //     throw new Error(err)
+  //   });
 
 
-  return exchangeRate.quotes.USDZAR as number;
+  return 20;
   }

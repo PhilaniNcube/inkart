@@ -14,8 +14,10 @@ import { Label } from "@/components/ui/label";
 import { FormEvent } from "react";
 import { useSupabase } from "@/components/Providers/SupabaseProvider";
 import { useRouter } from "next/navigation";
+import { User } from "@supabase/supabase-js";
+import Login from "../login/Login";
 
-const CartDetails = ({exchangeRate}:{exchangeRate: number}) => {
+const CartDetails = ({exchangeRate, user}:{exchangeRate: number, user: User | null}) => {
 
   const {supabase} = useSupabase()
 
@@ -139,7 +141,10 @@ const shipping = 3000
               </div>
             ))}
           </div>
-          <form onSubmit={handleSubmit} className="rounded-lg p-6 bg-slate-100">
+
+          {user === null ? (
+           <Login title="Please Sign In" page="/cart" />
+          ) : (     <form onSubmit={handleSubmit} className="rounded-lg p-6 bg-slate-100">
             {/* <h2 className="font-semibold text-xl">Order Summary</h2> */}
 
             <div className="w-full">
@@ -321,7 +326,9 @@ const shipping = 3000
                 Checkout
               </Button>
             </div>
-          </form>
+          </form>)}
+
+
         </div>
       )}
     </Container>

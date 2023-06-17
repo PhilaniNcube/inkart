@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Container from "@/components/layout/Container";
 import { FormEvent, useState } from "react";
 import * as z from "zod";
@@ -6,17 +6,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {SubmitHandler, useForm} from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useSupabase } from "@/components/Providers/SupabaseProvider";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const formSchema = z.object({
+  first_name: z.string().min(2).max(100),
+  last_name: z.string().min(2).max(100),
   email: z.string().email(),
   password: z.string().min(8).max(100),
-})
+});
 
-const Login = ({ title, page}: { title: string, page:string }) => {
+const Register = ({ title }: { title: string; }) => {
   const router = useRouter();
 
   const { supabase } = useSupabase();
@@ -41,17 +43,24 @@ const Login = ({ title, page}: { title: string, page:string }) => {
 
     const { email, password } = data;
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        emailRedirectTo: "https://inkart.store",
+        data: {
+          first_name: data.first_name,
+          last_name: data.last_name,
+        }
+      }
     });
 
     if (error) {
       alert(error.message);
     }
-    alert("Login was successful");
+    alert("Please check your email address to confirm your account");
     setLoading(false);
-    router.push(`${page}`);
+    router.push(`/`);
   };
 
   return (
@@ -62,7 +71,15 @@ const Login = ({ title, page}: { title: string, page:string }) => {
           onSubmit={handleSubmit(onSubmit)}
           className="w-full max-w-4xl mx-auto mt-6 flex flex-col items-center"
         >
-          <div className="flex flex-col space-y-3 w-2/3">
+          <div className="flex flex-col space-y-3 w-2/3 mt-6">
+            <Label htmlFor="first_name">First Name</Label>
+            <Input id="first_name" type="text" {...register("first_name")} />
+          </div>
+          <div className="flex flex-col space-y-3 w-2/3 mt-6">
+            <Label htmlFor="last_name">Last Name</Label>
+            <Input id="last_name" type="text" {...register("last_name")} />
+          </div>
+          <div className="flex flex-col space-y-3 w-2/3 mt-6">
             <Label htmlFor="email">Email</Label>
             <Input id="email" type="email" {...register("email")} />
           </div>
@@ -77,16 +94,14 @@ const Login = ({ title, page}: { title: string, page:string }) => {
             </Button>
           </div>
         </form>
-         <div
-          className="w-full max-w-4xl mx-auto mt-6 flex items-center"
-        >
+        <div className="w-full max-w-4xl mx-auto mt-6 flex items-center">
           <p className="text-sm text-gray-500">
-            Don&apos;t have an account?{" "}
+            Already have an account?{" "}
             <Link
-              href="/register"
+              href="/login"
               className="underline text-blue-500 hover:text-blue-700"
             >
-              Create an account
+              Login here
             </Link>
           </p>
         </div>
@@ -94,4 +109,4 @@ const Login = ({ title, page}: { title: string, page:string }) => {
     </Container>
   );
 };
-export default Login;
+export default Register;
