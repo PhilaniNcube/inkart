@@ -3,8 +3,13 @@ import { ProductGridItem } from "@/schema";
 import Link from "next/link";
 import Image from 'next/image'
 import Container from "../layout/Container";
+import { Database } from "@/types";
 
-const ProductGrid = ({products}:{products: ProductGridItem[]}) => {
+type PageProps = {
+  products: Database['public']['Tables']['products']['Row'][];
+}
+
+const ProductGrid = ({products}:PageProps) => {
 
   return (
     <Container>

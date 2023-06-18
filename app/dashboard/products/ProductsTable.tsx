@@ -18,15 +18,15 @@ import { Button } from "@/components/ui/button";
 import Link from 'next/link'
 import { EyeIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import EditProductCategory from "./EditProductCategory";
 
 type ProductsTableProps = {
   products: Database['public']['Tables']['products']['Row'][];
+  categories: Database['public']['Tables']['categories']['Row'][];
 };
 
-const ProductsTable = ({products}:ProductsTableProps) => {
-
+const ProductsTable = ({ products, categories }: ProductsTableProps) => {
   // const toggleLock = async (product:ProductGridItem) => {
-
 
   //  const res = await fetch(`/api/products/${product.id}/publish`, {
   //     next:{tags: ["products", "/dashboard/products"]},
@@ -39,10 +39,6 @@ const ProductsTable = ({products}:ProductsTableProps) => {
   //  })
 
   //  const data = await res.json()
-
-
-
-
 
   // }
 
@@ -73,14 +69,18 @@ const ProductsTable = ({products}:ProductsTableProps) => {
               />
             </TableCell>
             <TableCell>{product.title}</TableCell>
-            <TableCell>
-              {product.category?.title
-                ? product.category?.title
-                : "Missing Category"}
+            <TableCell className="flex flex-col items-center space-y-2">
+              <p className="font-medium text-xs">
+                {product.category?.title ? (
+                  product.category?.title
+                ) : (
+                  <span className="text-red-500">Choose a category</span>
+                )}
+              </p>
+              <EditProductCategory id={product.id} categories={categories} />
             </TableCell>
             <TableCell>{formatPrice(product.variants[0].price)}</TableCell>
             <TableCell>{formatPrice(product.variants[0].cost)}</TableCell>
-
 
             <TableCell>
               {product.is_locked ? (

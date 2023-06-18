@@ -10,11 +10,28 @@ import { FormEvent } from "react";
 import { useSelector } from "react-redux";
 import { Button } from "../ui/button";
 import { useSupabase } from "../Providers/SupabaseProvider";
+import { Database } from "@/types";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
+
+type ComponentProps = {
+  user: User | null;
+  categories: Database["public"]["Tables"]["categories"]["Row"][];
+};
+
+const DesktopNavigation = ({user, categories}:ComponentProps) => {
 
 
-const DesktopNavigation = ({user}:{user:User | null}) => {
-
-  console.log({user})
 
   const router = useRouter()
 
@@ -77,28 +94,58 @@ const DesktopNavigation = ({user}:{user:User | null}) => {
             )}
           </Link>
           {user === null ? (
-          <>
-           <Link href="/login" className="flex flex-col items-center">
-            <User2Icon size={20} strokeWidth={1} />
-            <span className="text-xs text-slate-800 font-semibold">Login</span>
-          </Link>
-          <Link href="/register" className="flex flex-col items-center">
-            <UserPlus2Icon size={20} strokeWidth={1} />
-            <span className="text-xs text-slate-800 font-semibold">
-              Register
-            </span>
-          </Link>
-          </>
+            <>
+              <Link href="/login" className="flex flex-col items-center">
+                <User2Icon size={20} strokeWidth={1} />
+                <span className="text-xs text-slate-800 font-semibold">
+                  Login
+                </span>
+              </Link>
+              <Link href="/register" className="flex flex-col items-center">
+                <UserPlus2Icon size={20} strokeWidth={1} />
+                <span className="text-xs text-slate-800 font-semibold">
+                  Register
+                </span>
+              </Link>
+            </>
           ) : (
-          <div>
-            <Button variant="destructive" onClick={signOut}>Logout</Button>
-          </div>
+            <div>
+              <Button variant="destructive" onClick={signOut}>
+                Logout
+              </Button>
+            </div>
           )}
-
         </div>
       </div>
-      <div className="w-full pt-3 hidden lg:flex items-center justify-center space-x-4">
-        <Link
+      <div className="w-full pt-3 hidden lg:flex items-center justify-start space-x-4">
+        <NavigationMenu className="justify-start">
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <Link href="/" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Home
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                  {categories.map((category) => (
+                    <Link key={category.id} href={`/categories/${category.id}`} legacyBehavior passHref>
+                      <NavigationMenuLink
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        {category.title}
+                      </NavigationMenuLink>
+                    </Link>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+        {/* <Link
           href="/products?page=1"
           className="text-slate-800 hover:text-slate-700 text-sm px-2 py-1 hover:bg-slate-200 rounded-md"
         >
@@ -127,7 +174,7 @@ const DesktopNavigation = ({user}:{user:User | null}) => {
           className="text-slate-800 hover:text-slate-700 text-sm px-2 py-1 hover:bg-slate-200 rounded-md"
         >
           About Us
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

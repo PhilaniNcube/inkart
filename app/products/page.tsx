@@ -1,7 +1,7 @@
 import Container from "@/components/layout/Container";
 import ProductGrid from "@/components/products/ProductGrid";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { getProducts } from "@/lib/fetchers/products";
+import { fetchProducts, getProducts } from "@/lib/fetchers/products";
 import { Metadata } from "next";
 import Link from "next/link";
 import Pagination from "./Pagination";
@@ -25,7 +25,9 @@ const page = async ({searchParams}:{searchParams: {page:string}}) => {
 
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
-  const { current_page, data:products, last_page, links, per_page, total } = await getProducts(page, 24);
+  const { products, count } = await fetchProducts(page, 24);
+
+  const lastPage = Math.ceil(count! / 24);
 
   return (
     <main className="mb-16">
@@ -35,14 +37,14 @@ const page = async ({searchParams}:{searchParams: {page:string}}) => {
             <div className="mb-3">
               {" "}
               <Pagination
-                currentPage={current_page}
-                lastPage={last_page}
-                total={total}
+                currentPage={page}
+                lastPage={lastPage}
+                total={count!}
               />
             </div>
 
             <ScrollArea className="h-full w-full max-w-[1300px] overflow-hidden bg-slate-100 px-4 py-3">
-              <ProductGrid products={products} />
+              <ProductGrid products={products!} />
             </ScrollArea>
           </section>
         </div>

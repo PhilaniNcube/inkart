@@ -1,5 +1,5 @@
 import { Metadata, ResolvingMetadata } from "next";
-import { getProduct } from "@/lib/fetchers/products";
+import { fetchProductById, getProduct } from "@/lib/fetchers/products";
 import ProductDetail from "./ProductDetail";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 };
 
 export async function generateMetadata({ params: { id } }: Props) {
-  const productData = getProduct(id);
+  const productData = fetchProductById(id);
 
   const [product] = await Promise.all([productData]);
 
@@ -41,7 +41,7 @@ export async function generateMetadata({ params: { id } }: Props) {
 }
 
 const page = async ({ params: { id } }: Props) => {
-  const productData = getProduct(id);
+  const productData = fetchProductById(id);
 
   const [product] = await Promise.all([productData]);
 

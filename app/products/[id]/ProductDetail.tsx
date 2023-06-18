@@ -9,13 +9,14 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { formatPrice } from "@/lib/utils";
 import { Product, ProductVariations } from "@/schema";
+import { Database } from "@/types";
 import { MinusIcon, PlusIcon, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Fragment, useState } from "react";
 
 type ProductDetailProps = {
-  product: Product;
+  product: Database['public']['Tables']['products']['Row'];
 }
 
 const ProductDetail = ({product}:ProductDetailProps) => {

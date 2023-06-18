@@ -49,7 +49,7 @@ const page = async ({params: {id}}:{params: {id:string}}) => {
     if (error) {
       throw new Error(error.message)
     }
-     revalidatePath(`/dashboard/products`);
+     revalidatePath(`/dashboard/products/${id}`);
     return product
 
     }

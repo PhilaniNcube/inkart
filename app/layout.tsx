@@ -7,6 +7,7 @@ import CartProvider from '@/components/Providers/CartProvider';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from "next/headers";
 import SupabaseProvider from '@/components/Providers/SupabaseProvider';
+import { fetchCategories } from '@/lib/fetchers/products';
 
 
 
@@ -47,13 +48,15 @@ export default async function RootLayout({
 
     let { data: admin, error } = await supabase.rpc("is_admin");
 
+    const categories = await fetchCategories()
+
 
   return (
     <html lang="en">
       <body>
         <SupabaseProvider>
           <CartProvider>
-            <Navbar user={user} />
+            <Navbar user={user} categories={categories} />
             {children}
             <Footer />
           </CartProvider>

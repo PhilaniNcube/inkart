@@ -142,8 +142,8 @@ export interface Database {
             src: string;
             position: string;
             is_default: boolean;
-            variant_id: string;
-            variant_ids: string[];
+            variant_id: number;
+            variant_ids: number[];
             is_selected_for_publishing: boolean;
           }[];
           updated_at: string
@@ -214,8 +214,8 @@ export interface Database {
             src: string;
             position: string;
             is_default: boolean;
-            variant_id: string;
-            variant_ids: string[];
+            variant_id: number;
+            variant_ids: number[];
             is_selected_for_publishing: boolean;
           }[];
           updated_at?: string

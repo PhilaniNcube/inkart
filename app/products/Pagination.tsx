@@ -4,14 +4,14 @@ import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 
 type PaginationProps = {
-  currentPage: string;
+  currentPage: number;
   total: number;
   lastPage: number;
 }
 
 const Pagination = ({ currentPage, total, lastPage }: PaginationProps) => {
 
-  const page = currentPage ? parseInt(currentPage) : 1;
+  const page = currentPage ? currentPage : 1;
 
   return (
     <div className="flex justify-between items-center bg-slate-100 rounded-lg p-3">
