@@ -8,7 +8,8 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from "next/headers";
 import SupabaseProvider from '@/components/Providers/SupabaseProvider';
 import { fetchCategories } from '@/lib/fetchers/products';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -61,6 +62,7 @@ export default async function RootLayout({
             <Footer />
           </CartProvider>
         </SupabaseProvider>
+        <ToastContainer />
       </body>
     </html>
   );

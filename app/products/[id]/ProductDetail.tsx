@@ -14,6 +14,15 @@ import { MinusIcon, PlusIcon, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Fragment, useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 type ProductDetailProps = {
   product: Database['public']['Tables']['products']['Row'];
@@ -22,6 +31,8 @@ type ProductDetailProps = {
 const ProductDetail = ({product}:ProductDetailProps) => {
 
   const router = useRouter()
+
+
 
   const [imgIndex, setImgIndex] = useState(0)
 
@@ -130,32 +141,50 @@ const ProductDetail = ({product}:ProductDetailProps) => {
             </ScrollArea> */}
           </div>
           <div className="mt-4 flex justify-between items-center">
-
-
-            <Button
-              type="button"
-              onClick={() => {
-                 dispatch(
-                   increment({
-                     productId: product.id,
-                     qty: 1,
-                     variantId: selectedVariation.id,
-                     variantSKU: selectedVariation.sku,
-                     size: selectedVariation.title,
-                     image: imageIndex[imgIndex].src,
-                     price: selectedVariation.price,
-                     productTitle: product.title,
-                   })
-                 );
-
-
-              }
-
-              }
-              className="w-full"
-            >
-             Add To Cart {" "}
-            </Button>
+            <Dialog>
+              <DialogTrigger className="flex w-full">
+                <Button
+                  type="button"
+                  onClick={() => {
+                    dispatch(
+                      increment({
+                        productId: product.id,
+                        qty: 1,
+                        variantId: selectedVariation.id,
+                        variantSKU: selectedVariation.sku,
+                        size: selectedVariation.title,
+                        image: imageIndex[imgIndex].src,
+                        price: selectedVariation.price,
+                        productTitle: product.title,
+                      })
+                    );
+                  }}
+                  className="w-full text-lg uppercase"
+                >
+                  Add To Cart{" "}
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Product Added To Cart</DialogTitle>
+                  <DialogDescription>
+                    {product.title} has been added to your cart.
+                    <Image
+                      src={imageIndex[imgIndex].src}
+                      width={500}
+                      height={500}
+                      alt={product.title}
+                      className="w-full object-cover aspect-square group-hover:opacity-75"
+                    />
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                  <Button type="button" onClick={() => router.push("/cart")}>
+                    View Cart
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </div>

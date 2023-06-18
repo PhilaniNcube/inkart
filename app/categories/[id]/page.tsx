@@ -2,6 +2,20 @@ import Container from "@/components/layout/Container";
 import ProductGrid from "@/components/products/ProductGrid";
 import { Separator } from "@/components/ui/separator";
 import { fetchCategoryById,  fetchProductsByCategoryId } from "@/lib/fetchers/products";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params: { id },
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const category = await fetchCategoryById(id);
+
+  return {
+    title: `${category.title} | Ink Art`,
+    description: `Browse our ${category.title} category for the best wall art you can find online.`,
+  };
+}
 
 const page = async ({params: {id}, searchParams: {page}}:{params: {id: string}, searchParams: {page:string}}) => {
 
