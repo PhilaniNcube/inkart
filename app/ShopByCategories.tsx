@@ -29,7 +29,7 @@ export default function ShopByCategories({ categories}:ComponentProps) {
                   <Image
                     src={category.image}
                     alt={category.title}
-                    width={1024}
+                    width={512}
                     height={512}
                     className="w-full object-cover rounded-md"
                   />
