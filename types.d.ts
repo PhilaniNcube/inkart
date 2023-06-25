@@ -34,18 +34,21 @@ export interface Database {
           created_at: string
           title: string
           slug: string
+          image: string
         }
         Insert: {
           id?: string
           created_at?: string
           title: string
           slug: string
+          image?: string
         }
         Update: {
           id?: string
           created_at?: string
           title?: string
           slug?: string
+          image?: string
         }
       }
       orders: {

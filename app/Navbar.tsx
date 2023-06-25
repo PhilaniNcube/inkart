@@ -20,7 +20,7 @@ const Navbar =  ({user, categories}:ComponentProps) => {
         {/* Desktop Navigation Ends*/}
 
         {/* Mobile Navigation Starts*/}
-        <MobileNavigation />
+        <MobileNavigation user={user} />
         {/* Mobile Navigation Ends*/}
       </Container>
     </header>

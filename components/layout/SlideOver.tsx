@@ -71,24 +71,11 @@ export default function SlideOver({ open, setOpen}: { open: boolean, setOpen: (o
                     </div>
                     <div className="relative mt-6 flex-1 flex flex-col space-y-4 px-4 sm:px-6">
                       <Link href="/products">Browse Art</Link>
-                      <Link href="/products/best-sellers">Browse Art</Link>
-                      <Link href="/products/search">Search</Link>
+                      <Link href="/categories">Categories</Link>
+                      {/* <Link href="/products/search">Search</Link> */}
                       <Separator className="my-3 text-slate-800" />
 
-                      <Link
-                        href="/register"
-                        className="flex items-center spaxe-x-3"
-                      >
-                        <UserPlus />
-                        Register
-                      </Link>
-                      <Link
-                        href="/login"
-                        className="flex items-center spaxe-x-3"
-                      >
-                        <User />
-                        Login
-                      </Link>
+
                     </div>
                   </div>
                 </Dialog.Panel>

@@ -1,11 +1,9 @@
-import { getFeaturedProducts, getProducts } from '@/lib/fetchers/products';
-import Image from 'next/image'
+
 import { Metadata } from "next";
-import Link from 'next/link';
 import Hero from './Hero';
-import CollectionGrid from './CollectionGrid';
-import Container from '@/components/layout/Container';
 import CallToAction from './CallToAction';
+import { fetchCategories } from '@/lib/fetchers/products';
+import ShopByCategories from './ShopByCategories';
 
 export const metadata: Metadata = {
   title: "Stunning Wall Art & Home Decor | InkArt",
@@ -26,7 +24,7 @@ export const metadata: Metadata = {
 
 export default async function Home() {
 
-
+const categories = await fetchCategories()
 
 
   return (
@@ -36,6 +34,7 @@ export default async function Home() {
       {/* <Container>
        <CollectionGrid title="Featured Collection" products={data} />
       </Container> */}
+      <ShopByCategories categories={categories} />
       <CallToAction  />
     </main>
   );
