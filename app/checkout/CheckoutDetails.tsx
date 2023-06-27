@@ -73,7 +73,7 @@ const CheckoutDetails = ({exchangeRate, order}:Props) => {
         <Separator className="my-4" />
         <form
           method="POST"
-          action="https://sandbox.payfast.co.za/eng/process"
+          action="https://www.payfast.co.za/eng/process"
           className="flex w-full gap-10"
         >
           <input type="hidden" name="merchant_id" value="22095509" />
