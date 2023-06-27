@@ -76,8 +76,8 @@ const CheckoutDetails = ({exchangeRate, order}:Props) => {
           action="https://sandbox.payfast.co.za/eng/process"
           className="flex w-full gap-10"
         >
-          <input type="hidden" name="merchant_id" value="10000100" />
-          <input type="hidden" name="merchant_key" value="46f0cd694581a" />
+          <input type="hidden" name="merchant_id" value="22095509" />
+          <input type="hidden" name="merchant_key" value="l0jsewdjujvwb" />
           <input
             type="hidden"
             name="amount"
@@ -218,7 +218,11 @@ const CheckoutDetails = ({exchangeRate, order}:Props) => {
                 <div className="flex px-4">
                   {order.paid ? (
                     <Link href="/">
-                      <Button type="button" variant="link"  className="mt-3 w-full">
+                      <Button
+                        type="button"
+                        variant="link"
+                        className="mt-3 w-full"
+                      >
                         Order Has Already Been Paid - Back to Home Page
                       </Button>
                     </Link>
