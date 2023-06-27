@@ -43,7 +43,6 @@ export default async function RootLayout({
       <body>
         <SupabaseProvider>
           <CartProvider>
-            {/* @ts-expect-error Server Component */}
             <Navbar />
             {children}
             <Footer />
