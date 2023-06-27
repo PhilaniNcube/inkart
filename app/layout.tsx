@@ -36,14 +36,26 @@ export default async function RootLayout({
 }) {
 
 
+  const supabase = createServerComponentClient({ cookies });
 
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let { data: admin, error } = await supabase.rpc("is_admin");
+
+  const categories = await fetchCategories();
 
   return (
     <html lang="en">
       <body>
         <SupabaseProvider>
           <CartProvider>
-            <Navbar />
+            <Navbar categories={categories} user={user} admin={admin} />
             {children}
             <Footer />
           </CartProvider>

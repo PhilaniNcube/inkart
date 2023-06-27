@@ -9,23 +9,12 @@ import { cookies } from "next/headers";
 type ComponentProps = {
   user: User | null;
   categories: Database['public']['Tables']['categories']['Row'][];
+  admin:boolean;
 }
 
-const Navbar =  async () => {
+const Navbar =  ({user, categories, admin}:ComponentProps) => {
 
-    const supabase = createServerComponentClient({ cookies });
 
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    let { data: admin, error } = await supabase.rpc("is_admin");
-
-    const categories = await fetchCategories();
 
   return (
     <header className="border-b border-slate-200">
