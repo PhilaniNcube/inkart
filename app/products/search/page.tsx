@@ -1,7 +1,7 @@
 import Container from "@/components/layout/Container";
 import ProductGrid from "@/components/products/ProductGrid";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { getProducts } from "@/lib/fetchers/products";
+import { fetchSearchProducts, getProducts } from "@/lib/fetchers/products";
 import { Metadata } from "next";
 import Link from "next/link";
 import Pagination from "../Pagination";
@@ -37,7 +37,7 @@ const page = async ({ searchParams }: { searchParams: { page: string, query:stri
   // } = await getProducts(page, 10);
 
 
-  const {status, products, ok, total} = await fetch(`http://localhost:3000/api/products/search?query=${query}`).then(res => res.json())
+ const {products, count} = await fetchSearchProducts(query);
 
 
   return (

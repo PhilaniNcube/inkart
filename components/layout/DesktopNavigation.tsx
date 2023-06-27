@@ -27,9 +27,10 @@ import { cn } from "@/lib/utils";
 type ComponentProps = {
   user: User | null;
   categories: Database["public"]["Tables"]["categories"]["Row"][];
+  admin: boolean
 };
 
-const DesktopNavigation = ({user, categories}:ComponentProps) => {
+const DesktopNavigation = ({user, categories, admin}:ComponentProps) => {
 
 
 
@@ -109,7 +110,14 @@ const DesktopNavigation = ({user, categories}:ComponentProps) => {
               </Link>
             </>
           ) : (
-            <div>
+            <div className="flex items-center spaxe-x-3 gap-3">
+
+              {admin && (
+                <Link href="/dashboard" className="flex flex-col items-center">
+                  <Button variant="outline">Dashboard</Button>
+                </Link>
+              )}
+
               <Button variant="destructive" onClick={signOut}>
                 Logout
               </Button>

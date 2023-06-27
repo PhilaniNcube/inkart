@@ -35,21 +35,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
 
-    const supabase = createServerComponentClient({ cookies });
 
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-
-
-    let { data: admin, error } = await supabase.rpc("is_admin");
-
-    const categories = await fetchCategories()
 
 
   return (
@@ -57,7 +43,7 @@ export default async function RootLayout({
       <body>
         <SupabaseProvider>
           <CartProvider>
-            <Navbar user={user} categories={categories} />
+            <Navbar />
             {children}
             <Footer />
           </CartProvider>

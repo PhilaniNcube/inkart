@@ -216,4 +216,27 @@ const fetchProductsByCategoryId = async ( id:string) => {
     };
 }
 
-export { getProducts, getProduct, getFeaturedProducts, getProductVariations, fetchProducts, fetchProductById, fetchCategories, fetchCategoryById, fetchCategoryBySlug, fetchProductsByCategoryId}
+
+
+const fetchSearchProducts = async ( query:string) => {
+
+
+
+    const supabase = createServerComponentClient<Database>({ cookies });
+
+
+
+
+    const { data:products, error, count } = await supabase.from("products").select("*, category(id, title, slug)", {count: 'exact'}).textSearch('title', `${query}`)
+
+    if(error) {
+        throw new Error(error.message);
+    }
+
+    return {
+      products,
+      count
+    };
+}
+
+export { getProducts, getProduct, getFeaturedProducts, getProductVariations, fetchProducts, fetchProductById, fetchCategories, fetchCategoryById, fetchCategoryBySlug, fetchProductsByCategoryId, fetchSearchProducts}
