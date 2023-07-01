@@ -63,6 +63,7 @@ export default async function RootLayout({
           gtag('config', 'G-H9P5LP3RGE');
         `}
       </Script>
+
       <body>
         <SupabaseProvider>
           <CartProvider>
