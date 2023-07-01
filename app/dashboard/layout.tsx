@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
-import { Boxes, Truck, Users } from "lucide-react";
+import { Boxes, ShirtIcon, Truck, Users } from "lucide-react";
 
 const layout = ({children}:{children:ReactNode}) => {
   return (
@@ -26,6 +26,10 @@ const layout = ({children}:{children:ReactNode}) => {
               <Link href="/dashboard/customers" className="flex items-center px-3 py-1 mt-3 rounded-lg hover:bg-slate-400 space-x-2">
                 <Users className="h-6 w-6" />
                 <span>Customers</span>
+              </Link>
+              <Link href="/dashboard/printify" className="flex items-center px-3 py-1 mt-3 rounded-lg hover:bg-slate-400 space-x-2">
+                <ShirtIcon className="h-6 w-6" />
+                <span>Printify</span>
               </Link>
             </div>
           </ScrollArea>
