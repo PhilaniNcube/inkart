@@ -119,7 +119,9 @@ export interface Product {
         }[]
       }[]
     }[];
-    print_details: any[];
+    print_details: {
+      print_on_side: string;
+    };
     sales_channel_properties: string[];
     twodaydelivery_enabled: boolean;
 }
@@ -150,3 +152,11 @@ export interface CartItem {
 
 
 export type ProductVariations = Product['variants']
+export type ProductImageObject = {
+    src: string;
+    variant_ids: number[];
+    position: string;
+    is_default: boolean;
+    is_selected_for_publishing: boolean;
+    // variant_id?: number;
+}

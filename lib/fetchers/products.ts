@@ -1,4 +1,4 @@
-import { Product, ProductAPI, ProductVariations, ProductGridItem } from "@/schema"
+import { Product, ProductAPI, ProductVariations, ProductGridItem, ProductImageObject } from "@/schema"
 import { Database } from "@/types"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
@@ -138,24 +138,24 @@ const getProduct = async (productId:string):Promise<Product> => {
     }
   })
 
-  const rawProduct = await data.json() as ProductAPI
+  const rawProduct = await data.json() as any
 
   let images = rawProduct.images
 
-  const uniqueVariants = Array.from(new Set(images.map((image) => image.variant_ids[0])))
+  const uniqueVariants = Array.from(new Set(images.map((image:any) => image.variant_ids[0])))
 
 
 
 
   return {
     ...rawProduct,
-    images: rawProduct.images.map((image) => {
+    images: rawProduct.images.map((image:ProductImageObject) => {
       return {
         ...image,
         variant_id: image.variant_ids[0]
       }
     }),
-    variants: rawProduct.variants.filter((variant) => uniqueVariants.includes(variant.id))
+    variants: rawProduct.variants.filter((variant:any) => uniqueVariants.includes(variant.id))
   }
 
 }

@@ -229,7 +229,7 @@ export interface Database {
           shop_id?: number
           print_provider_id?: number
           print_areas?: {
-            background: string;
+            background?: string;
             variant_ids: number[];
             placeholders: {
               images: {
@@ -296,7 +296,7 @@ export interface Database {
           shop_id?: number
           print_provider_id?: number
           print_areas?: {
-            background: string;
+            background?: string;
             variant_ids: number[];
             placeholders: {
               images: {
