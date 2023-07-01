@@ -74,6 +74,27 @@ return {
 }
 
 
+const fetchAdminSearchProducts = async (page: number, page_size: number, query:string) => {
+const supabase = createServerComponentClient<Database>({ cookies });
+
+const start = (page - 1 ) * page_size;
+
+const end = start + page_size;
+
+const {data:products, error, count} = await supabase.from('products').select('*, category(*)',  {count: 'exact'}).range(start, end).order('title', {ascending: true}).textSearch('title', query, {config: 'english', type: 'plain'});
+
+if (error) {
+  throw new Error(error.message)
+}
+
+return {
+  products,
+  count
+}
+
+}
+
+
 const fetchProductById = async (id:string) => {
   const supabase = createServerComponentClient<Database>({ cookies });
 
@@ -239,4 +260,4 @@ const fetchSearchProducts = async ( query:string) => {
     };
 }
 
-export { getProducts, getProduct, getFeaturedProducts, getProductVariations, fetchProducts, fetchProductById, fetchCategories, fetchCategoryById, fetchCategoryBySlug, fetchProductsByCategoryId, fetchSearchProducts}
+export { getProducts, getProduct, getFeaturedProducts, getProductVariations, fetchProducts, fetchProductById, fetchCategories, fetchCategoryById, fetchCategoryBySlug, fetchProductsByCategoryId, fetchSearchProducts, fetchAdminSearchProducts}

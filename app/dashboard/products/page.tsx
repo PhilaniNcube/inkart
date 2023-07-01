@@ -2,6 +2,7 @@ import { fetchCategories, fetchProducts, getProducts } from "@/lib/fetchers/prod
 import ProductsTable from "./ProductsTable";
 import Pagination from "@/app/products/Pagination";
 import TablePagination from "./TablePagination";
+import SearchProducts from "./SearchProducts";
 
 export const revalidate = 0;
 
@@ -23,6 +24,7 @@ async function page({ searchParams }: { searchParams: { page: string; }; }) {
 
   return (
     <main>
+      <SearchProducts />
       <TablePagination
         currentPage={page}
         lastPage={lastPage}
