@@ -1,10 +1,9 @@
 import Container from "@/components/layout/Container";
 import DesktopNavigation from "@/components/layout/DesktopNavigation";
 import MobileNavigation from "@/components/layout/MobileNavigation";
-import { fetchCategories } from "@/lib/fetchers/products";
 import { Database } from "@/types";
-import { User, createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { User } from "@supabase/auth-helpers-nextjs";
+
 
 type ComponentProps = {
   user: User | null;

@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+
 import { fetchCategories } from "@/lib/fetchers/products";
 
 const page = async () => {
