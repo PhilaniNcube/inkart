@@ -11,6 +11,8 @@ import { fetchCategories } from '@/lib/fetchers/products';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Script from 'next/script';
+import { Suspense } from 'react';
+import Analytics from '@/components/Providers/Analytics';
 
 
 export const metadata: Metadata = {
@@ -51,22 +53,12 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-H9P5LP3RGE"
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){window.dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-H9P5LP3RGE');
-        `}
-      </Script>
-
       <body>
         <SupabaseProvider>
           <CartProvider>
+            <Suspense>
+              <Analytics />
+            </Suspense>
             <Navbar categories={categories} user={user} admin={admin} />
             {children}
             <Footer />

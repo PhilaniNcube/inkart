@@ -14,3 +14,13 @@ const analytics = Analytics({
 });
 
 export default analytics;
+
+
+export const GTM_ID = "GTM-52VFSVM";
+
+export const pageview = (url) => {
+  window.dataLayer.push({
+    event: "pageview",
+    page: url,
+  });
+};
