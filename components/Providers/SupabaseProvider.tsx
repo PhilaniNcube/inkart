@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import analytics  from "@/utils/analytics";
 
 import {
   SupabaseClient,
@@ -26,6 +27,7 @@ const SupabaseProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
+    analytics.page();
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(() => {
