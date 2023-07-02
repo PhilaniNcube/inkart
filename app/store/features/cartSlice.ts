@@ -1,6 +1,7 @@
 import { CartItem, Product } from "@/schema";
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import analytics from "@/utils/analytics";
 
 export interface CartState {
   cartItems: CartItem[];
@@ -30,6 +31,19 @@ export const cartSlice = createSlice({
           productTitle: action.payload.productTitle,
 
         });
+
+
+        analytics.track('event', {
+          name: "add_to_cart",
+          data: {
+            product_id: action.payload.productId,
+            sku: action.payload.variantSKU,
+            quantity: 1,
+            name: action.payload.productTitle,
+            price: action.payload.price/100,
+            currency: "USD",
+          }
+        })
       }
 
     },
