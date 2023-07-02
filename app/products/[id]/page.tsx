@@ -17,9 +17,17 @@ export async function generateMetadata({ params: { id } }: Props) {
     title: `${product.title} | InkArt`,
     description: product.description,
     keywords: product.tags,
+    viewport: "width=device-width, initial-scale=1",
+    robots: "follow, index",
+    metadataBase: new URL(`https://inkart.com/products/${id}`),
     openGraph: {
       title: `${product.title} | InkArt`,
       description: product.description,
+      type: "website",
+      ttl: 60*60*24*7,
+      siteName: "InkArt",
+      locale: "en_US",
+      url: `https://inkart.com/products/${id}`,
       images: product.images.map((image) => {
         return {
           url: image.src,
@@ -33,7 +41,7 @@ export async function generateMetadata({ params: { id } }: Props) {
       card: "summary_large_image",
       title: product.title,
       description: product.description,
-      images: product.images.map((image) => (`${image.src}`)),
+      images: product.images.map((image) => `${image.src}`),
     },
   };
 
