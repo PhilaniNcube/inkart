@@ -19,16 +19,17 @@ export const cartSlice = createSlice({
     increment: (state, action: PayloadAction<CartItem>) => {
       const item = state.cartItems.find((i) => i.variantId === action.payload.variantId);
 
-          analytics.track('event', {
-          name: "add_to_cart",
-          data: {
-            product_id: action.payload.productId,
-            sku: action.payload.variantSKU,
-            quantity: 1,
-            name: action.payload.productTitle,
-            price: action.payload.price/100,
+          analytics.track('add_to_cart', {
             currency: "USD",
-          }
+            value: action.payload.price/100,
+            items: [{
+            item_id: action.payload.variantSKU,
+            item_name: action.payload.productTitle,
+            affiliation: "Ink Art",
+            price: action.payload.price/100,
+            quantity: 1,
+            index: 0,
+            }],
         })
 
       if(item) item.qty++; else {
@@ -54,16 +55,17 @@ export const cartSlice = createSlice({
     decrement: (state, action: PayloadAction<CartItem>) => {
       const item = state.cartItems.find((i) => i.variantId === action.payload.variantId);
 
-         analytics.track('event', {
-          name: "remove_from_cart",
-          data: {
-            product_id: action.payload.productId,
-            sku: action.payload.variantSKU,
-            quantity: 1,
-            name: action.payload.productTitle,
-            price: action.payload.price/100,
+         analytics.track('remove_from_cart', {
             currency: "USD",
-          }
+            value: action.payload.price/100,
+            items: [{
+            item_id: action.payload.variantSKU,
+            item_name: action.payload.productTitle,
+            affiliation: "Ink Art",
+            price: action.payload.price/100,
+            quantity: 1,
+            index: 0,
+            }],
         })
 
             if(item){

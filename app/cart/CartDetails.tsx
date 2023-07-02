@@ -16,6 +16,7 @@ import { useSupabase } from "@/components/Providers/SupabaseProvider";
 import { useRouter } from "next/navigation";
 import { User } from "@supabase/supabase-js";
 import Login from "../login/Login";
+import analytics from "@/utils/analytics";
 
 const CartDetails = ({exchangeRate, user}:{exchangeRate: number, user: User | null}) => {
 
@@ -64,6 +65,18 @@ const shipping = 3000
           user_id: (await supabase.auth.getUser()).data?.user?.id,
         }
       ]).select('*').single()
+
+      analytics.track('begin_checkout', {
+        currency: 'USD',
+        value: totalPrice,
+        items: cartItems.map(item => ({
+          item_id: item.variantSKU,
+          item_name: item.productTitle,
+          affiliation: 'Ink Art',
+          price: item.price,
+          quantity: item.qty,
+        }))
+      })
 
 
 

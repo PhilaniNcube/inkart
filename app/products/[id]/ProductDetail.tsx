@@ -13,7 +13,7 @@ import { Database } from "@/types";
 import { MinusIcon, PlusIcon, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -23,6 +23,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import analytics from "@/utils/analytics";
 
 type ProductDetailProps = {
   product: Database['public']['Tables']['products']['Row'];
@@ -47,6 +48,25 @@ const ProductDetail = ({product}:ProductDetailProps) => {
   const dispatch = useAppDispatch()
 
 
+
+
+  useEffect(() => {
+    analytics.track("view_item", {
+      currency: "USD",
+      value: selectedVariation.price / 100,
+      items: [
+        {
+          item_id: selectedVariation.sku,
+          affiliation: "Ink Art",
+          item_name: product.title,
+          item_price: selectedVariation.price / 100,
+          item_varaint: selectedVariation.title,
+          index: 0,
+          quantity: 1,
+        },
+      ],
+    });
+  },[selectedVariation, product])
 
 
 
