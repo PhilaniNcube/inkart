@@ -19,6 +19,18 @@ export const cartSlice = createSlice({
     increment: (state, action: PayloadAction<CartItem>) => {
       const item = state.cartItems.find((i) => i.variantId === action.payload.variantId);
 
+          analytics.track('event', {
+          name: "add_to_cart",
+          data: {
+            product_id: action.payload.productId,
+            sku: action.payload.variantSKU,
+            quantity: 1,
+            name: action.payload.productTitle,
+            price: action.payload.price/100,
+            currency: "USD",
+          }
+        })
+
       if(item) item.qty++; else {
         state.cartItems.push({
           productId: action.payload.productId,
@@ -33,8 +45,17 @@ export const cartSlice = createSlice({
         });
 
 
-        analytics.track('event', {
-          name: "add_to_cart",
+
+      }
+
+    },
+
+    // Decrement the quantity of an item in the cart
+    decrement: (state, action: PayloadAction<CartItem>) => {
+      const item = state.cartItems.find((i) => i.variantId === action.payload.variantId);
+
+         analytics.track('event', {
+          name: "remove_from_cart",
           data: {
             product_id: action.payload.productId,
             sku: action.payload.variantSKU,
@@ -44,13 +65,6 @@ export const cartSlice = createSlice({
             currency: "USD",
           }
         })
-      }
-
-    },
-
-    // Decrement the quantity of an item in the cart
-    decrement: (state, action: PayloadAction<CartItem>) => {
-      const item = state.cartItems.find((i) => i.variantId === action.payload.variantId);
 
             if(item){
               item.qty--;
