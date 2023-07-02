@@ -56,6 +56,33 @@ const page = async ({ params: { id } }: Props) => {
 
   const [product] = await Promise.all([productData]);
 
+  const productSchemas = product.variants.map((variant) => {
+    return {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      name: product.title,
+      productID: variant.sku,
+      image: `https://inkart.com${product.images[0].src}`,
+      description: variant.title,
+      brand: "Ink Art",
+      offers: {
+        "@type": "Offer",
+        priceCurrency: "USD",
+        id: variant.id,
+        identitier: variant.sku,
+        price: variant.price / 100,
+        itemCondition: "http://schema.org/NewCondition",
+        availability: "http://schema.org/InStock",
+        category:
+          "Home & Garden > Decor > Artwork > Posters, Prints, & Visual Artwork",
+        seller: {
+          "@type": "Organization",
+          name: "Ink Art",
+        },
+      },
+    };
+  })
+
   const schemaData = {
     "@context": "https://schema.org/",
     "@type": "Product",
@@ -83,7 +110,7 @@ const page = async ({ params: { id } }: Props) => {
   return (
     <main>
       <Script type="application/ld+json" id="JSONLD-Product">
-        {JSON.stringify(schemaData)}
+        {JSON.stringify(productSchemas)}
       </Script>
       <ProductDetail product={product} />
     </main>
