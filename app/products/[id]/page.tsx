@@ -1,6 +1,7 @@
 import { Metadata, ResolvingMetadata } from "next";
 import { fetchProductById, getProduct } from "@/lib/fetchers/products";
 import ProductDetail from "./ProductDetail";
+import Script from "next/script";
 
 type Props = {
   params: {
@@ -53,8 +54,33 @@ const page = async ({ params: { id } }: Props) => {
 
   const [product] = await Promise.all([productData]);
 
-  return <main>
-    <ProductDetail product={product} />
-  </main>;
+  const schemaData = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    name: product.title,
+    image: `https://inkart.com${product.images[0].src}`,
+    description: product.description,
+    brand: "Ink Art",
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      price: product.variants[0].price,
+      itemCondition: "http://schema.org/NewCondition",
+      availability: "http://schema.org/InStock",
+      seller: {
+        "@type": "Organization",
+        name: "Ink Art",
+      },
+    },
+  };
+
+  return (
+    <main>
+      <Script type="application/ld+json" id="JSONLD-Product">
+        {JSON.stringify(schemaData)}
+      </Script>
+      <ProductDetail product={product} />
+    </main>
+  );
 };
 export default page;
