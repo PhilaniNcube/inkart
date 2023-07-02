@@ -14,11 +14,11 @@ export default function ShopByCategories({ categories}:ComponentProps) {
   return (
     <Container>
       <div className="overflow-y-hidden">
-        <div className="py-12 2xl:container 2xl:mx-auto px-4 md:px-6 lg:px-20 flex justify-center items-start flex-col">
+        <div className="py-12 flex justify-center items-start flex-col">
           <h1 className="text-xl md:text-2xl lg:text-4xl font-medium leading-6 md:leading-8 lg:leading-9 text-gray-800">
             Shop by Category
           </h1>
-          <div className="mt-10 md:mt-6 lg:mt-8 grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 xl:gap-8">
+          <div className="mt-10 md:mt-6 lg:mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 xl:gap-8">
             {categories.map((category) => (
               <Link
                 href={`/categories/${category.id}`}

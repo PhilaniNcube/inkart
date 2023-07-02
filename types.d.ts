@@ -178,7 +178,8 @@ export interface Database {
             print_on_side: string;
           }
           sales_channel_properties: any[];
-          twodaydelivery_enabled: boolean
+          twodaydelivery_enabled: boolean;
+          featured: boolean;
           category: {
             id: string;
             title: string;
@@ -251,6 +252,7 @@ export interface Database {
           }
           sales_channel_properties?: any[]
           twodaydelivery_enabled?: boolean
+          featured?:boolean
           category?: string
         }
         Update: {
@@ -318,6 +320,7 @@ export interface Database {
           }
           sales_channel_properties?: any[]
           twodaydelivery_enabled?: boolean
+          featured?:boolean
           category?: string
         }
       }

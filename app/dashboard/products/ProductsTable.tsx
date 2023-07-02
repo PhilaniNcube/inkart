@@ -19,6 +19,7 @@ import Link from 'next/link'
 import { EyeIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import EditProductCategory from "./EditProductCategory";
+import FeaturedSwitch from "./FeaturedSwitch";
 
 type ProductsTableProps = {
   products: Database['public']['Tables']['products']['Row'][];
@@ -52,7 +53,7 @@ const ProductsTable = ({ products, categories }: ProductsTableProps) => {
           <TableCell>Category</TableCell>
           <TableCell>Price</TableCell>
           <TableCell>Cost</TableCell>
-          <TableCell>Published</TableCell>
+          <TableCell>Featured</TableCell>
           <TableCell>View</TableCell>
         </TableRow>
       </TableHeader>
@@ -83,11 +84,7 @@ const ProductsTable = ({ products, categories }: ProductsTableProps) => {
             <TableCell>{formatPrice(product.variants[0].cost)}</TableCell>
 
             <TableCell>
-              {product.is_locked ? (
-                <Badge className="bg-green-600 text-white">Published</Badge>
-              ) : (
-                <Badge>Locked</Badge>
-              )}
+              <FeaturedSwitch featured={product.featured} id={product.id} />
             </TableCell>
             <TableCell>
               <Link href={`/dashboard/products/${product.id}`}>

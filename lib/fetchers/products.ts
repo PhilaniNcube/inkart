@@ -95,6 +95,22 @@ return {
 }
 
 
+const fetchFeaturedProducts = async () => {
+const supabase = createServerComponentClient<Database>({ cookies });
+
+
+
+const {data:products, error,} = await supabase.from('products').select('*, category(*)',  {count: 'exact'}).order('title', {ascending: true}).eq('featured', true);
+
+if (error) {
+  throw new Error(error.message)
+}
+
+return products
+
+}
+
+
 const fetchProductById = async (id:string) => {
   const supabase = createServerComponentClient<Database>({ cookies });
 
@@ -260,4 +276,4 @@ const fetchSearchProducts = async ( query:string) => {
     };
 }
 
-export { getProducts, getProduct, getFeaturedProducts, getProductVariations, fetchProducts, fetchProductById, fetchCategories, fetchCategoryById, fetchCategoryBySlug, fetchProductsByCategoryId, fetchSearchProducts, fetchAdminSearchProducts}
+export { getProducts, getProduct, getFeaturedProducts, getProductVariations, fetchProducts, fetchProductById, fetchCategories, fetchCategoryById, fetchCategoryBySlug, fetchProductsByCategoryId, fetchSearchProducts, fetchAdminSearchProducts, fetchFeaturedProducts}
