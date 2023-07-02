@@ -88,19 +88,20 @@ const page = async ({ params: { id } }: Props) => {
     "@context": "https://schema.org/",
     "@type": "Product",
     name: product.title,
-    productID: product.id,
+    productID: product.variants[0].sku,
     image: `https://inkart.com${product.images[0].src}`,
     description: product.description,
     brand: "Ink Art",
     offers: {
       "@type": "Offer",
       priceCurrency: "USD",
-      id: product.id,
+      id: product.variants[0].id,
       identitier: product.id,
       price: product.variants[0].price / 100,
       itemCondition: "http://schema.org/NewCondition",
       availability: "http://schema.org/InStock",
-      category: product.tags,
+      category:
+        "Home & Garden > Decor > Artwork > Posters, Prints, & Visual Artwork",
       seller: {
         "@type": "Organization",
         name: "Ink Art",
@@ -111,7 +112,7 @@ const page = async ({ params: { id } }: Props) => {
   return (
     <main>
       <Script type="application/ld+json" id="JSONLD-Product">
-        {JSON.stringify(productSchemas)}
+        {JSON.stringify(schemaData)}
       </Script>
       <ProductDetail product={product} />
     </main>
