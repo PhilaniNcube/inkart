@@ -54,6 +54,7 @@ const ProductDetail = ({product}:ProductDetailProps) => {
     analytics.track("view_item", {
       currency: "USD",
       value: selectedVariation.price / 100,
+      item_id: selectedVariation.sku,
       items: [
         {
           item_id: selectedVariation.sku,
