@@ -64,7 +64,7 @@ const page = async ({ params: { id } }: Props) => {
     offers: {
       "@type": "Offer",
       priceCurrency: "USD",
-      price: product.variants[0].price,
+      price: product.variants[0].price/100,
       itemCondition: "http://schema.org/NewCondition",
       availability: "http://schema.org/InStock",
       seller: {
