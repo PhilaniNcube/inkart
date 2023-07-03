@@ -113,6 +113,23 @@ export interface Database {
           paid_at?: string
         }
       }
+      product_categories: {
+        Row: {
+          category_id: Database['public']['Tables']['categories']['Row']
+          product_id: Database['public']['Tables']['products']['Row']
+          created_at: string
+        }
+        Insert: {
+          category_id?: string
+          product_id?: string
+          created_at?: string
+        }
+        Update: {
+          category_id?: string
+          product_id?: string
+          created_at?: string
+        }
+      }
       products: {
         Row: {
           id: string

@@ -276,4 +276,30 @@ const fetchSearchProducts = async ( query:string) => {
     };
 }
 
-export { getProducts, getProduct, getFeaturedProducts, getProductVariations, fetchProducts, fetchProductById, fetchCategories, fetchCategoryById, fetchCategoryBySlug, fetchProductsByCategoryId, fetchSearchProducts, fetchAdminSearchProducts, fetchFeaturedProducts}
+
+const fetchProductCategories = async (productId:string) => {
+  const supabase = createServerComponentClient<Database>({ cookies });
+
+  const {data: productCategories, error} = await supabase.from('product_categories').select('*, product_id(*), category_id(*)').eq('product_id', productId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return productCategories
+}
+
+
+const fetchProductsFormCategoryId = async (categoryId:string) => {
+  const supabase = createServerComponentClient<Database>({ cookies });
+
+  const {data: products, error} = await supabase.from('product_categories').select('*, product_id(*), category_id(*)').eq('category_id', categoryId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return products
+}
+
+export { getProducts, getProduct, getFeaturedProducts, getProductVariations, fetchProducts, fetchProductById, fetchCategories, fetchCategoryById, fetchCategoryBySlug, fetchProductsByCategoryId, fetchSearchProducts, fetchAdminSearchProducts, fetchFeaturedProducts, fetchProductCategories, fetchProductsFormCategoryId}

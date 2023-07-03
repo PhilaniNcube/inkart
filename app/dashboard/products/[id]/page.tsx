@@ -1,6 +1,6 @@
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { fetchCategories, fetchProductById } from "@/lib/fetchers/products";
+import { fetchCategories, fetchProductById, fetchProductCategories } from "@/lib/fetchers/products";
 import { Switch } from "@/components/ui/switch";
 import {
   Select,
@@ -15,13 +15,19 @@ import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { revalidatePath } from "next/cache";
 import Image from 'next/image'
 import { Database } from "@/types";
+import { SelectCategories } from "./SelectCategories";
 
 const page = async ({params: {id}}:{params: {id:string}}) => {
 
   const productData =  fetchProductById(id)
   const categoriesData = fetchCategories()
+  const productCategoryData = fetchProductCategories(id);
 
-  const [product, categories] = await Promise.all([productData, categoriesData])
+  const [product, categories, productCategories] = await Promise.all([
+    productData,
+    categoriesData,
+    productCategoryData,
+  ]);
 
   const updateProduct = async (data:FormData) => {
     "use server"
@@ -55,37 +61,32 @@ const page = async ({params: {id}}:{params: {id:string}}) => {
     }
 
 
-
-
-
-
-
-
   return (
     <div className="w-full px-4">
       <h1 className="text-3xl font-medium">{product.title}</h1>
-      <Image src={product.images[0].src} width={500} height={500} alt={product.title} className="w-[250px] object-cover aspect-square" />
+      <Image
+        src={product.images[0].src}
+        width={500}
+        height={500}
+        alt={product.title}
+        className="w-[250px] object-cover aspect-square"
+      />
 
       <Separator className="my-4" />
-
-      <form action={updateProduct} className="w-full max-w-4xl">
+      <SelectCategories
+        categories={categories}
+        productId={product.id}
+        productCategories={productCategories}
+      />
+      {/* <form action={updateProduct} className="w-full max-w-4xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="flex flex-col space-y-2 w-full">
-            <Select name="category">
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select Category" />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map((category) => (
-                  <SelectItem key={category.id} value={category.id}>
-                    {category.title}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          <div className="flex flex-col space-y-2 w-full"></div>
           <div className="flex justify-end items-center space-x-2 w-full">
-            <Switch id="is_locked" name="is_locked" defaultChecked={product.is_locked} />
+            <Switch
+              id="is_locked"
+              name="is_locked"
+              defaultChecked={product.is_locked}
+            />
             <Label htmlFor="is_locked">Is Product Locked?</Label>
           </div>
         </div>
@@ -93,7 +94,7 @@ const page = async ({params: {id}}:{params: {id:string}}) => {
         <div className="">
           <Button type="submit">Save</Button>
         </div>
-      </form>
+      </form> */}
     </div>
   );
 };
