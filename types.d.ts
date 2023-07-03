@@ -146,18 +146,18 @@ export interface Database {
           }[]
           }[];
           variants: {
-          id: number;
-          sku: string;
-          cost: number;
-          price: number;
-          title: string;
-          grams: number;
-          is_enabled: boolean;
-          is_default: boolean;
-          is_available: boolean;
-          options: number[];
-          quantity: number;
-          }[];
+            id: number;
+            sku: string;
+            cost: number;
+            price: number;
+            title: string;
+            grams: number;
+            is_enabled: boolean;
+            is_default: boolean;
+            is_available: boolean;
+            options: number[];
+            quantity: number;
+            }[];
           images: {
             src: string;
             position: string;

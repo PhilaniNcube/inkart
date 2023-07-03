@@ -50,7 +50,7 @@ const ProductsTable = ({ products, categories }: ProductsTableProps) => {
         <TableRow className="font-medium text-lg">
           <TableCell>Image</TableCell>
           <TableCell>Name</TableCell>
-          <TableCell>Category</TableCell>
+          {/* <TableCell>Category</TableCell> */}
           <TableCell>Price</TableCell>
           <TableCell>Cost</TableCell>
           <TableCell>Featured</TableCell>
@@ -70,7 +70,7 @@ const ProductsTable = ({ products, categories }: ProductsTableProps) => {
               />
             </TableCell>
             <TableCell>{product.title}</TableCell>
-            <TableCell className="flex flex-col items-center space-y-2">
+            {/* <TableCell className="flex flex-col items-center space-y-2">
               <p className="font-medium text-xs">
                 {product.category?.title ? (
                   product.category?.title
@@ -79,7 +79,7 @@ const ProductsTable = ({ products, categories }: ProductsTableProps) => {
                 )}
               </p>
               <EditProductCategory id={product.id} categories={categories} />
-            </TableCell>
+            </TableCell> */}
             <TableCell>{formatPrice(product.variants[0].price)}</TableCell>
             <TableCell>{formatPrice(product.variants[0].cost)}</TableCell>
 
@@ -88,8 +88,9 @@ const ProductsTable = ({ products, categories }: ProductsTableProps) => {
             </TableCell>
             <TableCell>
               <Link href={`/dashboard/products/${product.id}`}>
-                <Button variant="outline" type="button">
+                <Button variant="default" type="button" className="flex gap-2 items-center bg-zinc-800">
                   <EyeIcon type="outline" size={20} />
+                  Edit
                 </Button>
               </Link>
             </TableCell>

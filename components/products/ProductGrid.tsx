@@ -9,7 +9,7 @@ import { Database } from "@/types";
 import ProductImage from "./ProductImage";
 
 type PageProps = {
-  products: Database['public']['Tables']['products']['Row'][];
+  products: Database['public']['Tables']['product_categories']['Row'][];
 }
 
 const ProductGrid = ({products}:PageProps) => {
@@ -21,18 +21,18 @@ const ProductGrid = ({products}:PageProps) => {
 
 
 
-           const contextImage = product.images.find(image => image.src.includes('context'));
+           const contextImage = product.product_id.images.find(image => image.src.includes('context'));
 
           //  console.log({contextImage})
 
 
           return (
             <article
-              key={product.id}
+              key={product.product_id.id}
               className="group w-full group-hover:shadow-md rounded-md"
             >
               <Link
-                href={`/products/${product.id}`}
+                href={`/products/${product.product_id.id}`}
                 className="w-full flex items-center justify-center relative"
               >
                 {/* <div
@@ -48,11 +48,14 @@ const ProductGrid = ({products}:PageProps) => {
                     className="object-cover w-full absolute inset-0"
                   />
                 </div> */}
-                <ProductImage images={product.images} title={product.title} />
+                <ProductImage
+                  images={product.product_id.images}
+                  title={product.product_id.title}
+                />
               </Link>
               <div className="flex items-start">
                 <p className="mt-3 text-sm font-semibold text-slate-700">
-                  {product.title}
+                  {product.product_id.title}
                 </p>
                 {/* <p className="mt-3 text-sm font-semibold text-slate-700 w-[30%] text-right">
                 From {formatPrice(product.variants[0].price)}

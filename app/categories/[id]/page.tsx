@@ -1,7 +1,7 @@
 import Container from "@/components/layout/Container";
 import ProductGrid from "@/components/products/ProductGrid";
 import { Separator } from "@/components/ui/separator";
-import { fetchCategoryById,  fetchProductsByCategoryId } from "@/lib/fetchers/products";
+import { fetchCategoryById,  fetchProductsByCategoryId, fetchProductsFormCategoryId } from "@/lib/fetchers/products";
 import { Metadata } from "next";
 
 export async function generateMetadata({
@@ -23,9 +23,9 @@ const page = async ({params: {id}, searchParams: {page}}:{params: {id: string}, 
   const currentPage = page ? +page : 1;
 
   const categoryData =  fetchCategoryById(id)
-  const productsData = fetchProductsByCategoryId( id);
+  const productsData = fetchProductsFormCategoryId(id);
 
-  const [category, {products, count}] = await Promise.all([categoryData, productsData])
+  const [category, products] = await Promise.all([categoryData, productsData])
 
 
 
