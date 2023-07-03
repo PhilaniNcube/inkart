@@ -16,3 +16,9 @@ export function formatPrice(price:number) {
 
   return formatter.format(price/100)
 }
+
+
+export const getExchangeRate =  async () => {
+
+  return 20
+}

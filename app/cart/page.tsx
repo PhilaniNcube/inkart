@@ -1,8 +1,9 @@
-import { getExchangeRate } from "@/lib/utils";
+
 import CartDetails from "./CartDetails";
 import { cookies } from "next/headers";
 import { Database } from "@/types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { getExchangeRate } from "@/lib/utils";
 
 const page = async ({searchParams}:{searchParams:any}) => {
 
@@ -12,7 +13,9 @@ const page = async ({searchParams}:{searchParams:any}) => {
 
     console.log("Cart", user )
 
-    const exchangeRate = await getExchangeRate()
+    const exchangeRate = await getExchangeRate();
+
+
 
   return <main className="w-full">
     <CartDetails exchangeRate={exchangeRate} user={user} />

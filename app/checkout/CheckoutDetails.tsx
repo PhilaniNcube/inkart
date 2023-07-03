@@ -20,13 +20,13 @@ import { Database } from "@/types";
 import Link from "next/link";
 
 type Props = {
-  exchangeRate: number;
+
   order: Database['public']['Tables']['orders']['Row'];
 }
 
-const CheckoutDetails = ({exchangeRate, order}:Props) => {
+const CheckoutDetails = ({ order}:Props) => {
 
-
+  const exchangeRate = 20
 
   const cartItems = useAppSelector((state) => state.cart.cartItems);
   const totalPrice = useAppSelector(totalPriceSelector);
