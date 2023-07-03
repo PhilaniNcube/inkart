@@ -5,6 +5,7 @@ import { fetchProducts, getProducts } from "@/lib/fetchers/products";
 import { Metadata } from "next";
 import Link from "next/link";
 import Pagination from "./Pagination";
+import Grid from "@/components/products/Grid";
 
 export const metadata: Metadata = {
   title: "Stunning Wall Art & Home Decor | InkArt",
@@ -44,7 +45,7 @@ const page = async ({searchParams}:{searchParams: {page:string}}) => {
             </div>
 
             <ScrollArea className="h-full w-full max-w-[1300px] overflow-hidden bg-slate-100 px-4 py-3">
-              <ProductGrid products={products!} />
+              <Grid products={products!} />
             </ScrollArea>
           </section>
         </div>
