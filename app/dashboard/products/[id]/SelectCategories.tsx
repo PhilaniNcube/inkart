@@ -18,6 +18,7 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import { Database } from "@/types";
 import { useSupabase } from "@/components/Providers/SupabaseProvider";
+import { useRouter } from "next/navigation";
 
 const items = [
   {
@@ -65,6 +66,8 @@ export function SelectCategories({
 }: ComponentProps) {
   const { supabase } = useSupabase();
 
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -94,6 +97,8 @@ export function SelectCategories({
     }
 
     console.log({ productCategories });
+
+    router.back();
   }
 
   return (
