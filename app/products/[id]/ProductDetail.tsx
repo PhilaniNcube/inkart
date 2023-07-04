@@ -33,13 +33,13 @@ const ProductDetail = ({product}:ProductDetailProps) => {
 
   const router = useRouter()
 
-
+ const sortedPrices = product.variants.sort((a, b) => a.price - b.price);
 
   const [imgIndex, setImgIndex] = useState(0)
 
 
   const [selectedVariation, setSelectedVariation] = useState(
-    product.variants[imgIndex]
+    sortedPrices[imgIndex]
   );
 
 
@@ -118,7 +118,7 @@ const ProductDetail = ({product}:ProductDetailProps) => {
           <Separator className="my-3" />
 
           <div className="grid grid-cols-2 gap-5">
-            {product.variants.map((variant, idx) => (
+            {sortedPrices.map((variant, idx) => (
               <div
                 key={idx}
                 onClick={() => setSelectedVariation(variant)}
