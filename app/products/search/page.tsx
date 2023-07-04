@@ -23,7 +23,6 @@ export const metadata: Metadata = {
 };
 
 const page = async ({ searchParams }: { searchParams: { page: string, query:string } }) => {
-  const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
   const query = searchParams.query ? searchParams.query : '';
 

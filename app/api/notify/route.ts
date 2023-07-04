@@ -1,9 +1,6 @@
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { createClient } from '@supabase/supabase-js'
-import { cookies } from 'next/headers'
-import { NextRequest, NextResponse } from 'next/server'
-import { revalidateTag } from 'next/cache';
 import { Database } from '@/types';
+import { NextResponse } from 'next/server';
 
 
 
@@ -14,9 +11,6 @@ export async function GET(request: Request) {
 const SupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const SupabaseSecret = process.env.SUPABASE_SECRET
 
-// if(!SupabaseUrl || !SupabaseSecret || typeof SupabaseUrl === 'undefined' || typeof SupabaseSecret === 'undefined' || typeof  SupabaseUrl !== 'string' || typeof SupabaseSecret !== 'string' || typeof SupabaseUrl === 'undefined' || typeof SupabaseSecret === 'undefined') {
-// throw new Error('Supabase URL or Supabase Secret is missing')
-// }
 
 const supabase = createClient<Database>(
   SupabaseUrl!,

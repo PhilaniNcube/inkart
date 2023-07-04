@@ -11,7 +11,7 @@ const page = async ({searchParams}:{searchParams:any}) => {
 
     const {data: {user}} = await supabase.auth.getUser();
 
-    console.log("Cart", user )
+
 
     const exchangeRate = await getExchangeRate();
 
