@@ -1,11 +1,11 @@
 import Container from "@/components/layout/Container";
-import ProductGrid from "@/components/products/ProductGrid";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { fetchSearchProducts, getProducts } from "@/lib/fetchers/products";
+import { fetchSearchProducts } from "@/lib/fetchers/products";
 import { Metadata } from "next";
 import Link from "next/link";
 import Pagination from "../Pagination";
 import { Button } from "@/components/ui/button";
+import Grid from "@/components/products/Grid";
 
 export const metadata: Metadata = {
   title: "Stunning Wall Art & Home Decor | InkArt",
@@ -63,7 +63,7 @@ const page = async ({ searchParams }: { searchParams: { page: string, query:stri
                   </Link>
                 </div>
               ) : (
-                <ProductGrid products={products} />
+                <Grid products={products} />
               )}
             </ScrollArea>
           </section>
