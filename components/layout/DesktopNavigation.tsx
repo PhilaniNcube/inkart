@@ -111,7 +111,6 @@ const DesktopNavigation = ({user, categories, admin}:ComponentProps) => {
             </>
           ) : (
             <div className="flex items-center spaxe-x-3 gap-3">
-
               {admin && (
                 <Link href="/dashboard" className="flex flex-col items-center">
                   <Button variant="outline">Dashboard</Button>
@@ -140,7 +139,12 @@ const DesktopNavigation = ({user, categories, admin}:ComponentProps) => {
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                   {categories.map((category) => (
-                    <Link key={category.id} href={`/categories/${category.id}`} legacyBehavior passHref>
+                    <Link
+                      key={category.id}
+                      href={`/categories/${category.id}`}
+                      legacyBehavior
+                      passHref
+                    >
                       <NavigationMenuLink
                         className={navigationMenuTriggerStyle()}
                       >
@@ -150,6 +154,13 @@ const DesktopNavigation = ({user, categories, admin}:ComponentProps) => {
                   ))}
                 </ul>
               </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="/customise" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Create your own
+                </NavigationMenuLink>
+              </Link>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>

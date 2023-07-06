@@ -130,6 +130,53 @@ export interface Database {
           created_at?: string
         }
       }
+      canvas_variants: {
+        Row: {
+          id: string
+          created_at: string
+          title: string
+          options: {
+            size: string;
+            depth: string;
+          };
+          placeholders: {
+           position: string;
+           height: number;
+            width: number;
+          }[];
+          cost: number;
+        }
+        Insert: {
+           id: string
+          created_at?: string
+          title?: string
+          options?: {
+            size: string;
+            depth: string;
+          };
+          placeholders?: {
+           position: string;
+           height: number;
+            width: number;
+          }[];
+          cost?: number;
+        }
+        Update: {
+            id: string
+          created_at?: string
+          title?: string
+          options?: {
+            size: string;
+            depth: string;
+          };
+          placeholders?: {
+           position: string;
+           height: number;
+            width: number;
+          }[];
+          cost?: number;
+        }
+      }
       products: {
         Row: {
           id: string
