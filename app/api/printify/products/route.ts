@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     },
     body: JSON.stringify({
       title:title,
-      description: "This is a user generated product",
+      description: "This is a user generated product.",
       blueprint_id: 50,
       print_provider_id: 2,
       variants: [
