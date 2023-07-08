@@ -355,22 +355,22 @@ const UploadImage = ({ variants, categories }: Props) => {
               <img
                 src={productUpdated?.images[1].src}
                 alt="uploaded image"
-                className="w-sm object-cover mt-3"
+                className="w-full aspect-square object-cover mt-3"
               />
               <img
                 src={productUpdated?.images[4].src}
                 alt="uploaded image"
-                className="w-sm object-cover mt-3"
+                className="w-full aspect-square object-cover mt-3"
               />
               <img
                 src={productUpdated?.images[5].src}
                 alt="uploaded image"
-                className="w-sm object-cover mt-3"
+                className="w-full aspect-square object-cover mt-3"
               />
               <img
                 src={productUpdated?.images[7].src}
                 alt="uploaded image"
-                className="w-sm object-cover mt-3"
+                className="w-full aspect-square object-cover mt-3"
               />
             </div>
           )}
