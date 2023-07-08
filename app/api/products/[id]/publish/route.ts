@@ -28,7 +28,7 @@ export async function POST(request: NextRequest, context:any) {
     "shipping_template": true,
       "external": {
         "id": `${context.params.id}`,
-        "handle": `http://localhost:3000/product/${context.params.id}`,
+        "handle": `${process.env.NEXT_PUBLIC_SITE_URL}/product/${context.params.id}`,
     }
 })
   })

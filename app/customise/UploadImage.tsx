@@ -162,7 +162,7 @@ const UploadImage = ({ variants, categories }: Props) => {
       // console.log(data);
 
       const printify_uplaod: { data: ImageUploadResponse } = await fetch(
-        `http://localhost:3000/api/printify/uploads`,
+        `${process.env.NEXT_PUBLIC_SITE_URL}/api/printify/uploads`,
         {
           method: "POST",
           headers: {

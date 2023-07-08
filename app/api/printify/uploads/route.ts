@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     },
     body: JSON.stringify({
       file_name,
-      url: "1234"
+      url: url
     })
   }).then(res => res.json()).catch(err => {
     console.log(err)
