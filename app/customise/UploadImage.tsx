@@ -161,7 +161,7 @@ const UploadImage = ({ variants, categories }: Props) => {
         "https://hdhqxisqffmoqhpzmhet.supabase.co/storage/v1/object/public/uploads/";
       // console.log(data);
 
-      const prinify_upload: { data: ImageUploadResponse } = await fetch(
+      const printify_uplaod: { data: ImageUploadResponse } = await fetch(
         `http://localhost:3000/api/printify/uploads`,
         {
           method: "POST",
@@ -180,8 +180,15 @@ const UploadImage = ({ variants, categories }: Props) => {
 
       //"Failed to upload image. Cause: {"code":"error.file.wrong.format"}"
 
-      setUploadResponse(prinify_upload.data);
-      console.log({ prinify_upload });
+      if(!printify_uplaod?.data) {
+        alert("Failed to upload image. Please try again");
+        console.log(printify_uplaod);
+        setLoading(false);
+        return;
+      }
+
+      setUploadResponse(printify_uplaod.data);
+      console.log({ printify_uplaod });
 
       setImage(`${url}${data.path}`);
       setLoading(false);

@@ -15,11 +15,16 @@ export async function POST(request: Request) {
     },
     body: JSON.stringify({
       file_name,
-      url
+      url: "1234"
     })
+  }).then(res => res.json()).catch(err => {
+    console.log(err)
+    return NextResponse.json({error: err })
   })
 
-  const data = await response.json()
+  const data = await response
+
+  console.log({data})
 
   return NextResponse.json({
     data
