@@ -123,9 +123,9 @@ const UploadImage = ({ variants, categories }: Props) => {
 
     if(res.product?.id) {
 
-      const productImage = res.product.images.filter((image:{is_default:boolean, is_selected_for_publishing:boolean, position: string, src: string, variant_id: number, variant_ids: number[]}) => image.src.includes("context-1"))
+      // const productImage = res.product.images.filter((image:{is_default:boolean, is_selected_for_publishing:boolean, position: string, src: string, variant_id: number, variant_ids: number[]}) => image.src.includes("context-1"))
 
-      setImage(productImage[0].src);
+      setImage(res.product?.images[4].src);
       // router.push(`/products/${res.product.id}`)
     }
     // setPrintifyProduct(product);
