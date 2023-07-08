@@ -180,7 +180,7 @@ const UploadImage = ({ variants, categories }: Props) => {
 
       //"Failed to upload image. Cause: {"code":"error.file.wrong.format"}"
 
-      if(!printify_uplaod?.data) {
+      if(!printify_uplaod?.data.id) {
         alert("Failed to upload image. Please try again");
         console.log(printify_uplaod);
         setLoading(false);
