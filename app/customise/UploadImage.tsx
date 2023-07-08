@@ -28,6 +28,9 @@ import { useSupabase } from "@/components/Providers/SupabaseProvider";
 import { CanvasResponse } from "./page";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import slugify from "slugify";
+import { Database } from "@/types";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useRouter } from "next/navigation";
 
 export type ImageUploadResponse = {
   file_name: string;
@@ -47,60 +50,78 @@ const FormSchema = z.object({
   }),
   // description: z.string().min(10, {message: "Please enter a description greater than 10 characters"}),
   size: z.string().min(3,{message: "Please select a size"}),
+  categories: z.array(z.string())
 
 });
 
-const UploadImage = ({ variants }: { variants: CanvasResponse }) => {
+type Props = {
+  variants: CanvasResponse;
+  categories: Database['public']['Tables']['categories']['Row'][];
+}
+
+const UploadImage = ({ variants, categories }: Props) => {
   const { supabase } = useSupabase();
+
+  const router = useRouter();
 
   const [loading, setLoading] = useState(false);
 
   const [image, setImage] = useState("");
 
+  const [printifyProduct, setPrintifyProduct] = useState<null | any>(null);
+
   const [uploadResponse, setUploadResponse] =
     useState<null | ImageUploadResponse>(null);
 
-     const form = useForm<z.infer<typeof FormSchema>>({
-       resolver: zodResolver(FormSchema),
-        defaultValues: {
-          title: "",
-          size: variants.variants[0].id.toString(),
-        }
-     });
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      title: "",
+      size: variants.variants[0].id.toString(),
+      categories: [],
+    },
+  });
 
-       async function onSubmit(data: z.infer<typeof FormSchema>) {
-         setLoading(true);
-        //  console.log(data);
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    setLoading(true);
+    //  console.log(data);
 
-         if (typeof uploadResponse === "undefined" || !uploadResponse) {
-           alert("Please upload an image");
-           return;
-         }
+    if (typeof uploadResponse === "undefined" || !uploadResponse) {
+      alert("Please upload an image");
+      return;
+    }
 
-         //"print_areas.0.placeholders.0.images.0.id: The print_areas.0.placeholders.0.images.0.id field is required."
+    //"print_areas.0.placeholders.0.images.0.id: The print_areas.0.placeholders.0.images.0.id field is required."
 
-         console.log({title: data.title, variant: data.size, image_id: uploadResponse.id})
+    console.log({
+      title: data.title,
+      variant: data.size,
+      image_id: uploadResponse.id,
+      categories: data.categories,
+    });
 
-         const url = new URL(process.env.NEXT_PUBLIC_SITE_URL!);
-         // create a product using the printify api
-         const req = await fetch(`${url}/api/printify/products`, {
-           method: "POST",
-           headers: {
-             "Content-Type": "application/json;charset=utf-8",
-           },
-           body: JSON.stringify({
-             title: data.title,
-             variant_id: data.size,
-             image_id: uploadResponse.id,
-           }),
-         })
-           .then((res) => res.json())
-           .catch((err) => console.log(err));
+    const url = new URL(process.env.NEXT_PUBLIC_SITE_URL!);
+    // create a product using the printify api
+    const req = await fetch(`${url}/api/printify/products`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify({
+        title: data.title,
+        variant_id: data.size,
+        image_id: uploadResponse.id,
+        categories: data.categories,
+      }),
+    })
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
 
-         const product = await req;
-         setLoading(false);
-         console.log(product);
-       }
+    const res = await req;
+    setLoading(false);
+    console.log(res);
+    // setPrintifyProduct(product);
+  }
 
   // upload image to printify using the printify api
   const uploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -114,7 +135,9 @@ const UploadImage = ({ variants }: { variants: CanvasResponse }) => {
     const filename =
       slugify(file.name.split(".")[0], {
         lower: true,
-      }) + "_" + Math.ceil(Math.random() * 25);
+      }) +
+      "_" +
+      Math.ceil(Math.random() * 25);
 
     const fileExtension = file.name.split(".").pop();
 
@@ -138,7 +161,7 @@ const UploadImage = ({ variants }: { variants: CanvasResponse }) => {
         "https://hdhqxisqffmoqhpzmhet.supabase.co/storage/v1/object/public/uploads/";
       // console.log(data);
 
-      const prinify_upload: {data:ImageUploadResponse} = await fetch(
+      const prinify_upload: { data: ImageUploadResponse } = await fetch(
         `http://localhost:3000/api/printify/uploads`,
         {
           method: "POST",
@@ -169,10 +192,10 @@ const UploadImage = ({ variants }: { variants: CanvasResponse }) => {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="flex flex-col w-full max-w-sm items-start space-y-2">
+      <div className="flex flex-col md:flex-row  md:gap-x-6 md:items-start justify-between">
+        <div className="flex flex-col w-full max-w-xl items-start space-y-2">
           <Label htmlFor="image">Upload your image</Label>
-          <div className="flex  w-full max-w-sm items-center space-x-2">
+          <div className="flex  w-full  items-center space-x-2">
             <Input
               name="image"
               id="image"
@@ -183,79 +206,133 @@ const UploadImage = ({ variants }: { variants: CanvasResponse }) => {
             />
             {/* <Button type="submit">Upload</Button> */}
           </div>
-          <div>
-            {loading && <p>Uploading...</p>}
-            {image && (
-              <img
-                src={image}
-                alt="uploaded image"
-                className="w-sm object-cover mt-3"
-              />
-            )}
+          <div className="w-full">
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="w-full space-y-2"
+              >
+                <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Product Title</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Product title" {...field} />
+                      </FormControl>
+
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="size"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Size</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        // defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select size of canvas" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <ScrollArea className="h-96">
+                            {variants.variants.map((variant) => (
+                              <SelectItem
+                                key={variant.id}
+                                value={variant.id.toString()}
+                              >
+                                {variant.title}
+                              </SelectItem>
+                            ))}
+                          </ScrollArea>
+                        </SelectContent>
+                      </Select>
+
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="categories"
+                  render={() => (
+                    <FormItem>
+                      <div className="mb-4">
+                        <FormLabel className="text-base">Categories</FormLabel>
+                        <FormDescription>Select the categories</FormDescription>
+                      </div>
+                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3">
+                        {" "}
+                        {categories.map((item) => (
+                          <FormField
+                            key={item.id}
+                            control={form.control}
+                            name="categories"
+                            render={({ field }) => {
+                              return (
+                                <FormItem
+                                  key={item.id}
+                                  className="flex flex-row items-start space-x-3 space-y-0"
+                                >
+                                  <FormControl>
+                                    <Checkbox
+                                      checked={field.value?.includes(item.id)}
+                                      onCheckedChange={(checked) => {
+                                        return checked
+                                          ? field.onChange([
+                                              // ...field.value,
+                                              item.id,
+                                            ])
+                                          : field.onChange(
+                                              field.value?.filter(
+                                                (value) => value !== item.id
+                                              )
+                                            );
+                                      }}
+                                    />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    {item.title}
+                                  </FormLabel>
+                                </FormItem>
+                              );
+                            }}
+                          />
+                        ))}
+                      </div>
+
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <Button disabled={loading} type="submit">
+                  {loading ? "Loading" : "Submit"}
+                </Button>
+              </form>
+            </Form>
           </div>
         </div>
 
-        <div className="flex-1">
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full space-y-6"
-            >
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Product Title</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Product title" {...field} />
-                    </FormControl>
-                    x
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="size"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Size</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      // defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select size of canvas" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <ScrollArea className="h-96">
-                          {variants.variants.map((variant) => (
-                            <SelectItem
-                              key={variant.id}
-                              value={variant.id.toString()}
-                            >
-                              {variant.title}
-                            </SelectItem>
-                          ))}
-                        </ScrollArea>
-                      </SelectContent>
-                    </Select>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <Button disabled={loading} type="submit">
-                {loading ? "Loading" : "Submit"}
-              </Button>
-            </form>
-          </Form>
+        <div>
+          {loading && <p>Uploading...</p>}
+          {image && (
+            <img
+              src={image}
+              alt="uploaded image"
+              className="w-sm object-cover mt-3"
+            />
+          )}
         </div>
-      </div>
+      </div>{" "}
+      {/* {printifyProduct && <pre>{JSON.stringify(printifyProduct, null, 2)}</pre>} */}
     </div>
   );
 };

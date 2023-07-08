@@ -33,7 +33,9 @@ const ProductDetail = ({product}:ProductDetailProps) => {
 
   const router = useRouter()
 
- const sortedPrices = product.variants.sort((a, b) => a.price - b.price);
+  const variants = product.variants.filter((variant) => variant.is_enabled === true);
+
+ const sortedPrices = variants.sort((a, b) => a.price - b.price);
 
   const [imgIndex, setImgIndex] = useState(0)
 

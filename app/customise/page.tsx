@@ -5,6 +5,7 @@ import { Database } from "@/types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { fetchCategories } from "@/lib/fetchers/products";
 
 export type CanvasResponse = {
   id: number;
@@ -46,13 +47,15 @@ const page = async () => {
 
   const { data }: { data: CanvasResponse } = await cnavas_sizes;
 
+   const categories = await fetchCategories();
+
   return (
     <div className="my-10 container">
       <h1 className="text-3xl font-bold">Custom Canvas</h1>
       <p className="text-md">Create your own wall art with your own image</p>
       <Separator className="my-4" />
       {user.user ? (
-        <UploadImage variants={data} />
+        <UploadImage variants={data} categories={categories} />
       ) : (
         <Link href="/login">
           <Button>Please log in</Button>
