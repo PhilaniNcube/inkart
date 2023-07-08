@@ -17,15 +17,8 @@ export async function POST(req:Request) {
       from: 'info@inkart.store',
       to: email,
       subject: "Ink Art: Thank you for your order!",
-      react: EmailTemplate({
-        first_name: first_name,
-        last_name: last_name,
-        email: email,
-        order_id: order_id,
-        address: address,
-        city: city,
-        state: state,
-      }),
+      html: `<p>Hi ${first_name} ${last_name},</p>`
+      + `<p>Thank you for your order! We will send you a confirmation when your order ships.</p>`,
     });
 
     return NextResponse.json(data);

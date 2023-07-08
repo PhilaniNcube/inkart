@@ -1,14 +1,15 @@
 import { getProduct } from "@/lib/fetchers/products";
 import { ProductImageObject } from "@/schema";
 import { Database } from "@/types";
-import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
+import {  createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 const URL = process.env.NEXT_PUBLIC__BASE_URL || 'https://api.printify.com/v1/'
 
 export async function GET(req:NextRequest){
-  const res = NextResponse.next()
-  const supabase = createMiddlewareClient<Database>({ req, res })
+
+  const supabase = createRouteHandlerClient<Database>({cookies})
 
   const pages = [1,2,3]
 

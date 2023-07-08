@@ -4,7 +4,6 @@ const URL = process.env.NEXT_PUBLIC__BASE_URL || 'https://api.printify.com/v1'
 
 export async function GET(request: Request) {
 
-
   const response = await fetch(`${URL}/catalog/blueprints.json`, {
     method: 'GET',
     headers: {

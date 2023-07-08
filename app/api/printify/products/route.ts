@@ -1,8 +1,6 @@
 import { ProductAPI } from "@/schema";
 import { Database } from "@/types";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { createClient } from "@supabase/supabase-js";
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server"
 
 
@@ -15,13 +13,13 @@ const URL = process.env.NEXT_PUBLIC__BASE_URL || 'https://api.printify.com/v1'
 
 export async function POST(request: Request) {
 
-  const supabase = createServerComponentClient<Database>({ cookies });
+
 
   const {title, variant_id, image_id, categories} = await request.json()
 
   console.log(title, variant_id, image_id, categories)
 
-  const {data:variant, error} = await supabase.from("canvas_variants").select("*").eq("id", +variant_id).single()
+  const {data:variant, error} = await supabase_service.from("canvas_variants").select("*").eq("id", +variant_id).single()
 
   if(error) {
     return NextResponse.json(error.message)

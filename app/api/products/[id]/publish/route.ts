@@ -9,8 +9,6 @@ export async function POST(request: NextRequest, context:any) {
   const product = request.body
   // const id = searchParams.get('id')
 
-
-
   const response = await fetch(`${BASE_URL}/shops/9354978/products/${context.params.id}/publishing_succeeded.json`, {
     method: 'POST',
     headers: {

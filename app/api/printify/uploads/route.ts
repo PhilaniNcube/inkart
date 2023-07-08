@@ -2,8 +2,6 @@ import { NextResponse } from "next/server"
 
 const URL = process.env.NEXT_PUBLIC__BASE_URL || 'https://api.printify.com/v1'
 
-
-
 export async function POST(request: Request) {
 
   const {file_name, url} = await request.json()

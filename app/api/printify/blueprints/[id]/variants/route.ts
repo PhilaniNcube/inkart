@@ -1,6 +1,3 @@
-import { Database } from "@/types";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server"
 
 const URL = process.env.NEXT_PUBLIC__BASE_URL || 'https://api.printify.com/v1'
@@ -23,7 +20,5 @@ export async function GET(  request: Request,
   // const { data: variants } = await supabase.from("canvas_variants").insert(data.variants)
 
   return NextResponse.json({data})
-
-
 
 }
