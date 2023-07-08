@@ -66,7 +66,11 @@ const UploadImage = ({ variants, categories }: Props) => {
 
   const [loading, setLoading] = useState(false);
 
+  const [productCreated, setProductCreated] = useState(false);
+
   const [image, setImage] = useState("");
+
+  const [productUpdated, setProductUpdated] = useState<null | Database["public"]["Tables"]["products"]["Row"]>(null)
 
   const [printifyProduct, setPrintifyProduct] = useState<null | any>(null);
 
@@ -119,13 +123,14 @@ const UploadImage = ({ variants, categories }: Props) => {
 
     const res = await req;
     setLoading(false);
+
     console.log(res);
 
     if(res.product?.id) {
 
       // const productImage = res.product.images.filter((image:{is_default:boolean, is_selected_for_publishing:boolean, position: string, src: string, variant_id: number, variant_ids: number[]}) => image.src.includes("context-1"))
-
-      setImage(res.product?.images[4].src);
+      setProductCreated(true);
+      setProductUpdated(res.product);
       // router.push(`/products/${res.product.id}`)
     }
     // setPrintifyProduct(product);
@@ -338,12 +343,36 @@ const UploadImage = ({ variants, categories }: Props) => {
 
         <div>
           {loading && <p>Uploading...</p>}
-          {image && (
+          {image && !productCreated && (
             <img
               src={image}
               alt="uploaded image"
               className="w-sm object-cover mt-3"
             />
+          )}
+          {productCreated && (
+            <div className="w-full grid grid-cols-2 gap-4">
+              <img
+                src={productUpdated?.images[1].src}
+                alt="uploaded image"
+                className="w-sm object-cover mt-3"
+              />
+              <img
+                src={productUpdated?.images[4].src}
+                alt="uploaded image"
+                className="w-sm object-cover mt-3"
+              />
+              <img
+                src={productUpdated?.images[5].src}
+                alt="uploaded image"
+                className="w-sm object-cover mt-3"
+              />
+              <img
+                src={productUpdated?.images[7].src}
+                alt="uploaded image"
+                className="w-sm object-cover mt-3"
+              />
+            </div>
           )}
         </div>
       </div>{" "}
