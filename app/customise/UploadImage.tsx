@@ -350,28 +350,33 @@ const UploadImage = ({ variants, categories }: Props) => {
               className="w-sm object-cover mt-3"
             />
           )}
-          {productCreated && (
-            <div className="w-full grid grid-cols-2 gap-4">
-              <img
-                src={productUpdated?.images[1].src}
-                alt="uploaded image"
-                className="w-full aspect-square object-cover mt-3"
-              />
-              <img
-                src={productUpdated?.images[4].src}
-                alt="uploaded image"
-                className="w-full aspect-square object-cover mt-3"
-              />
-              <img
-                src={productUpdated?.images[5].src}
-                alt="uploaded image"
-                className="w-full aspect-square object-cover mt-3"
-              />
-              <img
-                src={productUpdated?.images[7].src}
-                alt="uploaded image"
-                className="w-full aspect-square object-cover mt-3"
-              />
+          {productCreated && productUpdated && (
+            <div className="w-full">
+              <Link href={`/products/${productUpdated.id}`}>
+                <Button className="w-full">View Product</Button>
+              </Link>
+              <div className="w-full grid grid-cols-2 gap-4">
+                <img
+                  src={productUpdated?.images[1].src}
+                  alt="uploaded image"
+                  className="w-full aspect-square object-cover mt-3"
+                />
+                <img
+                  src={productUpdated?.images[4].src}
+                  alt="uploaded image"
+                  className="w-full aspect-square object-cover mt-3"
+                />
+                <img
+                  src={productUpdated?.images[5].src}
+                  alt="uploaded image"
+                  className="w-full aspect-square object-cover mt-3"
+                />
+                <img
+                  src={productUpdated?.images[7].src}
+                  alt="uploaded image"
+                  className="w-full aspect-square object-cover mt-3"
+                />
+              </div>
             </div>
           )}
         </div>
