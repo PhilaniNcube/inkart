@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 
 const URL = process.env.NEXT_PUBLIC__BASE_URL || 'https://api.printify.com/v1'
 
-export const runtime = 'edge'
+
 
 export async function POST(request: Request) {
 
@@ -14,12 +14,9 @@ export async function POST(request: Request) {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PRINTIFY_API_TOKEN}`,
-      'Accept': 'application/json',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Authorization, Accept, Access-Control-Allow-Origin',
-      'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS, POST, PUT, DELETE',
-      'Access-Control-Allow-Origin': '*',
-      "Access-Control-Allow-Credentials": "true",
-
+        'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     },
     body: JSON.stringify({
       file_name,
