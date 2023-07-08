@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server"
-import { createClient } from '@supabase/supabase-js'
 
 const URL = process.env.NEXT_PUBLIC__BASE_URL || 'https://api.printify.com/v1/'
-
-
 
 export async function GET(request: Request) {
 
