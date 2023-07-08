@@ -5,6 +5,8 @@ import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server"
 
+export const runtime = 'edge'
+
 const supabaseUrl = 'https://hdhqxisqffmoqhpzmhet.supabase.co'
 const supabaseKey = process.env.SUPABASE_SECRET || ''
 
@@ -36,6 +38,9 @@ export async function POST(request: Request) {
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
       'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PRINTIFY_API_TOKEN}`,
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 
     },
     body: JSON.stringify({
