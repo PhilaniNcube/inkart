@@ -34,18 +34,20 @@ const page = async () => {
 
    console.log("Getting user", sessionData);
 
-  const url = new URL(
-    `http://localhost:3000/api/printify/blueprints/50/variants`
-  );
+  // const url = new URL(
+  //   `http://localhost:3000/api/printify/blueprints/50/variants`
+  // );
 
-  const cnavas_sizes = await fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    }
-  }).then(response => response.json()).catch(error => console.log(error));
+  // const cnavas_sizes = await fetch(url, {
+  //   method: "GET",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   }
+  // }).then(response => response.json()).catch(error => console.log(error));
 
-  const { data }: { data: CanvasResponse } = await cnavas_sizes;
+  // const { data }: { data: CanvasResponse } = await cnavas_sizes;
+
+  const {data: canvas_sizes, error: canvas_sizes_error} = await supabase.from("canvas_variants").select("*");
 
    const categories = await fetchCategories();
 
@@ -56,8 +58,8 @@ const page = async () => {
       <h1 className="text-3xl font-bold">Custom Canvas</h1>
       <p className="text-md">Create your own wall art with your own image</p>
       <Separator className="my-4" />
-      <UploadImage variants={data} categories={categories} />
-     {/* { sessionData.data.session ? (
+      <UploadImage variants={canvas_sizes!} categories={categories} />
+      {/* { sessionData.data.session ? (
       ) : (
         <Link href="/login">
           <Button>Please log in</Button>

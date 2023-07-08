@@ -55,9 +55,9 @@ const FormSchema = z.object({
 });
 
 type Props = {
-  variants: CanvasResponse;
-  categories: Database['public']['Tables']['categories']['Row'][];
-}
+  variants: Database["public"]["Tables"]["canvas_variants"]["Row"][];
+  categories: Database["public"]["Tables"]["categories"]["Row"][];
+};
 
 const UploadImage = ({ variants, categories }: Props) => {
   const { supabase } = useSupabase();
@@ -77,7 +77,7 @@ const UploadImage = ({ variants, categories }: Props) => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       title: "",
-      size: variants.variants[0].id.toString(),
+      size: variants[0].id.toString(),
       categories: [],
     },
   });
@@ -243,7 +243,7 @@ const UploadImage = ({ variants, categories }: Props) => {
                         </FormControl>
                         <SelectContent>
                           <ScrollArea className="h-96">
-                            {variants.variants.map((variant) => (
+                            {variants.map((variant) => (
                               <SelectItem
                                 key={variant.id}
                                 value={variant.id.toString()}
