@@ -118,7 +118,7 @@ export async function POST(request: Request) {
 
   return NextResponse.json({
     product: product,
-    // categories: product_categories,
+    categories: [],
     errors: product_error
   }, {
     status: 200,
