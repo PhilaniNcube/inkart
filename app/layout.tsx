@@ -1,6 +1,5 @@
 import Navbar from './Navbar'
 import './globals.css'
-import { Inter } from 'next/font/google'
 import { Metadata } from "next";
 import Footer from '@/components/layout/Footer';
 import CartProvider from '@/components/Providers/CartProvider';
@@ -8,11 +7,13 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from "next/headers";
 import SupabaseProvider from '@/components/Providers/SupabaseProvider';
 import { fetchCategories } from '@/lib/fetchers/products';
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Script from 'next/script';
+
 import { Suspense } from 'react';
 import Analytics from '@/components/Providers/Analytics';
+
+export const revalidate = 0 // revalidate this page every 60 seconds
 
 
 export const metadata: Metadata = {
@@ -38,10 +39,6 @@ export default async function RootLayout({
 
 
   const supabase = createServerComponentClient({ cookies });
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
 
   const {
     data: { user },
