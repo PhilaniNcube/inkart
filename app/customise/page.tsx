@@ -30,9 +30,9 @@ const page = async () => {
 
    const supabase = createServerComponentClient<Database>({ cookies });
 
-   const { data: user, error } = await supabase.auth.getUser();
+   const sessionData = await supabase.auth.getSession();
 
-   console.log("Getting user", user);
+   console.log("Getting user", sessionData);
 
   const url = new URL(
     `http://localhost:3000/api/printify/blueprints/50/variants`
@@ -49,12 +49,14 @@ const page = async () => {
 
    const categories = await fetchCategories();
 
+   console.log(sessionData)
+
   return (
     <div className="my-10 container">
       <h1 className="text-3xl font-bold">Custom Canvas</h1>
       <p className="text-md">Create your own wall art with your own image</p>
       <Separator className="my-4" />
-      {user.user ? (
+     { sessionData.data.session ? (
         <UploadImage variants={data} categories={categories} />
       ) : (
         <Link href="/login">
