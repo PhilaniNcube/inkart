@@ -36,8 +36,7 @@ export async function POST(request: Request) {
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
       'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PRINTIFY_API_TOKEN}`,
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Origin": "*",
+
     },
     body: JSON.stringify({
       title:title,

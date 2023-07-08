@@ -13,8 +13,8 @@ export async function POST(request: Request) {
       'Content-Type': 'application/json;charset=utf-8',
       'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PRINTIFY_API_TOKEN}`,
       'Accept': 'application/json',
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Origin": "*",
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Origin': '*',
 
     },
     body: JSON.stringify({

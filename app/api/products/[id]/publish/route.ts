@@ -5,8 +5,8 @@ const BASE_URL = process.env.NEXT_PUBLIC__BASE_URL || 'https://api.printify.com/
 
 export async function POST(request: NextRequest, context:any) {
 
-  const {search} = new URL(request.url)
-  const product = request.body
+  // const {search} = new URL(request.url)
+  // const product = request.body
   // const id = searchParams.get('id')
 
 
@@ -17,8 +17,7 @@ export async function POST(request: NextRequest, context:any) {
       cache: 'no-cache',
       'Content-Type': 'application/json;charset=utf-8',
       'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PRINTIFY_API_TOKEN}`,
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Origin": "*",
+
     },
     body: JSON.stringify({
     "title": true,
