@@ -104,6 +104,7 @@ export async function POST(request: Request) {
     categories: product_categories,
     errors: product_error
   }, {
+    status: 200,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PRINTIFY_API_TOKEN}`,
@@ -120,6 +121,7 @@ export async function POST(request: Request) {
     // categories: product_categories,
     errors: product_error
   }, {
+    status: 200,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PRINTIFY_API_TOKEN}`,
