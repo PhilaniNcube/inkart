@@ -120,6 +120,11 @@ const UploadImage = ({ variants, categories }: Props) => {
     const res = await req;
     setLoading(false);
     console.log(res);
+
+    if(res.product?.id) {
+      setImage(res.product.images[0].src)
+      // router.push(`/products/${res.product.id}`)
+    }
     // setPrintifyProduct(product);
   }
 
