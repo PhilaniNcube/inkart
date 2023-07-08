@@ -5,8 +5,8 @@ const BASE_URL = process.env.NEXT_PUBLIC__BASE_URL || 'https://api.printify.com/
 
 export async function POST(request: NextRequest, context:any) {
 
-  // const {search} = new URL(request.url)
-  // const product = request.body
+  const {search} = new URL(request.url)
+  const product = request.body
   // const id = searchParams.get('id')
 
 
