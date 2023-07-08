@@ -58,13 +58,14 @@ const page = async () => {
       <h1 className="text-3xl font-bold">Custom Canvas</h1>
       <p className="text-md">Create your own wall art with your own image</p>
       <Separator className="my-4" />
-      <UploadImage variants={canvas_sizes!} categories={categories} />
-      {/* { sessionData.data.session ? (
+
+      {sessionData.data.session ? (
+        <UploadImage variants={canvas_sizes!} categories={categories} />
       ) : (
         <Link href="/login">
           <Button>Please log in</Button>
         </Link>
-      )} */}
+      )}
     </div>
   );
 };
