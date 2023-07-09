@@ -86,6 +86,8 @@ const UploadImage = ({ variants, categories }: Props) => {
     },
   });
 
+  console.log({ product: productUpdated });
+
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setLoading(true);
     //  console.log(data);
@@ -131,6 +133,7 @@ const UploadImage = ({ variants, categories }: Props) => {
       // const productImage = res.product.images.filter((image:{is_default:boolean, is_selected_for_publishing:boolean, position: string, src: string, variant_id: number, variant_ids: number[]}) => image.src.includes("context-1"))
       setProductCreated(true);
       setProductUpdated(res.product);
+
       // router.push(`/products/${res.product.id}`)
     }
     // setPrintifyProduct(product);
@@ -357,6 +360,11 @@ const UploadImage = ({ variants, categories }: Props) => {
               </Link>
               <div className="w-full grid grid-cols-2 gap-4">
                 <img
+                  src={productUpdated?.images[0].src}
+                  alt="uploaded image"
+                  className="w-full aspect-square object-cover mt-3"
+                />
+                <img
                   src={productUpdated?.images[1].src}
                   alt="uploaded image"
                   className="w-full aspect-square object-cover mt-3"
@@ -367,12 +375,7 @@ const UploadImage = ({ variants, categories }: Props) => {
                   className="w-full aspect-square object-cover mt-3"
                 />
                 <img
-                  src={productUpdated?.images[5].src}
-                  alt="uploaded image"
-                  className="w-full aspect-square object-cover mt-3"
-                />
-                <img
-                  src={productUpdated?.images[7].src}
+                  src={productUpdated?.images[6].src}
                   alt="uploaded image"
                   className="w-full aspect-square object-cover mt-3"
                 />
