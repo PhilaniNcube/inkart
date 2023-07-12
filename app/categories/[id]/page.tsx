@@ -1,7 +1,7 @@
 import Container from "@/components/layout/Container";
 import ProductGrid from "@/components/products/ProductGrid";
 import { Separator } from "@/components/ui/separator";
-import { fetchCategoryById,  fetchProductsByCategoryId, fetchProductsFormCategoryId } from "@/lib/fetchers/products";
+import { fetchCategoryById,  fetchProductsFormCategoryId } from "@/lib/fetchers/products";
 import { Metadata } from "next";
 
 export async function generateMetadata({

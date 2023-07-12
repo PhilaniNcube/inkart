@@ -78,6 +78,10 @@ export function SelectCategories({
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
 
+    const { error: deleteError } = await supabase.from("product_categories").delete().match({ product_id: productId });
+
+    console.log(deleteError);
+
     const uploadData = data.categories.map((item) => {
       return {
         product_id: productId,

@@ -124,6 +124,9 @@ const fetchProductById = async (id:string) => {
 }
 
 
+
+
+
 const fetchCategories = async () => {
   const supabase = createServerComponentClient<Database>({ cookies });
 
@@ -232,25 +235,18 @@ const getProductVariations = async (productId:string):Promise<ProductVariations>
 
 const fetchProductsByCategoryId = async ( id:string) => {
 
-
-
     const supabase = createServerComponentClient<Database>({ cookies });
 
 
-    const { data,  count:productCount } = await supabase.from("products").select("*", {count: 'exact', head: true}).eq('category', id);
+    const { data:products,  count:productCount , error } = await supabase.from("product_categories").select("*, category_id(*), product_id(*)").eq("category_id", id);
 
-    console.log({productCount})
 
-    const { data:products, error, count } = await supabase.from("products").select("*, category(id, title, slug)", {count: 'exact'}).eq('category', id);
 
     if(error) {
         throw new Error(error.message);
     }
 
-    return {
-      products,
-      count
-    };
+    return products
 }
 
 

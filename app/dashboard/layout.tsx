@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { Boxes, ShirtIcon, Truck, Users } from "lucide-react";
+import { StackIcon } from "@radix-ui/react-icons";
 
 const layout = ({children}:{children:ReactNode}) => {
   return (
@@ -18,6 +19,10 @@ const layout = ({children}:{children:ReactNode}) => {
               <Link href="/dashboard/products" className="flex items-center px-3 py-1 rounded-lg hover:bg-slate-400 space-x-2">
                 <Boxes className="h-6 w-6" />
                 <span>Products</span>
+              </Link>
+              <Link href="/dashboard/categories" className="flex items-center px-3 py-1 mt-3 rounded-lg hover:bg-slate-400 space-x-2">
+                <StackIcon className="h-6 w-6" />
+                <span>Categories</span>
               </Link>
               <Link href="/dashboard/orders" className="flex items-center px-3 py-1 mt-3 rounded-lg hover:bg-slate-400 space-x-2">
                 <Truck className="h-6 w-6" />
