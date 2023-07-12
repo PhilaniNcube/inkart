@@ -13,7 +13,7 @@ const layout = ({children}:{children:ReactNode}) => {
         <div className="h-full">
           <ScrollArea className="w-56">
             <div className="h-screen flex flex-col bg-slate-100 px-4 py-3">
-              <Image src="/images/ink_logo.png" width={500} height={500} alt="Logo" className="h-16 w-16 object-cover" />
+              <Image src="/images/ink_logo.jpeg" width={500} height={500} alt="Logo" className="h-16 w-16 object-cover" />
               <Separator className="my-2" />
               <Link href="/dashboard/products" className="flex items-center px-3 py-1 rounded-lg hover:bg-slate-400 space-x-2">
                 <Boxes className="h-6 w-6" />

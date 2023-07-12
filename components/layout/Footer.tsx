@@ -18,7 +18,7 @@ export default function Footer() {
             <div className="flex flex-col justify-start items-start lg:w-80">
               <div className="xl:flex-col flex justify-start items-center xl:items-start">
                 <div className="flex justify-center mr-6 xl:mr-0 dark:text-white text-gray-800">
-                 <img src="/images/ink_logo.png" alt="Logo" className="h-16 w-16 object-cover" />
+                 <img src="/images/ink_logo.jpeg" alt="Logo" className="h-16 w-16 object-cover" />
 
                 </div>
                 <div className="flex justify-center flex-col">

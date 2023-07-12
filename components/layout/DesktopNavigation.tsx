@@ -1,7 +1,7 @@
 "use client"
 
 import { totalCartItemsSelector } from "@/app/store/features/cartSlice";
-import { useAppDispatch } from "@/app/store/store";
+import Image from "next/image";
 import { User } from "@supabase/auth-helpers-nextjs";
 import { SearchIcon, ShoppingCartIcon, User2Icon, UserPlus2Icon } from "lucide-react";
 import Link from "next/link";
@@ -14,12 +14,10 @@ import { Database } from "@/types";
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
@@ -65,7 +63,7 @@ const DesktopNavigation = ({user, categories, admin}:ComponentProps) => {
       <div className="w-full md:flex justify-between items-center space-x-8 hidden">
         <div>
           <Link href="/" className="text-slate-800 font-semibold text-lg">
-            Ink Art
+            <Image src="/images/ink_logo.jpeg" alt="logo" width={50} height={50} className="h-20 aspect-square object-cover" />
           </Link>
         </div>{" "}
         <form onSubmit={handleSubmit} className="flex-1 flex ">
