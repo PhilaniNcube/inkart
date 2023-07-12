@@ -63,7 +63,7 @@ const DesktopNavigation = ({user, categories, admin}:ComponentProps) => {
       <div className="w-full md:flex justify-between items-center space-x-8 hidden">
         <div>
           <Link href="/" className="text-slate-800 font-semibold text-lg">
-            <Image src="/images/ink_logo.jpeg" alt="logo" width={50} height={50} className="h-20 aspect-square object-cover" />
+            <Image src="/images/ink_logo.jpeg" alt="logo" width={50} height={50} className="w-20 aspect-square object-cover" />
           </Link>
         </div>{" "}
         <form onSubmit={handleSubmit} className="flex-1 flex ">
