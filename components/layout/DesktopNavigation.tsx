@@ -93,7 +93,7 @@ const DesktopNavigation = () => {
         <Link href="/about-us" className="text-slate-800 font-semibold text-lg">
           About Us
         </Link>
-        <Link href="/contact" className="text-slate-800 font-semibold text-lg">
+        <Link href="/contact-us" className="text-slate-800 font-semibold text-lg">
           Contact Us
         </Link>
 

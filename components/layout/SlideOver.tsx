@@ -72,6 +72,9 @@ export default function SlideOver({ open, setOpen}: { open: boolean, setOpen: (o
                     <div className="relative mt-6 flex-1 flex flex-col space-y-4 px-4 sm:px-6">
                       <Link href="/products">Browse Art</Link>
                       <Link href="/categories">Categories</Link>
+                      <Link href="/products/search">Search</Link>
+                      <Link href="/about-us">About Us</Link>
+                      <Link href="/contact-us">Contact Us</Link>
                       {/* <Link href="/products/search">Search</Link> */}
                       <Separator className="my-3 text-slate-800" />
 
