@@ -1,10 +1,10 @@
-import { Database } from "@/types"
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
-import { cookies } from "next/headers"
+
+import { createClient } from "@/utils/supabase/server";
+
 
 export const fetchProfiles = async (page: number, page_size: number) => {
 
-  const supabase = createServerComponentClient<Database>({ cookies });
+const supabase = await createClient()
 
 const start = (page - 1 ) * page_size;
 

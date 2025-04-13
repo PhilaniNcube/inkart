@@ -4,7 +4,9 @@ import { fetchCategories, fetchProductById, fetchProductCategories } from "@/lib
 import Image from 'next/image'
 import { SelectCategories } from "./SelectCategories";
 
-const page = async ({params: {id}}:{params: {id:string}}) => {
+const page = async ({params}:{params: Promise<{id:string}>}) => {
+
+  const {id} = await params
 
   const productData =  fetchProductById(id)
   const categoriesData = fetchCategories()

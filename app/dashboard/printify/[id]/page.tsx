@@ -2,7 +2,10 @@ import { PrintifyBlueprint } from "../page";
 import Image from "next/image";
 
 
-const page = async ({params: {id}}:{params: {id: string}}) => {
+const page = async ({params}:{params: Promise<{id: string}>}) => {
+
+  const paramsData = await params;
+  const { id } = paramsData;
 
   const url = new URL(process.env.NEXT_PUBLIC_SITE_URL!);
 

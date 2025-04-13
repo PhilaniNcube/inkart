@@ -8,10 +8,10 @@ import Image from "next/image";
 const page = async ({
   searchParams,
 }: {
-  searchParams: { order_id: string | undefined };
+  searchParams: Promise<{ order_id: string | undefined }>;
 }) => {
 
-  const { order_id } = searchParams;
+  const { order_id } = await searchParams;
 
   const order = await getOrderById(order_id!);
   const updatedOrder = await updateOrderById(order_id!);
@@ -43,7 +43,7 @@ const page = async ({
         currency: "USD",
          value: updatedOrder.subtotal/100,
          shipping: updatedOrder.shipping/100,
-         items: updatedOrder.order_items.map((item) => ({
+         items: updatedOrder.order_items.map((item:any) => ({
            item_id: item.variantSKU,
            item_name: item.productTitle,
            affiliation: "Ink Art",
@@ -82,7 +82,7 @@ const page = async ({
           <Separator className="my-4" />
 
           <div className="grid grid-cols-1 max-w-[700px]">
-            {order.order_items.map((item) => (
+            {order.order_items.map((item:any) => (
               <div
                 key={item.variantSKU}
                 className="w-full flex space-x-3 border-b"

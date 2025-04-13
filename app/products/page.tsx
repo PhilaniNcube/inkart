@@ -19,10 +19,17 @@ export const metadata: Metadata = {
     description:
       "Discover our unique collection of beautiful, high-quality wall art and home decor. Perfect for adding a touch of style and personality to any room!",
   },
-  viewport: "width=device-width, initial-scale=1",
+
 };
 
-const page = async ({searchParams}:{searchParams: {page:string}}) => {
+type SearchParams = Promise<{ [key: string]: string | undefined }>
+
+const page = async (props: {
+
+  searchParams: SearchParams
+}) => {
+
+  const searchParams = await props.searchParams;
 
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
@@ -44,7 +51,7 @@ const page = async ({searchParams}:{searchParams: {page:string}}) => {
               />
             </div>
 
-            <ScrollArea className="h-full w-full max-w-[1300px] overflow-hidden bg-slate-100 px-4 py-3">
+            <ScrollArea className="h-full w-full max-w-[1300px] overflow-hidden px-4 py-3">
               <Grid products={products!} />
             </ScrollArea>
           </section>

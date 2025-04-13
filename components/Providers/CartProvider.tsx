@@ -1,22 +1,15 @@
 "use client"
 
-import { store } from "@/app/store/store";
-import React, {ReactNode} from "react";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { persistStore } from "redux-persist";
-
-let persistor = persistStore(store);
+import React, { ReactNode, useEffect } from "react";
 
 interface Props {
   children: ReactNode;
 }
 
-const CartProvider = ({children}:Props) => {
-  return <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-    {children}
-    </PersistGate>
-    </Provider>;
+// With Zustand we don't need a provider since it uses a store hook pattern
+// This component is kept for backward compatibility and in case we need
+// to add more functionality in the future
+const CartProvider = ({ children }: Props) => {
+  return <>{children}</>;
 };
 export default CartProvider;

@@ -1,14 +1,17 @@
 import Container from "@/components/layout/Container";
 import ProductGrid from "@/components/products/ProductGrid";
 import { Separator } from "@/components/ui/separator";
-import { fetchCategoryById,  fetchProductsFormCategoryId } from "@/lib/fetchers/products";
+import { fetchCategoryById, fetchProductsFormCategoryId } from "@/lib/fetchers/products";
 import { Metadata } from "next";
 
 export async function generateMetadata({
-  params: { id },
+  params
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>
 }): Promise<Metadata> {
+
+  const { id } = await params;
+
   const category = await fetchCategoryById(id);
 
   return {
@@ -17,12 +20,12 @@ export async function generateMetadata({
   };
 }
 
-const page = async ({params: {id}, searchParams: {page}}:{params: {id: string}, searchParams: {page:string}}) => {
+const page = async ({ params, searchParams }: { params: Promise<{ id: string }>, searchParams: Promise<{ page: string }> }) => {
 
+  const { id } = await params;
+  const { page } = await searchParams;
 
-  const currentPage = page ? +page : 1;
-
-  const categoryData =  fetchCategoryById(id)
+  const categoryData = fetchCategoryById(id)
   const productsData = fetchProductsFormCategoryId(id);
 
   const [category, products] = await Promise.all([categoryData, productsData])
@@ -33,12 +36,12 @@ const page = async ({params: {id}, searchParams: {page}}:{params: {id: string}, 
     <Container>
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-medium">{category.title}</h1>
     </Container>
-      {products.length === 0 ? (
-        <Container>
-          <Separator className="mb-4" />
-          <h2 className="text-xl font-medium">No products found in this category at the moment. Please browse another category</h2>
-        </Container>
-      ) : <ProductGrid products={products} />}
+    {products.length === 0 ? (
+      <Container>
+        <Separator className="mb-4" />
+        <h2 className="text-xl font-medium">No products found in this category at the moment. Please browse another category</h2>
+      </Container>
+    ) : <ProductGrid products={products} />}
 
   </div>;
 };

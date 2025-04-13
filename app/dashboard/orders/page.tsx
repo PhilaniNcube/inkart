@@ -15,13 +15,20 @@ import { formatPrice } from "@/lib/utils";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 
-const page = async ({searchParams: {page}}:{searchParams: {page: string}}) => {
+type SearchParams = Promise<{ [key: string]: string  | undefined }>
+
+const page = async (props: {
+  searchParams: SearchParams
+}) => {
+
+  const searchParams = await props.searchParams;
+  const { page } = searchParams;
 
   const value = await getOrderValues()
 
-  console.log(formatPrice(value))
+  console.log(formatPrice(value as number))
 
-  const currentPage = +page || 1
+  const currentPage = Number(page) || 1
 
   const page_size = 8
 

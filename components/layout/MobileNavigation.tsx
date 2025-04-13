@@ -4,10 +4,10 @@ import { MenuIcon, MenuSquareIcon, ShoppingBag, User2Icon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import SlideOver from "./SlideOver";
-import { User } from "@supabase/auth-helpers-nextjs";
 import { Button } from "../ui/button";
 import { useSupabase } from "../Providers/SupabaseProvider";
 import { useRouter } from "next/navigation";
+import { User } from "@supabase/supabase-js";
 
 type ComponentProps = {
   user: User | null;

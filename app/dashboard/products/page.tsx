@@ -6,7 +6,13 @@ import SearchProducts from "./SearchProducts";
 
 export const revalidate = 0;
 
-async function page({ searchParams }: { searchParams: { page: string; }; }) {
+type SearchParams = Promise<{ [key: string]: string | undefined }>
+
+async function page(props: {
+  searchParams: SearchParams
+}) {
+
+  const searchParams = await props.searchParams;
 
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 

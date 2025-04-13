@@ -2,9 +2,14 @@ import { NextResponse } from "next/server"
 
 const URL = process.env.NEXT_PUBLIC__BASE_URL || 'https://api.printify.com/v1'
 
-export async function GET(  request: Request,
-  { params: {id} }: { params: { id: string } }) {
+type Params = Promise<{ id: string }>
 
+export async function GET(  request: Request,
+  segmentData: { params: Params }) {
+
+
+   const params = await segmentData.params
+  const { id } = params 
 
 
 

@@ -1,13 +1,11 @@
 
 import CartDetails from "./CartDetails";
-import { cookies } from "next/headers";
-import { Database } from "@/types";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { getExchangeRate } from "@/lib/utils";
+import { createClient } from "@/utils/supabase/server";
 
-const page = async ({searchParams}:{searchParams:any}) => {
+const page = async () => {
 
-    const supabase = createServerComponentClient<Database>({ cookies });
+    const supabase = await createClient()
 
     const {data: {user}} = await supabase.auth.getUser();
 

@@ -1,7 +1,14 @@
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@/components/ui/table";
 import { fetchProfiles } from "@/lib/fetchers/profiles";
 
-const page = async ({searchParams: {page}}:{searchParams: {page: string}}) => {
+type SearchParams = Promise<{ [key: string]: string  | undefined }>
+
+const page = async (props: {
+  searchParams: SearchParams
+}) => {
+
+  const searchParams = await props.searchParams;
+  const { page } = searchParams;
 
   const currentPage  = page ? parseInt(page) : 1;
 

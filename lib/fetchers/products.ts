@@ -1,6 +1,6 @@
 import { Product, ProductAPI, ProductVariations, ProductGridItem, ProductImageObject } from "@/schema"
 import { Database } from "@/types"
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createClient } from "@/utils/supabase/server"
 import { cookies } from "next/headers"
 
 const URL = process.env.NEXT_PUBLIC__BASE_URL || 'https://api.printify.com/v1/'
@@ -54,7 +54,7 @@ const getProducts = async (page = 1, limit = 16):Promise<ProductResponse> => {
 
 
 const fetchProducts = async (page: number, page_size: number) => {
-const supabase = createServerComponentClient<Database>({ cookies });
+const supabase = await createClient()
 
 const start = (page - 1 ) * page_size;
 
@@ -75,7 +75,7 @@ return {
 
 
 const fetchAdminSearchProducts = async (page: number, page_size: number, query:string) => {
-const supabase = createServerComponentClient<Database>({ cookies });
+  const supabase = await createClient()
 
 const start = (page - 1 ) * page_size;
 
@@ -96,7 +96,7 @@ return {
 
 
 const fetchFeaturedProducts = async () => {
-const supabase = createServerComponentClient<Database>({ cookies });
+  const supabase = await createClient()
 
 
 
@@ -112,15 +112,15 @@ return products
 
 
 const fetchProductById = async (id:string) => {
-  const supabase = createServerComponentClient<Database>({ cookies });
+ const supabase = await createClient()
 
-  const {data:product, error} = await supabase.from('products').select('*, category(*)').eq('id', id).single();
+  const {data, error} = await supabase.from('products').select('*, category(*)').eq('id', id).single();
 
   if (error) {
      throw new Error(error.message)
   }
 
-  return product
+  return data
 }
 
 
@@ -128,7 +128,7 @@ const fetchProductById = async (id:string) => {
 
 
 const fetchCategories = async () => {
-  const supabase = createServerComponentClient<Database>({ cookies });
+  const supabase = await createClient()
 
   const {data:categories, error} = await supabase.from('categories').select('*').order('title', {ascending: true})
 
@@ -141,7 +141,7 @@ const fetchCategories = async () => {
 
 
 const fetchCategoryById = async (id:string) => {
-  const supabase = createServerComponentClient<Database>({ cookies });
+ const supabase = await createClient()
 
   const {data:category, error} = await supabase.from('categories').select('*').eq('id', id).single();
 
@@ -154,7 +154,7 @@ const fetchCategoryById = async (id:string) => {
 
 
 const fetchCategoryBySlug = async (slug:string) => {
-  const supabase = createServerComponentClient<Database>({ cookies });
+ const supabase = await createClient()
 
   const {data:category, error} = await supabase.from('categories').select('*').eq('slug', slug).single();
 
@@ -235,7 +235,7 @@ const getProductVariations = async (productId:string):Promise<ProductVariations>
 
 const fetchProductsByCategoryId = async ( id:string) => {
 
-    const supabase = createServerComponentClient<Database>({ cookies });
+   const supabase = await createClient()
 
 
     const { data:products,  count:productCount , error } = await supabase.from("product_categories").select("*, category_id(*), product_id(*)").eq("category_id", id);
@@ -255,7 +255,7 @@ const fetchSearchProducts = async ( query:string) => {
 
 
 
-    const supabase = createServerComponentClient<Database>({ cookies });
+   const supabase = await createClient()
 
 
 
@@ -274,7 +274,7 @@ const fetchSearchProducts = async ( query:string) => {
 
 
 const fetchProductCategories = async (productId:string) => {
-  const supabase = createServerComponentClient<Database>({ cookies });
+ const supabase = await createClient()
 
   const {data: productCategories, error} = await supabase.from('product_categories').select('*, product_id(*), category_id(*)').eq('product_id', productId)
 
@@ -287,7 +287,7 @@ const fetchProductCategories = async (productId:string) => {
 
 
 const fetchProductsFormCategoryId = async (categoryId:string) => {
-  const supabase = createServerComponentClient<Database>({ cookies });
+ const supabase = await createClient()
 
   const {data: products, error} = await supabase.from('product_categories').select('*, product_id(*), category_id(*)').eq('category_id', categoryId)
 

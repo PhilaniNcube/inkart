@@ -1,10 +1,10 @@
-import { Database } from "@/types";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+
+import { createClient } from "@/utils/supabase/server";
+
 
 
 const getOrders = async (page_size = 20, page = 1) => {
-    const supabase = createServerComponentClient<Database>({ cookies });
+const supabase = await createClient()
 
     const start = (page - 1) * page_size;
     const end = start + page_size - 1;
@@ -23,7 +23,7 @@ const getOrders = async (page_size = 20, page = 1) => {
 
 
 const getOrderById = async (id: string) => {
-    const supabase = createServerComponentClient<Database>({ cookies });
+const supabase = await createClient()
 
     const { data, error } = await supabase.from("orders").select("*").eq("id", id).single();
 
@@ -36,7 +36,7 @@ const getOrderById = async (id: string) => {
 
 
 const updateOrderById = async (id: string) => {
-    const supabase = createServerComponentClient<Database>({ cookies });
+const supabase = await createClient()
 
     const { data:order } = await supabase.from("orders").update({ id }).eq("id", id).select('*').single();
 
@@ -64,7 +64,7 @@ const updateOrderById = async (id: string) => {
 
 
 const getOrderValues = async () => {
-const supabase = createServerComponentClient<Database>({ cookies });
+  const supabase = await createClient()
 
 const {data, error} = await supabase.rpc("get_total_paid_orders").single();
 

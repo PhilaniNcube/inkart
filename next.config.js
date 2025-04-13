@@ -1,15 +1,27 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig  = {
   images: {
-    domains: [
-      "images-api.printify.com",
-      "hdhqxisqffmoqhpzmhet.supabase.co",
-      "images.printify.com",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images-api.printify.com",
+        port: "",
+        pathname: "/v1/**",
+      },
+      {
+        protocol: "https",
+        hostname: "hdhqxisqffmoqhpzmhet.supabase.co",
+        port: "",
+        pathname: "/storage/v1/object/public/images/**",
+      },
+      {
+        protocol: "https",
+        hostname: "images.printify.com",
+        port: "",
+        pathname: "/v1/**",
+      },
     ],
-  },
-  experimental: {
-    serverActions: true,
-  },
+  } 
 };
 
 module.exports = nextConfig

@@ -3,13 +3,11 @@ import { fetchProductById, getProduct } from "@/lib/fetchers/products";
 import ProductDetail from "./ProductDetail";
 import Script from "next/script";
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
 
-export async function generateMetadata({ params: { id } }: Props) {
+export async function generateMetadata({ params}: {params: Promise<{id:string}>}) {
+
+  const { id } = await params;
+
   const productData = fetchProductById(id);
 
   const [product] = await Promise.all([productData]);
@@ -18,7 +16,6 @@ export async function generateMetadata({ params: { id } }: Props) {
     title: `${product.title} | InkArt`,
     description: product.description,
     keywords: product.tags,
-    viewport: "width=device-width, initial-scale=1",
     category:
       "Home & Garden > Decor > Artwork > Posters, Prints, & Visual Artwork",
     robots: "follow, index",
@@ -31,7 +28,7 @@ export async function generateMetadata({ params: { id } }: Props) {
       siteName: "InkArt",
       locale: "en_US",
       url: `https://inkart.com/products/${id}`,
-      images: product.images.map((image) => {
+      images: product.images.map((image:any) => {
         return {
           url: image.src,
           width: 400,
@@ -44,19 +41,22 @@ export async function generateMetadata({ params: { id } }: Props) {
       card: "summary_large_image",
       title: product.title,
       description: product.description,
-      images: product.images.map((image) => `${image.src}`),
+      images: product.images.map((image:any) => `${image.src}`),
     },
   };
 
   return metadata;
 }
 
-const page = async ({ params: { id } }: Props) => {
+const page = async ({ params}: {params: Promise<{id:string}>}) => {
+
+  const { id } = await params;
+
   const productData = fetchProductById(id);
 
   const [product] = await Promise.all([productData]);
 
-  const productSchemas = product.variants.map((variant) => {
+  const productSchemas = product.variants.map((variant:any) => {
     return {
       "@context": "https://schema.org/",
       "@type": "Product",

@@ -1,8 +1,4 @@
-import { getProduct } from "@/lib/fetchers/products";
-import { ProductImageObject } from "@/schema";
-import { Database } from "@/types";
-import {  createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+
 import { NextRequest, NextResponse } from "next/server";
 
 const URL = process.env.NEXT_PUBLIC__BASE_URL || 'https://api.printify.com/v1/'

@@ -1,16 +1,14 @@
 "use client"
 
-import { totalCartItemsSelector } from "@/app/store/features/cartSlice";
 import Image from "next/image";
-import { User } from "@supabase/auth-helpers-nextjs";
 import { SearchIcon, ShoppingCartIcon, User2Icon, UserPlus2Icon } from "lucide-react";
 import Link from "next/link";
 import {useRouter} from "next/navigation"
 import { FormEvent } from "react";
-import { useSelector } from "react-redux";
 import { Button } from "../ui/button";
 import { useSupabase } from "../Providers/SupabaseProvider";
 import { Database } from "@/types";
+import { useCartStore } from "@/app/store/cartStore";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -21,6 +19,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
+import { User } from "@supabase/supabase-js";
 
 type ComponentProps = {
   user: User | null;
@@ -33,7 +32,6 @@ const DesktopNavigation = ({user, categories, admin}:ComponentProps) => {
 
 
   const router = useRouter()
-
   const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -42,9 +40,9 @@ const DesktopNavigation = ({user, categories, admin}:ComponentProps) => {
     router.push(`/products/search?query=${query}`)
   }
 
-  const qty = useSelector(totalCartItemsSelector)
-
-
+  // Use Zustand cart store instead of Redux selector
+  const cartItems = useCartStore((state) => state.cartItems);
+  const qty = cartItems.reduce((total, item) => total + item.qty, 0);
 
   const {supabase} = useSupabase()
 
@@ -123,45 +121,7 @@ const DesktopNavigation = ({user, categories, admin}:ComponentProps) => {
         </div>
       </div>
       <div className="w-full pt-3 hidden lg:flex items-center justify-start space-x-4">
-        <NavigationMenu className="justify-start">
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Home
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                  {categories.map((category) => (
-                    <Link
-                      key={category.id}
-                      href={`/categories/${category.id}`}
-                      legacyBehavior
-                      passHref
-                    >
-                      <NavigationMenuLink
-                        className={navigationMenuTriggerStyle()}
-                      >
-                        {category.title}
-                      </NavigationMenuLink>
-                    </Link>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/customise" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Create your own
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
+      
         {/* <Link
           href="/products?page=1"
           className="text-slate-800 hover:text-slate-700 text-sm px-2 py-1 hover:bg-slate-200 rounded-md"

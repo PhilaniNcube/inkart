@@ -1,18 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import Container from "@/components/layout/Container";
-import { useAppDispatch, useAppSelector } from "../store/store";
 import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { MinusIcon, PlusIcon, Trash2Icon } from "lucide-react";
-import {
-  increment,
-  decrement,
-  remove,
-  clear,
-  totalPriceSelector,
-} from "@/app/store/features/cartSlice";
+import { useCartStore } from "@/app/store/cartStore";
 import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { FormEvent } from "react";
@@ -25,14 +18,12 @@ type Props = {
 }
 
 const CheckoutDetails = ({ order}:Props) => {
-
   const exchangeRate = 20
 
-  const cartItems = useAppSelector((state) => state.cart.cartItems);
-  const totalPrice = useAppSelector(totalPriceSelector);
-
-  const dispatch = useAppDispatch();
-
+  // Use Zustand store instead of Redux
+  const cartItems = useCartStore((state) => state.cartItems);
+  const totalPrice = useCartStore((state) => state.totalPrice());
+  
   const shipping = 3000;
 
   const amount = (exchangeRate * (shipping + totalPrice)) / 100;

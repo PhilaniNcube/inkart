@@ -1,30 +1,35 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { useDispatch,TypedUseSelectorHook, useSelector } from 'react-redux'
-import {cartSlice} from './features/cartSlice'
-import storage from "redux-persist/lib/storage"
-import { persistReducer } from 'redux-persist'
-import { combineReducers } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+// Import your reducers
+import cartReducer from "./features/cartSlice";
+
 
 const persistConfig = {
-  key: 'root',
-  version: 1,
+  key: "root",
   storage,
-}
+  whitelist: ["cart"], // Specify which reducers to persist
+};
 
-const reducer = combineReducers({
-  cart: cartSlice.reducer
-})
+const rootReducer = combineReducers({
+  cart: cartReducer,
+  // Add other reducers here
+});
 
-const persistedReducer = persistReducer(persistConfig, reducer)
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-    reducer: persistedReducer
-})
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
 
+export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
-
-export const useAppDispatch:() => AppDispatch = useDispatch
-
-export const useAppSelector : TypedUseSelectorHook<RootState> = useSelector
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

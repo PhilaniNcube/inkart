@@ -1,14 +1,14 @@
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
-import { NextRequest, NextResponse } from 'next/server'
-import { revalidateTag } from 'next/cache';
+
+
+import { createClient } from '@/utils/supabase/server';
+import { NextResponse } from 'next/server';
 
 
 
 export async function POST(request: Request) {
 
   const data = await request.json()
-   const supabase = createRouteHandlerClient({ cookies })
+   const supabase = createClient()
 
   // const requestUrl = new URL(request.url)
   // const order_id = requestUrl.searchParams.get('order_id')

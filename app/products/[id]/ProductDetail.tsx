@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
-import { increment } from "@/app/store/features/cartSlice";
-import { useAppDispatch } from "@/app/store/store";
+import { useCartStore } from "@/app/store/cartStore";
 import Container from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -44,11 +43,10 @@ const ProductDetail = ({product}:ProductDetailProps) => {
     sortedPrices[imgIndex]
   );
 
-
   const imageIndex = product.images.filter((img) => img.variant_ids.includes(selectedVariation.id))
 
-  const dispatch = useAppDispatch()
-
+  // Using Zustand store instead of Redux
+  const addToCart = useCartStore((state) => state.addToCart);
 
 
 
@@ -165,22 +163,18 @@ const ProductDetail = ({product}:ProductDetailProps) => {
           </div>
           <div className="mt-4 flex justify-between items-center">
             <Dialog>
-              <DialogTrigger className="flex w-full">
-                <Button
+              <DialogTrigger className="flex w-full">                <Button
                   type="button"
                   onClick={() => {
-                    dispatch(
-                      increment({
-                        productId: product.id,
-                        qty: 1,
-                        variantId: selectedVariation.id,
-                        variantSKU: selectedVariation.sku,
-                        size: selectedVariation.title,
-                        image: imageIndex[imgIndex].src,
-                        price: selectedVariation.price,
-                        productTitle: product.title,
-                      })
-                    );
+                    addToCart({
+                      variantId: String(selectedVariation.id),
+                      variantSKU: selectedVariation.sku,
+                      productTitle: product.title,
+                      price: selectedVariation.price,
+                      qty: 1,
+                      size: selectedVariation.title,
+                      image: imageIndex[imgIndex].src,
+                    });
                   }}
                   className="w-full text-lg uppercase"
                 >

@@ -2,7 +2,8 @@ import Container from "@/components/layout/Container";
 import DesktopNavigation from "@/components/layout/DesktopNavigation";
 import MobileNavigation from "@/components/layout/MobileNavigation";
 import { Database } from "@/types";
-import { User } from "@supabase/auth-helpers-nextjs";
+import { User } from "@supabase/supabase-js";
+
 
 
 type ComponentProps = {

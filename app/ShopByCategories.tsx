@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Database } from "@/types";
 import Link from "next/link"
 import Container from "@/components/layout/Container";
+import { Button } from "@/components/ui/button";
 
 type ComponentProps = {
   categories: Database['public']['Tables']['categories']['Row'][]
@@ -34,12 +35,11 @@ export default function ShopByCategories({ categories}:ComponentProps) {
                     className="w-full object-cover rounded-md"
                   />
                 </div>
-                <Link
-                  href={`/categories/${category.id}`}
-                  className="text-sm md:text-base leading-4 text-gray-800 font-medium"
+                <Button
+                  className="text-sm md:text-base leading-4 w-2/3 mx-auto font-medium"
                 >
                   {category.title}
-                </Link>
+                </Button>
               </Link>
             ))}
           </div>

@@ -25,7 +25,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useSupabase } from "@/components/Providers/SupabaseProvider";
-import { CanvasResponse } from "./page";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import slugify from "slugify";
 import { Database } from "@/types";

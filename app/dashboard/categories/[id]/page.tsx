@@ -2,7 +2,9 @@ import { fetchProductsByCategoryId } from "@/lib/fetchers/products";
 import TableComponent from "./Table";
 
 
-const page = async ({params: {id}}:{params: {id:string}}) => {
+const page = async ({params}:{params: Promise<{id:string}>}) => {
+
+  const {id} = await params
 
   const productsData = await fetchProductsByCategoryId(id);
 

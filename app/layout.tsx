@@ -3,7 +3,6 @@ import './globals.css'
 import { Metadata } from "next";
 import Footer from '@/components/layout/Footer';
 import CartProvider from '@/components/Providers/CartProvider';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from "next/headers";
 import SupabaseProvider from '@/components/Providers/SupabaseProvider';
 import { fetchCategories } from '@/lib/fetchers/products';
@@ -12,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { Suspense } from 'react';
 import Analytics from '@/components/Providers/Analytics';
+import { createClient } from '@/utils/supabase/server';
 
 export const revalidate = 0 // revalidate this page every 60 seconds
 
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     description:
       "Discover our unique collection of beautiful, high-quality wall art and home decor. Perfect for adding a touch of style and personality to any room!",
   },
-  viewport: "width=device-width, initial-scale=1",
+
 };
 
 export default async function RootLayout({
@@ -38,7 +38,7 @@ export default async function RootLayout({
 }) {
 
 
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = await createClient()
 
   const {
     data: { user },

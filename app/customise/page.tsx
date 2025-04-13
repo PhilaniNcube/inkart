@@ -2,10 +2,10 @@ import { Separator } from "@/components/ui/separator";
 import UploadImage from "./UploadImage";
 import { cookies } from "next/headers";
 import { Database } from "@/types";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { fetchCategories } from "@/lib/fetchers/products";
+import { createClient } from "@/utils/supabase/server";
 
 export type CanvasResponse = {
   id: number;
@@ -28,7 +28,7 @@ export type CanvasResponse = {
 
 const page = async () => {
 
-   const supabase = createServerComponentClient<Database>({ cookies });
+   const supabase = await createClient()
 
    const sessionData = await supabase.auth.getSession();
 

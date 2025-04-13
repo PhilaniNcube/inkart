@@ -94,7 +94,7 @@ export const totalCartItemsSelector = createSelector([cartItems], (cartItems:Car
 
 export const totalPriceSelector = createSelector([cartItems], (cartItems:CartItem[]) => cartItems.reduce((acc, item) => (acc += item.qty * item.price), 0))
 
-export const productQtySelector = createSelector([cartItems, (cartItems:CartItem[], variantId:number) => variantId], (cartItems, variantId) => cartItems.find(el => el.variantId === variantId)?.qty )
+export const productQtySelector = createSelector([cartItems, (cartItems:CartItem[], variantId:number) => variantId], (cartItems, variantId) => cartItems.find((el: { variantId: any; }) => el.variantId === variantId)?.qty )
 
 
 export const { increment, decrement, remove, clear } = cartSlice.actions;

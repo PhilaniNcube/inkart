@@ -4,9 +4,11 @@ import { Separator } from "@/components/ui/separator";
 import { getOrderById } from "@/lib/fetchers/orders";
 import { formatPrice } from "@/lib/utils";
 
-const page = async ({params: {id}}: {params: {id: string}}) => {
+const page = async ({params}: {params: Promise<{id: string}>}) => {
 
-  console.log(id);
+  const paramsData = await params;
+  const { id } = paramsData;
+
 
   const order = await getOrderById(id)
 
@@ -31,7 +33,7 @@ const page = async ({params: {id}}: {params: {id: string}}) => {
           </div>
           <div className="w-full">
             <h2 className="text-xl font-semibold">Order Items</h2>
-            {order.order_items.map((item) => (
+            {order.order_items.map((item:any) => (
               <div key={item.variantSKU} className="flex w-full gap-4 my-2 bg-slate-100">
                 <div className="flex items-center p-2 border border-slate-100 rounded-md overflow-clip"><img
                   src={item.image}

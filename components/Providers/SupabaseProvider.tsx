@@ -8,13 +8,10 @@ import {
   useState,
 } from "react";
 import analytics  from "@/utils/analytics";
-
-import {
-  SupabaseClient,
-  createClientComponentClient,
-} from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { Database } from "@/types";
+import { createClient } from "@/utils/supabase/client";
+import { SupabaseClient } from "@supabase/supabase-js";
 
 type SupabaseContext = {
   supabase: SupabaseClient<Database>;
@@ -23,7 +20,7 @@ type SupabaseContext = {
 const Context = createContext<SupabaseContext | undefined>(undefined);
 
 const SupabaseProvider = ({ children }: { children: React.ReactNode }) => {
-  const [supabase] = useState(() => createClientComponentClient<Database>());
+  const [supabase] = useState(() => createClient());
   const router = useRouter();
 
   useEffect(() => {

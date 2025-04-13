@@ -3,20 +3,22 @@ import ProductsTable from "../ProductsTable";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+
 type PageProps = {
-  searchParams: {
-    page?: string;
-    page_size?: string;
-    query?: string;
-  };
+  searchParams: SearchParams;
 }
 
 
-const page = async ({ searchParams }: PageProps) => {
+const page = async (props: {
+  searchParams: SearchParams
+}) => {
 
-  const page = searchParams.page ? parseInt(searchParams.page) : 1;
-  const page_size = searchParams.page_size ? parseInt(searchParams.page_size) : 30;
-  const query = searchParams.query ? searchParams.query : "";
+  const searchParams = await props.searchParams;
+
+  const page =  Number(searchParams.page) || 1;
+  const page_size =  Number(searchParams.page_size) || 30;
+  const query = searchParams.query as string || "" as string;
 
   const productsData = fetchAdminSearchProducts(page, page_size, query);
 

@@ -1,13 +1,11 @@
 "use client"
 
 import Container from "@/components/layout/Container";
-import { useAppDispatch, useAppSelector } from "../store/store";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image"
 import { formatPrice } from "@/lib/utils";
 import { MinusIcon, PlusIcon, Trash2Icon } from "lucide-react";
-import { increment, decrement, remove, clear, totalPriceSelector } from "@/app/store/features/cartSlice";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,21 +15,21 @@ import { useRouter } from "next/navigation";
 import { User } from "@supabase/supabase-js";
 import Login from "../login/Login";
 import analytics from "@/utils/analytics";
+import { useCartStore } from "../store/cartStore";
 
 const CartDetails = ({exchangeRate, user}:{exchangeRate: number, user: User | null}) => {
-
   const {supabase} = useSupabase()
-
   const router = useRouter()
 
-const cartItems = useAppSelector((state) => state.cart.cartItems);
-const totalPrice = useAppSelector(totalPriceSelector);
+  // Use the Zustand store instead of Redux
+  const cartItems = useCartStore((state) => state.cartItems);
+  const totalPrice = useCartStore((state) => state.totalPrice());
+  const increment = useCartStore((state) => state.increment);
+  const decrement = useCartStore((state) => state.decrement);
+  const remove = useCartStore((state) => state.remove);
+  const clear = useCartStore((state) => state.clear);
 
- const dispatch = useAppDispatch();
-
-
-
-const shipping = 3000
+  const shipping = 3000
 
 
 
@@ -66,10 +64,33 @@ const shipping = 3000
         }
       ]).select('*').single()
 
-      analytics.track('begin_checkout', {
+      interface AnalyticsTrackingItem {
+        item_id: string;
+        item_name: string;
+        affiliation: string;
+        price: number;
+        quantity: number;
+      }
+
+      interface CheckoutTrackingEvent {
+        currency: string;
+        value: number;
+        items: AnalyticsTrackingItem[];
+      }
+
+      // Define analytics event types
+      type AnalyticsEventName = 'begin_checkout' | 'purchase' | 'view_item' | 'add_to_cart';
+
+      // Create an explicit analytics tracking function type
+      interface AnalyticsTracker {
+        track: (eventName: AnalyticsEventName, eventData: CheckoutTrackingEvent) => void;
+      }
+
+      // Use the properly typed analytics
+      (analytics as AnalyticsTracker).track('begin_checkout', {
         currency: 'USD',
         value: totalPrice,
-        items: cartItems.map(item => ({
+        items: cartItems.map((item:any): AnalyticsTrackingItem => ({
           item_id: item.variantSKU,
           item_name: item.productTitle,
           affiliation: 'Ink Art',
@@ -77,14 +98,11 @@ const shipping = 3000
           quantity: item.qty,
         }))
       })
-
-
-
       if(error){
         throw new Error('Error saving order')
 
       } else {
-        dispatch(clear())
+        clear()
         router.push(`/checkout?order_id=${data.id}`)
 
       }
@@ -107,15 +125,14 @@ const shipping = 3000
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
           <div className="w-full border-t-2 border-neutral-100 py-4 flex flex-col col-span-1 gap-6 mt-8">
-            {cartItems.map((item) => (
+            {cartItems.map((item:any) => (
               <div
                 key={item.variantId}
                 className="w-full flex gap-4 items-center relative border-b border-neutral-300 py-2"
-              >
-                <Button
+              >                <Button
                   type="button"
                   variant="destructive"
-                  onClick={() => dispatch(remove(item))}
+                  onClick={() => remove(item)}
                   className="absolute top-0 right-0 h-8 w-8 p-0"
                 >
                   <Trash2Icon size={20} />
@@ -139,15 +156,14 @@ const shipping = 3000
                   <p className="text-lg font-semibold text-neutral-800">
                     Item Total {formatPrice(item.price * item.qty)}
                   </p>
-                </div>
-                <div className="w-1/4 flex justify-between items-center">
-                  <Button onClick={() => dispatch(decrement(item))}>
+                </div>                <div className="w-1/4 flex justify-between items-center">
+                  <Button onClick={() => decrement(item)}>
                     <MinusIcon />
                   </Button>
                   <p className="text-lg font-semibold text-neutral-800">
                     {item.qty}
                   </p>
-                  <Button onClick={() => dispatch(increment(item))}>
+                  <Button onClick={() => increment(item)}>
                     <PlusIcon />
                   </Button>
                 </div>
