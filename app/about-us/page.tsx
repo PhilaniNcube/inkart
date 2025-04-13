@@ -21,20 +21,11 @@ export default function AboutUsPage() {
             InkArt was founded with a vision to bring personalized art and products to everyone.
             What started as a small passion project has grown into a thriving community of artists and customers.
           </p>
-          <div className="relative h-[400px] w-full overflow-hidden rounded-lg">
-            <Image
-              src="/images/about-hero.jpg" 
-              alt="InkArt Team"
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover"
-              priority
-            />
-          </div>
+         
         </section>
 
         {/* Mission Section */}
-        <section className="grid grid-cols-1 gap-8 md:grid-cols-2 items-center">
+        <section className="grid grid-cols-1 items-center">
           <div className="space-y-4">
             <h2 className="text-3xl font-bold tracking-tight">Our Mission</h2>
             <p className="text-muted-foreground">
@@ -47,15 +38,7 @@ export default function AboutUsPage() {
               a platform where creativity flourishes and every product tells a story.
             </p>
           </div>
-          <div className="relative h-[350px] w-full overflow-hidden rounded-lg">
-            <Image
-              src="/images/mission.jpg" 
-              alt="Our Mission"
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover"
-            />
-          </div>
+         
         </section>
 
         {/* Values Section */}
@@ -96,48 +79,7 @@ export default function AboutUsPage() {
           </div>
         </section>
 
-        {/* Team Section */}
-        <section className="space-y-8">
-          <h2 className="text-3xl font-bold tracking-tight text-center">Meet Our Team</h2>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                name: "Sarah Johnson",
-                role: "Founder & Creative Director",
-                image: "/images/team/sarah.jpg"
-              },
-              {
-                name: "David Chen",
-                role: "Chief Operating Officer",
-                image: "/images/team/david.jpg"
-              },
-              {
-                name: "Michelle Rodriguez",
-                role: "Head of Artist Relations",
-                image: "/images/team/michelle.jpg"
-              },
-              {
-                name: "James Wilson",
-                role: "Lead Developer",
-                image: "/images/team/james.jpg"
-              }
-            ].map((member, index) => (
-              <div key={index} className="text-center space-y-3">
-                <div className="relative h-64 w-full overflow-hidden rounded-lg">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 25vw, 20vw"
-                    className="object-cover"
-                  />
-                </div>
-                <h3 className="text-lg font-semibold">{member.name}</h3>
-                <p className="text-sm text-muted-foreground">{member.role}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+
 
       
         {/* CTA Section */}
