@@ -13,22 +13,13 @@ type ComponentProps = {
   user: User | null;
 };
 
-const MobileNavigation = ({user}:ComponentProps) => {
+const MobileNavigation = () => {
 
   const [open, setOpen] = useState(false)
 
-    const { supabase } = useSupabase();
-    const router = useRouter();
+  
 
-    const signOut = async () => {
-      const { error } = await supabase.auth.signOut();
 
-      if (error) {
-        throw new Error(error.message);
-      }
-      alert(`Signed Out`);
-      router.push("/");
-    };
 
   return (
     <div className="flex justify-between items-center w-full md:hidden">
@@ -41,7 +32,7 @@ const MobileNavigation = ({user}:ComponentProps) => {
           <ShoppingBag />
           Cart
         </Link>
-        {user === null || !user ? (
+        {/* {user === null || !user ? (
           <Link href="/login" className="flex items-center spaxe-x-3">
             <User2Icon />
             Login
@@ -50,7 +41,7 @@ const MobileNavigation = ({user}:ComponentProps) => {
           <Button variant="destructive" onClick={signOut}>
             Logout
           </Button>
-        )}
+        )} */}
         <MenuIcon
           onClick={() => setOpen(!open)}
           className="w-6 h-6 text-slate-700"

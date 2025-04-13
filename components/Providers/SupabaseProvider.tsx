@@ -7,7 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import analytics  from "@/utils/analytics";
+import analytics from "@/utils/analytics";
 import { useRouter } from "next/navigation";
 import { Database } from "@/types";
 import { createClient } from "@/utils/supabase/client";
@@ -38,7 +38,7 @@ const SupabaseProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Context.Provider value={{ supabase }}>
-      <div>{children}</div>
+      {children}
     </Context.Provider>
   );
 };

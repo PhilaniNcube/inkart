@@ -38,25 +38,15 @@ export default async function RootLayout({
 }) {
 
 
-  const supabase = await createClient()
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  let { data: admin, error } = await supabase.rpc("is_admin");
-
-  const categories = await fetchCategories();
 
   return (
     <html lang="en">
       <body>
         <SupabaseProvider>
           <CartProvider>
-            <Suspense>
-              <Analytics />
-            </Suspense>
-            <Navbar categories={categories} user={user} admin={admin} />
+      
+            <Navbar />
             {children}
             <Footer />
           </CartProvider>

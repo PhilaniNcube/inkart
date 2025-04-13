@@ -1,6 +1,6 @@
 
 import CartDetails from "./CartDetails";
-import { getExchangeRate } from "@/lib/utils";
+
 import { createClient } from "@/utils/supabase/server";
 
 const page = async () => {
@@ -11,12 +11,10 @@ const page = async () => {
 
 
 
-    const exchangeRate = await getExchangeRate();
-
 
 
   return <main className="w-full">
-    <CartDetails exchangeRate={exchangeRate} user={user} />
+    <CartDetails  user={user} />
   </main>;
 };
 export default page;

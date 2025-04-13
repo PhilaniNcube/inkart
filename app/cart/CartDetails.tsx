@@ -17,7 +17,7 @@ import Login from "../login/Login";
 import analytics from "@/utils/analytics";
 import { useCartStore } from "../store/cartStore";
 
-const CartDetails = ({exchangeRate, user}:{exchangeRate: number, user: User | null}) => {
+const CartDetails = ({ user}:{user: User | null}) => {
   const {supabase} = useSupabase()
   const router = useRouter()
 
@@ -194,44 +194,7 @@ const CartDetails = ({exchangeRate, user}:{exchangeRate: number, user: User | nu
 
               <Separator className="my-4" />
 
-              {/* <input type="hidden" name="merchant_id" value="10000100" />
-              <input type="hidden" name="merchant_key" value="46f0cd694581a" />
-              <input
-                type="hidden"
-                name="return_url"
-                value={`${process.env.NEXT_PUBLIC_PAYFAST_RETURN_URL}`}
-              />
-              <input
-                type="hidden"
-                name="cancel_url"
-                value={`${process.env.NEXT_PUBLIC_PAYFAST_CANCEL_URL}`}
-              />
-
-              <input
-                type="hidden"
-                name="notify_url"
-                value={`${process.env.NEXT_PUBLIC_PAYFAST_NOTIFY_URL}`}
-              />
-
-              <input type="hidden" name="amount" value={amount.toFixed(2)} />
-              <input
-                type="hidden"
-                name="item_name"
-                value={cartItems.map((item) => {
-                  return `sku:${item.variantSKU}-`;
-                })}
-              />
-              <input
-                type="hidden"
-                name="item_description"
-                value={cartItems.map((item) => `name:${item.productTitle}-`)}
-              />
-              <input type="hidden" name="custom_int1" value="2" />
-              <input
-                type="hidden"
-                name="custom_str1"
-                value="Extra order information"
-              /> */}
+            
 
               <h2 className="text-xl md:text-2xl font-semibold mb-8">
                 Shipping Information

@@ -1,4 +1,162 @@
-const page = () => {
-  return <div>About Us</div>;
+import Container from "@/components/layout/Container";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import Link from "next/link";
+
+export const metadata = {
+  title: "About Us | InkArt",
+  description: "Learn about InkArt, our mission, team, and journey in providing unique customized artwork and products.",
 };
-export default page;
+
+export default function AboutUsPage() {
+  return (
+    <Container>
+      <div className="py-12 space-y-16">
+        {/* Hero Section */}
+        <section className="space-y-6 text-center">
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+            Our Story
+          </h1>
+          <p className="max-w-3xl mx-auto text-lg text-muted-foreground">
+            InkArt was founded with a vision to bring personalized art and products to everyone.
+            What started as a small passion project has grown into a thriving community of artists and customers.
+          </p>
+          <div className="relative h-[400px] w-full overflow-hidden rounded-lg">
+            <Image
+              src="/images/about-hero.jpg" 
+              alt="InkArt Team"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover"
+              priority
+            />
+          </div>
+        </section>
+
+        {/* Mission Section */}
+        <section className="grid grid-cols-1 gap-8 md:grid-cols-2 items-center">
+          <div className="space-y-4">
+            <h2 className="text-3xl font-bold tracking-tight">Our Mission</h2>
+            <p className="text-muted-foreground">
+              We believe that art should be accessible, personal, and meaningful. Our mission is to 
+              empower people to express their individuality through custom artwork and products that 
+              tell their unique stories.
+            </p>
+            <p className="text-muted-foreground">
+              By connecting talented artists with customers seeking personalization, we`&apos;re building 
+              a platform where creativity flourishes and every product tells a story.
+            </p>
+          </div>
+          <div className="relative h-[350px] w-full overflow-hidden rounded-lg">
+            <Image
+              src="/images/mission.jpg" 
+              alt="Our Mission"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover"
+            />
+          </div>
+        </section>
+
+        {/* Values Section */}
+        <section className="space-y-8">
+          <h2 className="text-3xl font-bold tracking-tight text-center">Our Values</h2>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                title: "Quality Craftsmanship",
+                description: "We're committed to producing premium quality products that are built to last."
+              },
+              {
+                title: "Creative Freedom",
+                description: "We believe in giving artists and customers the tools to express themselves freely."
+              },
+              {
+                title: "Sustainability",
+                description: "We strive to minimize our environmental impact through responsible production practices."
+              },
+              {
+                title: "Community",
+                description: "We foster a supportive community of artists and art enthusiasts."
+              },
+              {
+                title: "Innovation",
+                description: "We continuously explore new techniques and technologies to enhance our offerings."
+              },
+              {
+                title: "Customer Satisfaction",
+                description: "We put our customers first and ensure they're delighted with every purchase."
+              }
+            ].map((value, index) => (
+              <div key={index} className="p-6 rounded-lg border bg-card">
+                <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
+                <p className="text-muted-foreground">{value.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Team Section */}
+        <section className="space-y-8">
+          <h2 className="text-3xl font-bold tracking-tight text-center">Meet Our Team</h2>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                name: "Sarah Johnson",
+                role: "Founder & Creative Director",
+                image: "/images/team/sarah.jpg"
+              },
+              {
+                name: "David Chen",
+                role: "Chief Operating Officer",
+                image: "/images/team/david.jpg"
+              },
+              {
+                name: "Michelle Rodriguez",
+                role: "Head of Artist Relations",
+                image: "/images/team/michelle.jpg"
+              },
+              {
+                name: "James Wilson",
+                role: "Lead Developer",
+                image: "/images/team/james.jpg"
+              }
+            ].map((member, index) => (
+              <div key={index} className="text-center space-y-3">
+                <div className="relative h-64 w-full overflow-hidden rounded-lg">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 25vw, 20vw"
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="text-lg font-semibold">{member.name}</h3>
+                <p className="text-sm text-muted-foreground">{member.role}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+      
+        {/* CTA Section */}
+        <section className="text-center space-y-6 py-8 px-6 bg-muted rounded-lg">
+          <h2 className="text-3xl font-bold tracking-tight">Join Our Community</h2>
+          <p className="max-w-2xl mx-auto text-muted-foreground">
+            Whether you`&apos;re an artist looking to showcase your work or a customer seeking personalized art,
+            we`&apos;d love to welcome you to our growing community.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Button asChild size="lg">
+              <Link href="/register">Create an Account</Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link href="/contact-us">Contact Us</Link>
+            </Button>
+          </div>
+        </section>
+      </div>
+    </Container>
+  );
+}

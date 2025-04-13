@@ -9,16 +9,6 @@ import { Button } from "../ui/button";
 import { useSupabase } from "../Providers/SupabaseProvider";
 import { Database } from "@/types";
 import { useCartStore } from "@/app/store/cartStore";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/utils";
 import { User } from "@supabase/supabase-js";
 
 type ComponentProps = {
@@ -27,7 +17,7 @@ type ComponentProps = {
   admin: boolean
 };
 
-const DesktopNavigation = ({user, categories, admin}:ComponentProps) => {
+const DesktopNavigation = () => {
 
 
 
@@ -73,12 +63,12 @@ const DesktopNavigation = ({user, categories, admin}:ComponentProps) => {
             placeholder="Search for products"
           />
 
-          <button
+          <Button
             type="submit"
             className="px-4 py-1 bg-blue-600 text-white rounded-r-full"
           >
             <SearchIcon className="" />
-          </button>
+          </Button>
         </form>
         <div className="flex space-x-5 items-center ">
           <Link href="/cart" className="flex flex-col relative items-center">
@@ -90,68 +80,23 @@ const DesktopNavigation = ({user, categories, admin}:ComponentProps) => {
               </span>
             )}
           </Link>
-          {user === null ? (
-            <>
-              <Link href="/login" className="flex flex-col items-center">
-                <User2Icon size={20} strokeWidth={1} />
-                <span className="text-xs text-slate-800 font-semibold">
-                  Login
-                </span>
-              </Link>
-              <Link href="/register" className="flex flex-col items-center">
-                <UserPlus2Icon size={20} strokeWidth={1} />
-                <span className="text-xs text-slate-800 font-semibold">
-                  Register
-                </span>
-              </Link>
-            </>
-          ) : (
-            <div className="flex items-center spaxe-x-3 gap-3">
-              {admin && (
-                <Link href="/dashboard" className="flex flex-col items-center">
-                  <Button variant="outline">Dashboard</Button>
-                </Link>
-              )}
 
-              <Button variant="destructive" onClick={signOut}>
-                Logout
-              </Button>
-            </div>
-          )}
         </div>
       </div>
       <div className="w-full pt-3 hidden lg:flex items-center justify-start space-x-4">
-      
-        {/* <Link
-          href="/products?page=1"
-          className="text-slate-800 hover:text-slate-700 text-sm px-2 py-1 hover:bg-slate-200 rounded-md"
-        >
-          Browse Products
+        <Link href="/products" className="text-slate-800 font-semibold text-lg">
+          Products
         </Link>
-        <Link
-          href="/products/best-sellers"
-          className="text-slate-800 hover:text-slate-700 text-sm px-2 py-1 hover:bg-slate-200 rounded-md"
-        >
-          Best Sellers
+        <Link href="/categories" className="text-slate-800 font-semibold text-lg">
+          Categories
         </Link>
-        <Link
-          href="/accessories"
-          className="text-slate-800 hover:text-slate-700 text-sm px-2 py-1 hover:bg-slate-200 rounded-md"
-        >
-          Accessories
-        </Link>
-        <Link
-          href="/terms-and-conditions"
-          className="text-slate-800 hover:text-slate-700 text-sm px-2 py-1 hover:bg-slate-200 rounded-md"
-        >
-          Terms and Conditions
-        </Link>
-        <Link
-          href="/about-us"
-          className="text-slate-800 hover:text-slate-700 text-sm px-2 py-1 hover:bg-slate-200 rounded-md"
-        >
+        <Link href="/about-us" className="text-slate-800 font-semibold text-lg">
           About Us
-        </Link> */}
+        </Link>
+        <Link href="/contact" className="text-slate-800 font-semibold text-lg">
+          Contact Us
+        </Link>
+
       </div>
     </div>
   );

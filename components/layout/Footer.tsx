@@ -18,7 +18,7 @@ export default function Footer() {
             <div className="flex flex-col justify-start items-start lg:w-80">
               <div className="xl:flex-col flex justify-start items-center xl:items-start">
                 <div className="flex justify-center mr-6 xl:mr-0 dark:text-white text-gray-800">
-                 <img src="/images/ink_logo.jpeg" alt="Logo" className="h-16 w-16 object-cover" />
+                  <img src="/images/ink_logo.jpeg" alt="Logo" className="h-16 w-16 object-cover" />
 
                 </div>
                 <div className="flex justify-center flex-col">
@@ -31,6 +31,24 @@ export default function Footer() {
                     <p className="text-gray-600 dark:text-gray-300 text-sm leading-normal">
                       All rights reserved
                     </p>
+                  </div>
+                  <div className="mt-4 space-y-1">
+                    <div className="flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-600 dark:text-gray-300 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                      <a href="tel:+27659446989" className="text-gray-600 dark:text-gray-300 text-sm hover:text-primary">
+                        +27 65 944 6989
+                      </a>
+                    </div>
+                    <div className="flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-600 dark:text-gray-300 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                      <a href="mailto:info@inkart.store" className="text-gray-600 dark:text-gray-300 text-sm hover:text-primary">
+                        info@inkart.store
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -82,22 +100,13 @@ export default function Footer() {
                 <div className="lg:w-40">
                   <h2 className="text-gray-800 dark:text-white text-lg md:text-xl font-medium leading-loose">
                     Company
-                  </h2>
-                  <div className="mt-6 flex justify-start items-start flex-col space-y-2">
+                  </h2>                  <div className="mt-6 flex justify-start items-start flex-col space-y-2">
                     <div>
                       <Link
                         href="/about-us"
                         className="text-gray-800 dark:text-white focus:outline-none focus:opacity-75 hover:opacity-75 text-sm md:text-base leading-relaxed"
                       >
                         About us
-                      </Link>
-                    </div>
-                    <div>
-                      <Link
-                        href="/blog"
-                        className="text-gray-800 dark:text-white focus:outline-none focus:opacity-75 hover:opacity-75 text-sm md:text-base leading-relaxed"
-                      >
-                        Blog
                       </Link>
                     </div>
                     <div>
