@@ -2,13 +2,9 @@
 "use client"
 import Container from "@/components/layout/Container";
 import { Separator } from "@/components/ui/separator";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { MinusIcon, PlusIcon, Trash2Icon } from "lucide-react";
 import { useCartStore } from "@/app/store/cartStore";
 import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { FormEvent } from "react";
 import { Database } from "@/types";
 import Link from "next/link";
 
