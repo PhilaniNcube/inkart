@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-"use client"
+"use client";
 import { useCartStore } from "@/app/store/cartStore";
 import Container from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
@@ -25,30 +25,30 @@ import {
 import analytics from "@/utils/analytics";
 
 type ProductDetailProps = {
-  product: Database['public']['Tables']['products']['Row'];
-}
+  product: Database["public"]["Tables"]["products"]["Row"];
+};
 
-const ProductDetail = ({product}:ProductDetailProps) => {
+const ProductDetail = ({ product }: ProductDetailProps) => {
+  const router = useRouter();
 
-  const router = useRouter()
+  const variants = product.variants.filter(
+    (variant) => variant.is_enabled === true
+  );
 
-  const variants = product.variants.filter((variant) => variant.is_enabled === true);
+  const sortedPrices = variants.sort((a, b) => a.price - b.price);
 
- const sortedPrices = variants.sort((a, b) => a.price - b.price);
-
-  const [imgIndex, setImgIndex] = useState(0)
-
+  const [imgIndex, setImgIndex] = useState(0);
 
   const [selectedVariation, setSelectedVariation] = useState(
     sortedPrices[imgIndex]
   );
 
-  const imageIndex = product.images.filter((img) => img.variant_ids.includes(selectedVariation.id))
+  const imageIndex = product.images.filter((img) =>
+    img.variant_ids.includes(selectedVariation.id)
+  );
 
   // Using Zustand store instead of Redux
   const addToCart = useCartStore((state) => state.addToCart);
-
-
 
   useEffect(() => {
     analytics.track("view_item", {
@@ -67,26 +67,23 @@ const ProductDetail = ({product}:ProductDetailProps) => {
         },
       ],
     });
-  },[selectedVariation, product])
-
-
-
+  }, [selectedVariation, product]);
 
   return (
     <Container>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4 ">
-        <div className="w-full flex-col flex space-x-3 ">
-          <div className="flex-1 flex flex-col">
+      <div className="grid grid-cols-1 gap-6 py-4 md:grid-cols-2 ">
+        <div className="flex flex-col w-full space-x-3 ">
+          <div className="flex flex-col flex-1">
             <div className="">
               <Image
                 src={imageIndex[imgIndex].src}
                 width={500}
                 height={500}
                 alt={product.title}
-                className="w-full object-cover aspect-square group-hover:opacity-75"
+                className="object-cover w-full aspect-square group-hover:opacity-75"
               />
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 flex-wrap mt-4">
+            <div className="grid flex-wrap grid-cols-2 gap-3 mt-4 md:grid-cols-4">
               {imageIndex.map((img, idx) => {
                 return (
                   <Image
@@ -97,7 +94,7 @@ const ProductDetail = ({product}:ProductDetailProps) => {
                     }}
                     key={idx}
                     src={img.src}
-                    className="w-full object-cover aspect-square p-1 border border-slate-100 cursor-pointer"
+                    className="object-cover w-full p-1 border cursor-pointer aspect-square border-slate-100"
                     alt="Product Image"
                   />
                 );
@@ -106,7 +103,7 @@ const ProductDetail = ({product}:ProductDetailProps) => {
           </div>
         </div>
         <div className="w-full">
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-700">
+          <h1 className="text-3xl font-bold md:text-4xl text-slate-700">
             {product.title}
           </h1>
           <Separator className="my-3" />
@@ -134,36 +131,11 @@ const ProductDetail = ({product}:ProductDetailProps) => {
                 </p>
               </div>
             ))}
-
-            {/* <Select>
-              <SelectTrigger className="w-full text-xs">
-                <SelectValue placeholder="Select a canvas size" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Canvas Size</SelectLabel>
-                  {product.variants.map((variant, idx) => (
-                    <SelectItem
-                      value={JSON.stringify(variant)}
-                      key={variant.id}
-                      onClick={() => setSelectedVariation(variant)}
-                    >
-                      {variant.title}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select> */}
-            {/* <h3 className="font-semibold text-2xl text-neutral-500 w-1/2">
-              {formatPrice(selectedVariation.price)}
-            </h3> */}
-            {/* <ScrollArea className="w-full h-[800px] overflow-hidden">
-            <pre className="text-sm font-medium">{JSON.stringify(product, null, 2)}</pre>
-            </ScrollArea> */}
           </div>
-          <div className="mt-4 flex justify-between items-center">
+          <div className="flex items-center justify-between mt-4">
             <Dialog>
-              <DialogTrigger className="flex w-full">                <Button
+              <DialogTrigger className="flex w-full" asChild>
+                <Button
                   type="button"
                   onClick={() => {
                     addToCart({
@@ -191,7 +163,7 @@ const ProductDetail = ({product}:ProductDetailProps) => {
                       width={500}
                       height={500}
                       alt={product.title}
-                      className="w-full object-cover aspect-square group-hover:opacity-75"
+                      className="object-cover w-full aspect-square group-hover:opacity-75"
                     />
                   </DialogDescription>
                 </DialogHeader>
