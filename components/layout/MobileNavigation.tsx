@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { MenuIcon, MenuSquareIcon, ShoppingBag, User2Icon } from "lucide-react";
 import Link from "next/link";
@@ -8,26 +8,28 @@ import { Button } from "../ui/button";
 import { useSupabase } from "../Providers/SupabaseProvider";
 import { useRouter } from "next/navigation";
 import { User } from "@supabase/supabase-js";
+import Image from "next/image";
 
 type ComponentProps = {
   user: User | null;
 };
 
 const MobileNavigation = () => {
-
-  const [open, setOpen] = useState(false)
-
-  
-
-
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex justify-between items-center w-full md:hidden">
+    <div className="flex items-center justify-between w-full md:hidden">
       <Link href="/" className="text-lg font-semibold text-slate-700">
-        Ink Art
+        <Image
+          src="/images/ink-art.webp"
+          width={209}
+          height={136}
+          alt="Logo"
+          className="object-cover w-16 h-16"
+        />
       </Link>
 
-      <div className="flex space-x-4 items-center">
+      <div className="flex items-center space-x-4">
         <Link href="/cart" className="flex items-center spaxe-x-3">
           <ShoppingBag />
           Cart

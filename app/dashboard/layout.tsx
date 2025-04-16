@@ -7,40 +7,61 @@ import Link from "next/link";
 import { Boxes, ShirtIcon, Truck, Users } from "lucide-react";
 import { StackIcon } from "@radix-ui/react-icons";
 
-const layout = ({children}:{children:ReactNode}) => {
+const layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="w-full overflow-hidden">
-      <div className="h-screen w-full flex space-x-2 items-start">
+      <div className="flex items-start w-full h-screen space-x-2">
         <div className="h-full">
           <ScrollArea className="w-56">
-            <div className="h-screen flex flex-col bg-slate-100 px-4 py-3">
-              <Image src="/images/ink_logo.jpeg" width={500} height={500} alt="Logo" className="h-16 w-16 object-cover" />
+            <div className="flex flex-col h-screen px-4 py-3 bg-slate-100">
+              <Image
+                src="/images/ink-art.webp"
+                width={209}
+                height={136}
+                alt="Logo"
+                className="object-cover w-16 h-16"
+              />
               <Separator className="my-2" />
-              <Link href="/dashboard/products" className="flex items-center px-3 py-1 rounded-lg hover:bg-slate-400 space-x-2">
-                <Boxes className="h-6 w-6" />
+              <Link
+                href="/dashboard/products"
+                className="flex items-center px-3 py-1 space-x-2 rounded-lg hover:bg-slate-400"
+              >
+                <Boxes className="w-6 h-6" />
                 <span>Products</span>
               </Link>
-              <Link href="/dashboard/categories" className="flex items-center px-3 py-1 mt-3 rounded-lg hover:bg-slate-400 space-x-2">
-                <StackIcon className="h-6 w-6" />
+              <Link
+                href="/dashboard/categories"
+                className="flex items-center px-3 py-1 mt-3 space-x-2 rounded-lg hover:bg-slate-400"
+              >
+                <StackIcon className="w-6 h-6" />
                 <span>Categories</span>
               </Link>
-              <Link href="/dashboard/orders" className="flex items-center px-3 py-1 mt-3 rounded-lg hover:bg-slate-400 space-x-2">
-                <Truck className="h-6 w-6" />
+              <Link
+                href="/dashboard/orders"
+                className="flex items-center px-3 py-1 mt-3 space-x-2 rounded-lg hover:bg-slate-400"
+              >
+                <Truck className="w-6 h-6" />
                 <span>Orders</span>
               </Link>
-              <Link href="/dashboard/customers" className="flex items-center px-3 py-1 mt-3 rounded-lg hover:bg-slate-400 space-x-2">
-                <Users className="h-6 w-6" />
+              <Link
+                href="/dashboard/customers"
+                className="flex items-center px-3 py-1 mt-3 space-x-2 rounded-lg hover:bg-slate-400"
+              >
+                <Users className="w-6 h-6" />
                 <span>Customers</span>
               </Link>
-              <Link href="/dashboard/printify" className="flex items-center px-3 py-1 mt-3 rounded-lg hover:bg-slate-400 space-x-2">
-                <ShirtIcon className="h-6 w-6" />
+              <Link
+                href="/dashboard/printify"
+                className="flex items-center px-3 py-1 mt-3 space-x-2 rounded-lg hover:bg-slate-400"
+              >
+                <ShirtIcon className="w-6 h-6" />
                 <span>Printify</span>
               </Link>
             </div>
           </ScrollArea>
         </div>
-        <div className="h-screen flex-1">
-          <ScrollArea className="w-full h-full overflow-hidden px-4 py-3">
+        <div className="flex-1 h-screen">
+          <ScrollArea className="w-full h-full px-4 py-3 overflow-hidden">
             {children}
           </ScrollArea>
         </div>

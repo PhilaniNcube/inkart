@@ -3,60 +3,92 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { SendIcon } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
-
   // get the current year
   const year = new Date().getFullYear();
 
-
   return (
     <div className="dark:bg-slate-900">
-      <section className="pb-14 pt-24 flex justify-center items-center bg-gray-100 dark:bg-slate-900">
-        <footer className="mt-20 mx-auto container md:w-full flex justify-center items-center">
-          <div className="flex xl:flex-row flex-col lg:gap-x-24 px-6 md:px-0">
-            <div className="flex flex-col justify-start items-start lg:w-80">
-              <div className="xl:flex-col flex justify-start items-center xl:items-start">
-                <div className="flex justify-center mr-6 xl:mr-0 dark:text-white text-gray-800">
-                  <img src="/images/ink_logo.jpeg" alt="Logo" className="h-16 w-16 object-cover" />
-
+      <section className="flex items-center justify-center pt-24 bg-gray-100 pb-14 dark:bg-slate-900">
+        <footer className="container flex items-center justify-center mx-auto mt-20 md:w-full">
+          <div className="flex flex-col px-6 xl:flex-row lg:gap-x-24 md:px-0">
+            <div className="flex flex-col items-start justify-start lg:w-80">
+              <div className="flex items-center justify-start xl:flex-col xl:items-start">
+                <div className="flex justify-center mr-6 text-gray-800 xl:mr-0 dark:text-white">
+                  <Image
+                    src="/images/ink-art.webp"
+                    width={209}
+                    height={136}
+                    alt="Logo"
+                    className="object-cover w-16 h-16"
+                  />
                 </div>
-                <div className="flex justify-center flex-col">
+                <div className="flex flex-col justify-center">
                   <div className="xl:mt-8">
-                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-normal">
+                    <p className="text-sm leading-normal text-gray-600 dark:text-gray-300">
                       Copyright © {year} InkArt.
                     </p>
                   </div>
                   <div className="mt-2">
-                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-normal">
+                    <p className="text-sm leading-normal text-gray-600 dark:text-gray-300">
                       All rights reserved
                     </p>
                   </div>
                   <div className="mt-4 space-y-1">
                     <div className="flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-600 dark:text-gray-300 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 mr-2 text-gray-600 dark:text-gray-300"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                        />
                       </svg>
-                      <a href="tel:+27659446989" className="text-gray-600 dark:text-gray-300 text-sm hover:text-primary">
+                      <a
+                        href="tel:+27659446989"
+                        className="text-sm text-gray-600 dark:text-gray-300 hover:text-primary"
+                      >
                         +27 65 944 6989
                       </a>
                     </div>
                     <div className="flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-600 dark:text-gray-300 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 mr-2 text-gray-600 dark:text-gray-300"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        />
                       </svg>
-                      <a href="mailto:info@inkart.store" className="text-gray-600 dark:text-gray-300 text-sm hover:text-primary">
+                      <a
+                        href="mailto:info@inkart.store"
+                        className="text-sm text-gray-600 dark:text-gray-300 hover:text-primary"
+                      >
                         info@inkart.store
                       </a>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="mt-8 flex justify-start items-start flex-row lg:space-x-4 space-x-2">
+              <div className="flex flex-row items-start justify-start mt-8 space-x-2 lg:space-x-4">
                 <button
                   aria-label="twitter"
                   role="button"
-                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800 hover:opacity-75 text-gray-800 dark:text-white"
+                  className="text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800 hover:opacity-75 dark:text-white"
                 >
                   <svg
                     width={32}
@@ -76,7 +108,7 @@ export default function Footer() {
                 <button
                   aria-label="youtube"
                   role="button"
-                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800 hover:opacity-75 text-gray-800 dark:text-white"
+                  className="text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800 hover:opacity-75 dark:text-white"
                 >
                   <svg
                     width={32}
@@ -96,15 +128,16 @@ export default function Footer() {
               </div>
             </div>
             <div className="flex flex-row mt-6 lg:mt-8 xl:mt-0 lg:gap-x-14 gap-x-10">
-              <div className="grid lg:grid-cols-3 grid-cols-2 gap-y-10 lg:gap-y-0 gap-x-0 lg:gap-x-0">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-y-10 lg:gap-y-0 gap-x-0 lg:gap-x-0">
                 <div className="lg:w-40">
-                  <h2 className="text-gray-800 dark:text-white text-lg md:text-xl font-medium leading-loose">
+                  <h2 className="text-lg font-medium leading-loose text-gray-800 dark:text-white md:text-xl">
                     Company
-                  </h2>                  <div className="mt-6 flex justify-start items-start flex-col space-y-2">
+                  </h2>{" "}
+                  <div className="flex flex-col items-start justify-start mt-6 space-y-2">
                     <div>
                       <Link
                         href="/about-us"
-                        className="text-gray-800 dark:text-white focus:outline-none focus:opacity-75 hover:opacity-75 text-sm md:text-base leading-relaxed"
+                        className="text-sm leading-relaxed text-gray-800 dark:text-white focus:outline-none focus:opacity-75 hover:opacity-75 md:text-base"
                       >
                         About us
                       </Link>
@@ -112,7 +145,7 @@ export default function Footer() {
                     <div>
                       <Link
                         href="/contact-us"
-                        className="text-gray-800 dark:text-white focus:outline-none focus:opacity-75 hover:opacity-75 text-sm md:text-base leading-relaxed"
+                        className="text-sm leading-relaxed text-gray-800 dark:text-white focus:outline-none focus:opacity-75 hover:opacity-75 md:text-base"
                       >
                         Contact us
                       </Link>
@@ -120,14 +153,14 @@ export default function Footer() {
                   </div>
                 </div>
                 <div className="lg:w-40">
-                  <h2 className="text-gray-800 dark:text-white text-lg md:text-xl font-medium leading-loose">
+                  <h2 className="text-lg font-medium leading-loose text-gray-800 dark:text-white md:text-xl">
                     Support
                   </h2>
-                  <div className="mt-6 flex justify-start items-start flex-col space-y-2">
+                  <div className="flex flex-col items-start justify-start mt-6 space-y-2">
                     <div>
                       <Link
                         href="/terms-and-conditions"
-                        className="text-gray-800 dark:text-white focus:outline-none focus:opacity-75 hover:opacity-75 text-sm md:text-base leading-relaxed"
+                        className="text-sm leading-relaxed text-gray-800 dark:text-white focus:outline-none focus:opacity-75 hover:opacity-75 md:text-base"
                       >
                         Terms and conditions
                       </Link>
@@ -136,29 +169,29 @@ export default function Footer() {
                     <div>
                       <Link
                         href="/privacy-policy"
-                        className="text-gray-800 dark:text-white focus:outline-none focus:opacity-75 hover:opacity-75 text-sm md:text-base leading-relaxed"
+                        className="text-sm leading-relaxed text-gray-800 dark:text-white focus:outline-none focus:opacity-75 hover:opacity-75 md:text-base"
                       >
                         Privacy Policy
                       </Link>
                     </div>
                   </div>
                 </div>
-                <div className="sm:block hidden">
-                  <h2 className="w-60 text-lg md:text-xl font-medium leading-loose text-gray-800 dark:text-white">
+                <div className="hidden sm:block">
+                  <h2 className="text-lg font-medium leading-loose text-gray-800 w-60 md:text-xl dark:text-white">
                     Get Updates and more
                   </h2>
-                  <div className="dark:bg-gray-800 bg-white rounded-lg mt-6 flex justify-start items-start flex-col space-y-2">
-                    <div className="w-full flex justify-between items-center space-x-2 sm:space-x-0">
+                  <div className="flex flex-col items-start justify-start mt-6 space-y-2 bg-white rounded-lg dark:bg-gray-800">
+                    <div className="flex items-center justify-between w-full space-x-2 sm:space-x-0">
                       <div className="relative w-full">
                         <input
-                          className="bg-transparent focus:outline-none focus:ring-2 w-full focus:ring-gray-400 h-10 p-2 dark:placeholder-gray-300 placeholder-gray-600 text-xs md:text-base"
+                          className="w-full h-10 p-2 text-xs placeholder-gray-600 bg-transparent focus:outline-none focus:ring-2 focus:ring-gray-400 dark:placeholder-gray-300 md:text-base"
                           type="text"
                           placeholder="Your email address"
                         />
                         <Button
                           aria-label="send email"
                           role="button"
-                          className="absolute right-0 top-0 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 hover:opacity-75 p-2 sm:p-0 sm:w-12 h-10 flex justify-center items-center bg-slate-700 rounded-sm"
+                          className="absolute top-0 right-0 flex items-center justify-center h-10 p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 hover:opacity-75 sm:p-0 sm:w-12 bg-slate-700"
                           type="submit"
                         >
                           <SendIcon size={20} />
@@ -169,22 +202,22 @@ export default function Footer() {
                 </div>
               </div>
             </div>
-            <div className="sm:hidden sm:mt-0 mt-4">
-              <h2 className="w-60 text-lg md:text-xl font-medium leading-loose text-gray-800 dark:text-white">
+            <div className="mt-4 sm:hidden sm:mt-0">
+              <h2 className="text-lg font-medium leading-loose text-gray-800 w-60 md:text-xl dark:text-white">
                 Get Updates and more
               </h2>
-              <div className="dark:bg-gray-800 bg-white rounded-lg mt-6 flex justify-start items-start flex-col space-y-2">
-                <div className="w-full flex justify-between items-center space-x-2 sm:space-x-0">
+              <div className="flex flex-col items-start justify-start mt-6 space-y-2 bg-white rounded-lg dark:bg-gray-800">
+                <div className="flex items-center justify-between w-full space-x-2 sm:space-x-0">
                   <div className="relative w-full">
                     <input
-                      className="bg-transparent focus:outline-none focus:ring-2 w-full focus:ring-gray-400 h-10 p-2 dark:placeholder-gray-300 placeholder-gray-600 text-xs md:text-base"
+                      className="w-full h-10 p-2 text-xs placeholder-gray-600 bg-transparent focus:outline-none focus:ring-2 focus:ring-gray-400 dark:placeholder-gray-300 md:text-base"
                       type="text"
                       placeholder="Your email address"
                     />
                     <Button
                       aria-label="send email"
                       role="button"
-                      className="absolute right-0 top-0 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 hover:opacity-75 p-2 sm:p-0 sm:w-12 h-10 flex justify-center items-center bg-slate-700 rounded-sm"
+                      className="absolute top-0 right-0 flex items-center justify-center h-10 p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 hover:opacity-75 sm:p-0 sm:w-12 bg-slate-700"
                       type="submit"
                     >
                       <SendIcon size={20} />
