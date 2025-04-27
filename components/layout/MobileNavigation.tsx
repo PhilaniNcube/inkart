@@ -25,7 +25,7 @@ const MobileNavigation = () => {
           width={209}
           height={136}
           alt="Logo"
-          className="object-cover w-16 h-16"
+          className="object-cover w-16"
         />
       </Link>
 

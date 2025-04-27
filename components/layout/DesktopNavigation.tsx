@@ -58,7 +58,7 @@ const DesktopNavigation = () => {
               width={209}
               height={136}
               alt="Logo"
-              className="object-cover w-16 h-16"
+              className="object-cover w-24"
             />
           </Link>
         </div>{" "}
