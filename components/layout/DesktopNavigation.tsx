@@ -15,6 +15,7 @@ import { useSupabase } from "../Providers/SupabaseProvider";
 import { Database } from "@/types";
 import { useCartStore } from "@/app/store/cartStore";
 import { User } from "@supabase/supabase-js";
+import { Input } from "../ui/input";
 
 type ComponentProps = {
   user: User | null;
@@ -63,7 +64,7 @@ const DesktopNavigation = () => {
           </Link>
         </div>{" "}
         <form onSubmit={handleSubmit} className="flex flex-1 ">
-          <input
+          <Input
             type="search"
             id="query"
             name="query"
