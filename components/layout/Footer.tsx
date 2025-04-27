@@ -22,7 +22,7 @@ export default function Footer() {
                     width={209}
                     height={136}
                     alt="Logo"
-                    className="object-cover w-16 h-16"
+                    className="object-cover w-24"
                   />
                 </div>
                 <div className="flex flex-col justify-center">
